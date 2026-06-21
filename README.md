@@ -2,6 +2,11 @@
 
 Modular skill files for generating Divi 5 page layouts via JSON.
 
+📖 **New here? Start with the [Wiki](docs/wiki/Home.md)** — what this is, how to attach
+it to Claude, building a page, publishing live, module coverage, and contributing.
+
+Licensed under the [MIT License](LICENSE).
+
 ## Files
 
 | File | When to attach |
