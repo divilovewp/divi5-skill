@@ -149,6 +149,16 @@ Displays an image. **Self-closing.**
 }
 ```
 
+### Centering an image (or any block module)
+`text-align:center` only centers **text** modules — it does **not** center an image, and
+`module.advanced.alignment` emits no centering rule for `divi/image`. To center an image (or
+any block module) horizontally, set it on the **parent column**:
+`column.module.decoration.layout.desktop.value.alignItems = "center"`. The column is a flex
+container, so `alignItems:center` centers its children on the cross-axis. (For a single image
+you can alternatively give it a fixed `width` plus `margin-left/right:"auto"` on
+`module.decoration.spacing`, but the column `alignItems:center` rule is the reliable general
+one — it also centers buttons and any other block module.) Render-confirmed 5.8.0.
+
 ---
 
 ## `divi/blurb`  ✅ deep-dive render-verified (5.7.4, page 253)

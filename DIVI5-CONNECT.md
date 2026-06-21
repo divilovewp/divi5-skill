@@ -169,6 +169,25 @@ Workflow to tweak a page: `GET /pages/{id}` → modify the returned markup → `
 
 ## §5 Other Endpoints
 
+### Build from a compact spec, and see the result *(Divi Connect v1.6.0+)*
+
+Newer Divi Connect adds two tools that make live building cheaper and self-correcting. If
+`tools/list` shows them, **prefer them**:
+
+- **`divi_build_page`** — the preferred way to build. Instead of hand-writing escaped block
+  markup, send a compact component **spec** (`sections → rows → cols → modules`) and the server
+  expands it into valid Divi markup (correct escaping, structure and tokens guaranteed) and
+  creates/updates the page. Pass a color as a `gcid-…` id and any size as a `gvid-…` id — the
+  server wraps them into tokens for you (literals also work). To horizontally center an image or
+  button, set `center:true` on its **column**. Module types and fields are documented in the
+  tool's own description. This removes the blank-page mistakes (attrs-wrapper, unescaped `<`,
+  invented tokens) and uses far fewer tokens than emitting raw markup.
+- **`divi_get_rendered_page`** — after creating/updating a **published** page, call this to SEE
+  the result: it returns the rendered HTML (content region) plus the page's own Divi CSS rules.
+  Use it to verify spacing, contrast and centering and fix issues instead of building blind.
+
+When these are unavailable (older plugin), build with `divi_create_page` and the markup rules above.
+
 ### Create a real blog POST (not a page)
 For blog/journal articles that should appear in the blog, feeds and archives, create a **post**, not a page.
 

@@ -165,6 +165,26 @@ The sum of all column `flexType` values in a row should equal 24.
 | 2/3 + 1/3 | `16_24` + `8_24` |
 | 3/4 + 1/4 | `18_24` + `6_24` |
 
+### Centering content in a column (esp. block modules)
+
+A column is a flex container (column direction). To horizontally center its children —
+**including block modules like `divi/image` and `divi/button`** — set
+`column.module.decoration.layout.desktop.value.alignItems = "center"`. `text-align:center`
+only centers text inside text/heading modules; it does **not** move a block module, and
+`module.advanced.alignment` does not emit a centering rule for `divi/image`. So: center text
+with `textAlign`, but center an image/button by centering its **parent column** with
+`alignItems:center`. (Render-confirmed 5.8.0.)
+
+### Building site chrome — header/footer nav
+
+When you build a header/footer as a Theme Builder layout, **`divi/menu` collapses to a
+hamburger when it sits inside a column** (i.e. not a true full-width context), which looks
+broken on desktop. For a small fixed nav, build the links as individual `divi/link` modules
+(or styled inline `<a>` in a `divi/text` module) inside a column whose layout is a horizontal
+flex row (`layout.desktop.value = {display:"flex", flexDirection:"row", columnGap:..., flexWrap:"wrap"}`).
+They sit inline on desktop and wrap on mobile. Use `divi/menu` only where the nav is genuinely
+full-width / you want the built-in responsive hamburger.
+
 ---
 
 ## 4. `divi/group`
