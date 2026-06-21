@@ -1,0 +1,764 @@
+---
+name: divi5-styling
+description: All decoration properties for Divi 5 JSON — background, gradients (incl. gradient variables), spacing, border, typography, text effects (gradient/image fill, stroke), sizing, position, z-index, overflow, global color/variable tokens, opacity, and HTML attributes.
+author: Shashank Gupta @ divilove.com
+---
+
+# DIVI5 Skill — Styling Properties
+> **Part of the DIVI5 skill set. Attach when styling any module.**
+> Skill files: BASE · LAYOUT · STYLING (this) · MODULES-CONTENT · MODULES-INTERACTIVE · MODULES-MEDIA · MODULES-DATA · MODULES-DYNAMIC · MODULES-WOOCOMMERCE · WORDPRESS · PATTERNS
+
+---
+
+## 1. Background
+
+### Solid color
+```json
+"background": {
+  "desktop": {"value": {"color": "#0f172a"}}
+}
+```
+
+### Background image (confirmed working on sections, rows, columns, groups, slides)
+```json
+"background": {
+  "desktop": {
+    "value": {
+      "image": {
+        "url": "https://example.com/photo.jpg",
+        "size": "cover",
+        "position": "center center",
+        "repeat": "no-repeat"
+      }
+    }
+  }
+}
+```
+
+**`size` options:** `"cover"`, `"contain"`, `"auto"`, or explicit e.g. `"1920px 800px"`
+**`position` options:** `"center center"`, `"top center"`, `"bottom left"`, etc.
+**`repeat` options:** `"no-repeat"`, `"repeat"`, `"repeat-x"`, `"repeat-y"`
+
+### Background image + gradient overlay (confirmed)
+Gradient renders on top of the image — use semi-transparent gradient stops for a dark overlay:
+```json
+"background": {
+  "desktop": {
+    "value": {
+      "image": {
+        "url": "https://example.com/photo.jpg",
+        "size": "cover",
+        "position": "center center",
+        "repeat": "no-repeat"
+      },
+      "gradient": {
+        "enabled": "on",
+        "type": "linear",
+        "direction": "180deg",
+        "stops": [
+          {"position": 0,   "color": "rgba(15,23,42,0.75)"},
+          {"position": 100, "color": "rgba(15,23,42,0.75)"}
+        ]
+      }
+    }
+  }
+}
+```
+Use uniform stop colors for a flat overlay. Use two different stops for a directional fade.
+
+### Gradient only
+```json
+"background": {
+  "desktop": {
+    "value": {
+      "gradient": {
+        "enabled": "on",
+        "type": "linear",
+        "direction": "135deg",
+        "stops": [
+          {"position": 0,   "color": "#0f172a"},
+          {"position": 100, "color": "#1e293b"}
+        ]
+      }
+    }
+  }
+}
+```
+
+### Full gradient model (expanded in 5.7.0 — ✓ render-confirmed)
+
+The gradient object accepts these keys (all optional except `stops`):
+
+| Key | Values | Notes |
+|-----|--------|-------|
+| `enabled` | `"on"` / `"off"` | turn the gradient on |
+| `type` | `"linear"`, `"conic"`, `"elliptical"`, `"circular"` | `elliptical`/`circular` render as CSS `radial-gradient`; `conic` as `conic-gradient` |
+| `direction` | angle `"135deg"` or keyword `"to right"` | linear direction / conic start angle |
+| `directionRadial` | position `"center"`, `"top left"`, … | center point for radial/conic types |
+| `stops` | array of `{position, color}` **or** a gradient-variable token string | position is a unitless number 0–100 |
+| `repeat` | `"on"` / `"off"` | emits `repeating-*-gradient` |
+| `length` | `"100%"` | max length of the last stop |
+
+```json
+"gradient": {
+  "enabled": "on",
+  "type": "conic",
+  "direction": "45deg",
+  "directionRadial": "center",
+  "stops": [
+    {"position": 0,   "color": "#f59e0b"},
+    {"position": 100, "color": "#ef4444"}
+  ]
+}
+```
+
+### Gradient variable (NEW in 5.7.0 — ✓ render-confirmed)
+
+Instead of an inline `stops` array, `stops` may be a **gradient-variable token string** that references a reusable global gradient. Divi resolves it to `var(--gvid-ID)`:
+
+```json
+"gradient": {
+  "enabled": "on",
+  "stops": "$variable({\"type\":\"gradient\",\"value\":{\"name\":\"gvid-hero-grad\",\"settings\":{}}})$"
+}
+```
+
+In Python:
+```python
+def gradient_var(gvid):
+    return '$variable({"type":"gradient","value":{"name":"' + gvid + '","settings":{}}})$'
+```
+
+The token is also accepted as `"var(--gvid-hero-grad)"` or the bare `"gvid-hero-grad"`. Define the gradient itself in `global_variables` (type `gradients`) — see §10.
+
+**Gradient types:** `"linear"`, `"conic"`, `"elliptical"`, `"circular"`.
+> ⚠️ In 5.7.0 the render switch only recognizes these four — a bare `"radial"` is **not** a distinct case and falls back to `linear`. For radial gradients use `"elliptical"` or `"circular"` and set `directionRadial`.
+
+### Background applies to all container elements
+`module.decoration.background` works identically on: `section`, `row`, `column`, `group`, `slide`. The same `image` + `gradient` format applies everywhere.
+
+---
+
+## 2. Spacing (Padding & Margin)
+
+```json
+"spacing": {
+  "desktop": {
+    "value": {
+      "padding": {
+        "top": "80px", "bottom": "80px",
+        "left": "20px", "right": "20px",
+        "syncVertical": "off", "syncHorizontal": "off"
+      },
+      "margin": {"top": "0px", "bottom": "40px"}
+    }
+  },
+  "tablet": {"value": {"padding": {"top": "60px", "bottom": "60px"}}},
+  "phone":  {"value": {"padding": {"top": "40px", "bottom": "40px"}}}
+}
+```
+
+---
+
+## 3. Sizing
+
+```json
+"sizing": {
+  "desktop": {
+    "value": {
+      "width": "100%",
+      "maxWidth": "1280px",
+      "minHeight": "100vh",
+      "flexType": "12_24"
+    }
+  }
+}
+```
+
+### Aspect ratio (NEW in 5.5.0 — ⚙ source-verified)
+
+The sizing group on **every** module now accepts an `aspectRatio` object (width:height). Useful for images, videos, and group cards that must keep a ratio regardless of content:
+
+```json
+"sizing": {
+  "desktop": {"value": {"aspectRatio": {"width": "16", "height": "9"}}}
+}
+```
+
+Common ratios: `{"width":"1","height":"1"}` (square), `{"width":"4","height":"3"}`, `{"width":"16","height":"9"}`, `{"width":"3","height":"4"}` (portrait).
+
+### Grid placement keys
+
+When the parent container uses `display:"grid"` (see LAYOUT §5b), the sizing group also takes `gridColumnSpan`, `gridRowSpan`, `gridColumnStart/End`, `gridRowStart/End`, `gridAlignSelf`, `gridJustifySelf` to place this item within the grid.
+
+---
+
+## 3b. Image Framing — object-fit / object-position (NEW in 5.5.0 — ⚙ source-verified)
+
+All modules that render an image (`image`, `blurb`, `testimonial`, `team-member`, `gallery`, `blog`, `audio`, `instagram-feed`, etc.) now expose a **framing** group under the *image element's* decoration as `fit`. It controls how the image fills its box:
+
+```json
+"image": {
+  "decoration": {
+    "fit": {
+      "desktop": {"value": {"objectFit": "cover", "objectPosition": "center center"}}
+    }
+  }
+}
+```
+
+- `objectFit`: `"fill"` (default), `"cover"`, `"contain"`, `"scale-down"`, `"none"`.
+- `objectPosition`: any CSS position, e.g. `"center center"`, `"top center"`, `"50% 25%"`.
+- The path is on the **image sub-element** of the module (e.g. `portrait.decoration.fit` on testimonial, `image.decoration.fit` on the Image module), paired with an `aspectRatio` in that element's `sizing` to crop cleanly.
+
+---
+
+## 4. Border
+
+```json
+"border": {
+  "desktop": {
+    "value": {
+      "styles": {
+        "all": {"width": "1px", "color": "rgba(255,255,255,0.1)", "style": "solid"}
+      },
+      "radius": {
+        "topLeft": "16px", "topRight": "16px",
+        "bottomLeft": "16px", "bottomRight": "16px",
+        "sync": "on"
+      }
+    }
+  }
+}
+```
+
+---
+
+## 5. Box Shadow
+
+```json
+"boxShadow": {
+  "desktop": {
+    "value": {
+      "horizontal": "0px",
+      "vertical": "9px",
+      "blur": "15px",
+      "spread": "0px",
+      "position": "outer",
+      "color": "#2563eb"
+    }
+  }
+}
+```
+
+---
+
+## 6. Layout (on Modules / Columns / Groups — NOT Rows)
+
+Controls flex behavior inside a column or group. On rows, only `flexWrap` is relevant.
+
+```json
+"layout": {
+  "desktop": {
+    "value": {
+      "justifyContent": "center",
+      "alignItems": "center",
+      "flexDirection": "column",
+      "rowGap": "20px",
+      "columnGap": "20px"
+    }
+  }
+}
+```
+
+---
+
+## 7. Typography
+
+### Heading / Title font (`title.decoration.font.font`)
+
+```json
+"font": {
+  "desktop": {
+    "value": {
+      "family":        "Outfit",
+      "size":          "48px",
+      "weight":        "800",
+      "style":         ["uppercase"],
+      "lineHeight":    "1.2",
+      "letterSpacing": "0.05em",
+      "textAlign":     "center",
+      "color":         "#FFFFFF",
+      "headingLevel":  "h2"
+    }
+  }
+}
+```
+
+### Body / Content font (`content.decoration.bodyFont.body.font`)
+
+```json
+"font": {
+  "desktop": {
+    "value": {
+      "family":     "Inter",
+      "size":       "18px",
+      "weight":     "400",
+      "lineHeight": "1.7",
+      "color":      "#64748b",
+      "textAlign":  "left"
+    }
+  }
+}
+```
+
+**Font weights:** `"100"` – `"900"`, `"normal"`, `"bold"`
+**Font styles (array):** `"italic"`, `"uppercase"`, `"underline"`, `"line-through"`
+**Text align:** `"left"`, `"center"`, `"right"`, `"justify"`
+
+---
+
+## 7b. Text Effects — gradient / image text fill + stroke (NEW in 5.7.0 — ✓ render-confirmed)
+
+> Render-confirmed via REST page creation (scenarios 27–28): **linear / conic / elliptical gradient fill**, **image fill**, **stroke-only (hollow)**, **solid fill + stroke**, **gradient fill on a Text-module body**, and **gradient-variable tokens on text fill** all render with no builder-UI save — text effects are pure server-rendered CSS (unlike script-dependent modules). Gradient variables need their `--gvid-*` custom property in `:root` for REST workflows (see §10).
+
+Every font group now has a sibling **`textEffects`** group at `<element>.decoration.font.textEffects`. It clips a gradient or image *into* the text glyphs and/or draws a stroke. It sits **next to** `font` (not inside it):
+
+```
+<element>.decoration.font.font          ← family/size/weight/color (as in §7)
+<element>.decoration.font.textEffects   ← fill + stroke (this section)
+```
+
+### Keys
+
+| Key | Values |
+|-----|--------|
+| `fillType` | `"none"` (default), `"transparent"`, `"gradient"`, `"image"` |
+| `strokeWidth` | CSS length, e.g. `"2px"` |
+| `strokeColor` | any color / color-variable |
+| `gradient` | full gradient object (same model as §1) — used when `fillType: "gradient"` |
+| `imageFill` | `{url, size, width, height, position, horizontalOffset, verticalOffset, repeat, blend}` — used when `fillType: "image"` |
+
+When `fillType` is `gradient` or `image`, Divi sets `-webkit-background-clip:text` + `-webkit-text-fill-color:transparent`, so the fill replaces the normal `font.color`. `transparent` makes the text see-through (shows background through glyphs). Stroke works with any `fillType`, including alongside a fill.
+
+### Gradient text fill (heading)
+
+```json
+"title": {
+  "decoration": {
+    "font": {
+      "font": {"desktop": {"value": {"size": "64px", "weight": "800", "headingLevel": "h1"}}},
+      "textEffects": {
+        "desktop": {
+          "value": {
+            "fillType": "gradient",
+            "gradient": {
+              "enabled": "on",
+              "type": "linear",
+              "direction": "90deg",
+              "stops": [
+                {"position": 0,   "color": "#6366f1"},
+                {"position": 100, "color": "#ec4899"}
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+A gradient-variable token string works here too: `"gradient": {"enabled":"on","stops":"$variable({...})$"}`.
+
+### Image text fill
+
+```json
+"textEffects": {
+  "desktop": {
+    "value": {
+      "fillType": "image",
+      "imageFill": {
+        "url": "https://example.com/texture.jpg",
+        "size": "cover",
+        "position": "center",
+        "repeat": "no-repeat"
+      }
+    }
+  }
+}
+```
+
+`imageFill.url` also accepts a `var(--gvid-...)` image-variable reference.
+
+### Text stroke (outline) — with no fill, or combined
+
+```json
+"textEffects": {
+  "desktop": {
+    "value": {
+      "fillType": "transparent",
+      "strokeWidth": "2px",
+      "strokeColor": "#0f172a"
+    }
+  }
+}
+```
+
+`fillType:"transparent"` + a stroke gives a hollow/outlined headline. Drop `fillType` (or keep `"none"`) to add a stroke *over* the normal solid text.
+
+**Applies to** any module with a font group: heading, text (`content.decoration.bodyFont.body.font.textEffects`), blurb title, CTA, pricing, etc. — path mirrors that element's existing `font` group.
+
+---
+
+## 7c. Hover (and sticky) states — nest INSIDE the breakpoint
+
+A hover style is a **`hover` key nested inside the breakpoint, a SIBLING of `value`, with the content UN-wrapped** (no inner `value`). This is the single most common reason "my hover does nothing" — putting it at `background.hover.value.color` emits **no** `:hover` CSS at all. (Source: `MultiViewUtils.php` → each breakpoint is `{value, hover, sticky}`.)
+
+❌ Wrong: `"background": {"hover": {"value": {"color": "#111"}}}`
+✅ Correct (sibling of `value`, content un-wrapped):
+```json
+"background": {"desktop": {"value": {"color": "#2563eb"}, "hover": {"color": "#1e4fd0"}}},
+"font": {"font": {"desktop": {"value": {"color": "#fff"}, "hover": {"color": "#fff"}}}},
+"border": {"desktop": {"value": {"styles": {"all": {"width": "2px", "color": "#2563eb", "style": "solid"}}},
+                       "hover":  {"styles": {"all": {"color": "#1e4fd0"}}}}}
+```
+Same shape for `sticky`. Works on any decoration group (background, font, border, spacing…). Render-confirmed on 5.7.4 (buttons fill on hover).
+
+---
+
+## 7d. Position (Advanced ▸ Position) — absolute / relative + the center-origin trap
+
+Absolute-position an element (badge, sticker, overlay) via `module.decoration.position`:
+```json
+"position": {"desktop": {"value": {
+  "mode": "absolute",
+  "origin": {"absolute": "bottom left"},
+  "offset": {"vertical": "56px", "horizontal": "-28px"}
+}}},
+"zIndex": {"desktop": {"value": "2"}}
+```
+- `origin` is keyed **by mode** (`origin.absolute` / `origin.relative`); value is `"vertical horizontal"` (top/bottom/center + left/right/center).
+- `offset` = distance from those sides; **negative = overhang**.
+- The **parent** must establish a positioning context: `position.mode:"relative"`.
+
+**⚠️ Center-origin trap (render-confirmed bug):** make the parent's origin **`"top left"` with offsets 0** — NOT `"center center"`. A center origin makes Divi add `transform:translate(-50%,-50%)`, which shifts the **whole** element (it offset an entire hero image in a production build, not just the badge). `top left` + 0 = plain `position:relative` (top:0/left:0, no transform). (Source: `Position.php`.)
+```json
+// PARENT column/group — anchor only, no transform:
+"position": {"desktop": {"value": {"mode": "relative", "origin": {"relative": "top left"},
+                                   "offset": {"vertical": "0px", "horizontal": "0px"}}}}
+```
+
+---
+
+## 8. Z-Index
+
+```json
+"zIndex": {"desktop": {"value": "-10"}}
+```
+
+---
+
+## 9. Admin Label & Custom CSS Class
+
+```json
+"module": {
+  "meta": {
+    "adminLabel": {"desktop": {"value": "Hero Section"}}
+  },
+  "advanced": {
+    "htmlAttributes": {
+      "class": {"desktop": {"value": "my-custom-class"}},
+      "id":    {"desktop": {"value": "hero-section"}}
+    }
+  }
+}
+```
+
+---
+
+## 10. Global Design Tokens (Variables) — Confirmed
+
+### Color variable syntax
+
+```
+$variable({"type":"color","value":{"name":"gcid-ID","settings":{}}})$
+```
+
+In Python (avoid f-strings with nested braces — use string concatenation):
+```python
+def color_var(gcid):
+    return '$variable({"type":"color","value":{"name":"' + gcid + '","settings":{}}})$'
+
+def color_var_opacity(gcid, opacity):
+    return '$variable({"type":"color","value":{"name":"' + gcid + '","settings":{"opacity":' + str(opacity) + '}}})$'
+```
+
+### Color variable with opacity
+
+Add `"opacity": N` to `settings` to apply opacity (1–100) to a global color token:
+
+```json
+"color": "$variable({\"type\":\"color\",\"value\":{\"name\":\"gcid-panel-bg\",\"settings\":{\"opacity\":40}}})$"
+```
+
+`opacity: 40` renders the color at 40% opacity. Works on any color property (background, font, border).
+
+**Critical:** Always include `"settings":{}` (or `"settings":{"opacity":N}`). When JSON-serialized, inner quotes become `\"`:
+```json
+"color": "$variable({\"type\":\"color\",\"value\":{\"name\":\"gcid-brand-dark\",\"settings\":{}}})}$"
+```
+
+### How color variables resolve (confirmed)
+
+Divi converts `$variable({"type":"color",...})$` into CSS custom property references:
+```css
+background-color: var(--gcid-brand-dark) !important;
+color: var(--gcid-brand-white) !important;
+```
+
+For these to resolve, the CSS custom property values must be defined in `:root`. Divi's builder UI handles this automatically. **For REST API workflows**, you must inject the definitions manually.
+
+### REST API global colors workflow (confirmed working)
+
+**Step 1** — Store colors in WP options via the `skill-loop/v1/global-colors` mu-plugin endpoint:
+```python
+colors = [
+    ["gcid-brand-primary", {"color": "#2563eb", "status": "active", "label": "Brand Primary"}],
+    ["gcid-brand-dark",    {"color": "#0f172a", "status": "active", "label": "Brand Dark"}],
+    # ...
+]
+requests.post("http://site.local/wp-json/skill-loop/v1/global-colors",
+              headers=auth_headers, json={"global_colors": colors})
+```
+
+**Step 2** — The `divi-global-colors-rest.php` mu-plugin injects into `wp_head`:
+```html
+<style>:root{--gcid-brand-primary:#2563eb;--gcid-brand-dark:#0f172a;...}</style>
+```
+
+**Step 3** — Use variable syntax in markup. Divi processes it to `var(--gcid-*)` which resolves via the injected CSS.
+
+Works on: `background.color`, `font.color`, `border.color`, and any other string color property.
+
+### Font size / numeric (size) variable
+
+```
+$variable({"type":"content","value":{"name":"gvid-ID","settings":{}}})$
+```
+
+**✅ Behavior (verified on Divi 5.7.4 — supersedes the old "inlines to minimum" note):**
+size/numeric variables **DO** emit a real CSS custom property. Divi writes the full
+value to `:root` — e.g. `:root{--gvid-ID:clamp(2.5rem,5vw,4rem)}` — and the field
+resolves to `var(--gvid-ID)`, so the size stays **fluid** (the whole `clamp()`, not
+the minimum). The old Divi-5.0 finding that numeric vars collapsed to their minimum
+is **false on 5.7.x** — use size/width/spacing variables freely and prefer them (see
+§10b "Variables-everywhere"). *(For REST/portable pages the `:root` declaration must
+exist — the builder writes it automatically; otherwise inject it via the wp_head
+mu-plugin / Divi-Connect CSS injector, same as colors. The Divi Connect plugin's
+free tier intentionally **bakes** size tokens to a literal — that's licensing, not a
+Divi limitation; see DIVI5-CONNECT.)*
+
+### Global font-family variable
+
+A font-family field can reference a reusable **font variable** (`type:"font"`,
+created via `POST /variables` type `font`, stored under `global_variables` →
+`fonts`). Verified on 5.7.4: `Font.php` resolves it to `var(--gvid-NAME)`
+and Divi emits e.g. `:root{--gvid-font-display:'Cormorant Garamond'}`.
+```
+$variable({"type":"font","value":{"name":"gvid-font-display","settings":{}}})$
+$variable({"type":"font","value":{"name":"gvid-font-body","settings":{}}})$
+```
+Place it in a `font.family` value (heading, text bodyFont, button, etc.):
+`"font":{"font":{"desktop":{"value":{"family":"$variable({...font...})$"}}}}`.
+(The older `type:"content"` + `--et_global_heading_font` / `--et_global_body_font`
+names still reference Divi's built-in theme font slots; use the `gvid-font-*` form
+for your own named font tokens.)
+
+### Defining `global_colors` in export JSON
+
+```json
+"global_colors": [
+  ["gcid-primary-color", {"color": "#0f172a", "status": "active", "label": "Primary Color"}],
+  ["gcid-body-color",    {"color": "#e2e8f0", "status": "active", "label": "Body Text"}]
+]
+```
+
+### Defining `global_variables` (font sizes)
+
+```json
+"global_variables": [
+  {
+    "id": "gvid-1ndmhhes58",
+    "label": "Big Heading",
+    "value": "clamp(2.5rem, 6vw, 5rem)",
+    "status": "active",
+    "lastUpdated": "2026-03-28T12:00:00.000Z",
+    "order": "1",
+    "type": "numbers"
+  }
+]
+```
+
+### Gradient variables (NEW in 5.7.0)
+
+Reusable gradients are stored as global variables of **type `gradients`**, keyed by `gvid-` id. The stored `value` is the CSS gradient string:
+
+```json
+"global_variables": {
+  "gradients": {
+    "gvid-hero-grad": {
+      "label":  "Hero Gradient",
+      "value":  "linear-gradient(90deg, #6366f1 0%, #ec4899 100%)",
+      "status": "active",
+      "order":  1
+    }
+  }
+}
+```
+
+Reference it from any `gradient.stops` (background **or** `textEffects`) with the token:
+```
+$variable({"type":"gradient","value":{"name":"gvid-hero-grad","settings":{}}})$
+```
+Divi resolves the token to `var(--gvid-hero-grad)`. Like all `gvid-*` tokens, for REST-API/portable workflows the `--gvid-*` custom property must be defined in `:root` (the builder UI does this automatically; inject it via the same wp_head mu-plugin pattern used for global colors otherwise).
+
+### Variable generators (NEW in 5.4–5.5.2)
+
+The builder can now auto-generate whole token systems. These produce ordinary `global_colors` / `global_variables` entries — **the `$variable(...)$` reference syntax above is unchanged**; there are just more tokens to reference:
+
+- **Fluid sizing system** — one generator spins up a full responsive `clamp()`-based size scale (numeric variables).
+- **Relative color system** — derives tints/shades from a base color.
+- **Color Scale generator** — a stepped scale (e.g. 50→900) from one seed color.
+- **Color Harmony generator** — complementary / triadic / **tetradic** (now includes the quaternary color) palettes.
+
+For REST-API/portable workflows you still declare the resulting tokens in `global_colors` / `global_variables` (see below) and reference them the same way. (Size/numeric tokens emit their full `clamp()` to `:root` on 5.7.x — no minimum-collapse caveat; see "Font size / numeric variable" above.)
+
+---
+
+## 10b. Variables-everywhere — the default, gated on availability
+
+**Prefer tokens for every color, font-size, width/max-width, padding, margin, gap, and radius.** Tokens keep the design editable from one place and fluid (size tokens carry their `clamp()`). A stray literal where a token exists is an authoring defect (self-audit §9). This *supersedes* the obsolete advice to avoid numeric variables.
+
+**But it is gated — never assume the site has tokens:**
+1. **Check first.** `GET /design-system` returns the site's `colors` / `variables` (sizes, spacing, fonts, gradients) / presets buckets. Read what actually exists; **never invent** `gcid-*` / `gvid-*` names.
+2. **If the needed tokens are absent, ASK the user** (the plugin is headless — it can't prompt): *generate a variable system, or build with inline numeric values?* Wait for the answer.
+   - **Yes →** create them (`POST /colors` for `gcid-*`, `POST /variables` for `gvid-*` sizes/spacing/fonts/gradients), then build with tokens.
+   - **No →** build with **inline numeric/literal values** — an accepted, consistent path (not a defect).
+3. **Free/Pro reality (Divi Connect):** size-variable *generation* is Pro-gated and the free tier bakes size tokens to literal anyway. On free / a `402`, tell the user and fall back to inline for **sizes**; colors + gradients still generate on free. (See DIVI5-CONNECT.)
+4. Sub-token hairlines (1–2px gaps, border widths, a 44px icon circle) may stay literal when no token that small exists — that's fine.
+
+### Undefined `var()` renders nothing — silently
+A token reference only works if the custom property is actually declared in `:root`. An **unmapped/misspelled** token (or an alias your recolor helper forgot, e.g. mapping `--brand` but not `--brand-mid`) leaves an **undefined `var()`**, and on `color` / `stroke` / `fill` that computes to the initial value (often *nothing*) — the element vanishes with **no error**. (Real bug: an SVG icon stroked with an unmapped `var(--espresso-mid)` rendered invisible.) When you alias/recolor tokens, cover **every** variant incl. `-mid` / `-soft` / `-deep`, and verify the `:root` declaration exists for every token you reference.
+
+---
+
+## 10c. Pseudo-class states — focus / checked / active (NEW in 5.3.0)
+
+Form-based modules (contact-form, contact-field, signup, comments, search, login, WooCommerce fields) gained dedicated **pseudo-class editing states** in addition to `hover`. Styles for an input's focused/checked/active state are nested under `advanced.<state>` on the field element:
+
+```json
+"field": {
+  "advanced": {
+    "focusUseBorder": {"desktop": {"value": "on"}},
+    "focus": {
+      "border": {"desktop": {"value": {"styles": {"all": {"color": "#2563eb", "style": "solid", "width": "2px"}}}}}
+    }
+  }
+}
+```
+
+- `focus` — input focus state, gated by `focusUseBorder: "on"`.
+- `checked` — checkbox/radio checked state.
+- `active` — pressed/active state.
+- Legacy Divi 4 focus settings are auto-migrated into the new `focus` pseudo-state. See MODULES-INTERACTIVE for the harmonized form-field structure.
+
+---
+
+## 11. Most-Used Style Property Paths (Quick Reference)
+
+| Property | Path |
+|----------|------|
+| Background color | `module.decoration.background.desktop.value.color` |
+| Background image URL | `module.decoration.background.desktop.value.image.url` |
+| Background image size | `module.decoration.background.desktop.value.image.size` (e.g. `"cover"`) |
+| Aspect ratio | `<element>.decoration.sizing.desktop.value.aspectRatio` (`{width,height}`) |
+| Image object-fit | `<imageElement>.decoration.fit.desktop.value.objectFit` |
+| Image object-position | `<imageElement>.decoration.fit.desktop.value.objectPosition` |
+| Text gradient/image fill | `<element>.decoration.font.textEffects.desktop.value.fillType` (+ `gradient`/`imageFill`) |
+| Text stroke | `<element>.decoration.font.textEffects.desktop.value.strokeWidth` / `strokeColor` |
+| Gradient variable ref | `...gradient.stops` = `$variable({"type":"gradient",...})$` |
+| Grid display | `module.decoration.layout.desktop.value.display` (`"grid"`) |
+| Grid columns | `module.decoration.layout.desktop.value.gridColumnCount` |
+| Loop enable | `<element>.advanced.loop.desktop.value.enable` (see DYNAMIC) |
+| Section padding | `module.decoration.spacing.desktop.value.padding` |
+| Border radius | `module.decoration.border.desktop.value.radius` |
+| Box shadow | `module.decoration.boxShadow.desktop.value` |
+| Max width | `module.decoration.sizing.desktop.value.maxWidth` |
+| Column width | `module.decoration.sizing.desktop.value.flexType` |
+| Row flex wrap | `module.decoration.layout.desktop.value.flexWrap` |
+| Row col structure | `module.advanced.flexColumnStructure.desktop.value` |
+| Heading text | `title.innerContent.desktop.value` (plain text) |
+| Heading level | `title.decoration.font.font.desktop.value.headingLevel` |
+| Body font color | `content.decoration.bodyFont.body.font.desktop.value.color` |
+| Text alignment | `...font.desktop.value.textAlign` |
+| Admin label | `module.meta.adminLabel.desktop.value` |
+| Z-index | `module.decoration.zIndex.desktop.value` |
+| HTML anchor id | `module.decoration.attributes.desktop.value.attributes[].value` |
+| Hover state | `<group>.<breakpoint>.hover` (sibling of `value`, un-wrapped — §7c) |
+| Position (absolute) | `module.decoration.position.desktop.value` (`mode`/`origin[mode]`/`offset`; parent `relative`+`top left` — §7d) |
+| Font-family variable | `...font.font.desktop.value.family` = `$variable({"type":"font",...})$` (§10 / §10b) |
+| Standalone button styling | `button.decoration.{background,border,spacing,font.font}` (NOT `module.decoration` — BASE §7) |
+
+---
+
+## 12. HTML Attributes (Anchor IDs)
+
+Use `module.decoration.attributes` to set HTML attributes on any module — most commonly an `id` for anchor link navigation:
+
+```json
+"attributes": {
+  "desktop": {
+    "value": {
+      "attributes": [
+        {
+          "id": "UNIQUE_ITEM_ID",
+          "name": "id",
+          "value": "my-section",
+          "adminLabel": "Section anchor",
+          "targetElement": "main"
+        }
+      ]
+    }
+  }
+}
+```
+
+- `name`: HTML attribute name — `"id"`, `"class"`, `"data-*"`
+- `value`: the rendered value (e.g. `"my-section"` → `<section id="my-section">`)
+- `targetElement`: `"main"` targets the module's outer wrapper element
+- `id`: any short unique string (internal Divi ID, not rendered)
+
+In Python:
+```python
+def html_attr(attr_name, attr_value, label=''):
+    return {
+        'attributes': {
+            'desktop': {
+                'value': {
+                    'attributes': [{
+                        'id': uid(),
+                        'name': attr_name,
+                        'value': attr_value,
+                        'adminLabel': label,
+                        'targetElement': 'main'
+                    }]
+                }
+            }
+        }
+    }
+```
+
+---
+
+*DIVI5 Styling Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

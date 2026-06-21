@@ -1,0 +1,12 @@
+# Built skill artifact — rebuilt from the .md sources, never committed
+# (binary; would cause a merge conflict on every module branch)
+*.zip
+dist/
+
+# OS / editor cruft
+Thumbs.db
+.DS_Store
+desktop.ini
+*.swp
+.idea/
+.vscode/
