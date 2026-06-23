@@ -1,6 +1,8 @@
 # Built skill artifact — rebuilt from the .md sources, never committed
 # (binary; would cause a merge conflict on every module branch)
 *.zip
+# ...except archived historical-version bundles, which are deliberate keepers
+!history/*.zip
 dist/
 
 # OS / editor cruft
