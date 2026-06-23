@@ -7,6 +7,10 @@ repo root.** See [`../CHANGELOG.md`](../CHANGELOG.md) for the change history.
 Early releases were originally labelled "V1" and "V2"; the project later adopted semantic
 versioning, so those are recorded here as **0.1.0** and **0.2.0**.
 
+**Going forward:** every new version is snapshotted here on release — a folder `vX.Y.Z/` with the
+skill files, plus a downloadable `vX.Y.Z.zip`. (Earlier 0.4.0/0.5.0 were lost because files were
+edited in place; this policy prevents that recurring.)
+
 | Version | Files | Divi Builder | Notes |
 |---------|-------|--------------|-------|
 | 0.1.0 (was "V1") | [v0.1.0.md](v0.1.0.md) | 5.0.1 | First version. Single-file skill, JSON import/export workflow. |
