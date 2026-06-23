@@ -66,4 +66,11 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [0.3.0] — Divi Builder 5.0.x / 5.1.0
 
-- Earlier baseline (real-render tested at 5.0.x).
+- **Earliest recorded version.** Foundational baseline of the skill: core Divi 5
+  JSON authoring (block-markup structure — section / row / column / modules with
+  the `builderVersion` stamp), the decoration / styling model, global color and
+  variable tokens, and the initial module coverage. Built and real-render tested
+  against Divi **5.0.x**, importable through **5.1.0**.
+
+> No 0.1.0 / 0.2.0 entries exist — those predate the skill's recorded history and
+> were superseded before this public lineage began. 0.3.0 is the historical floor.
