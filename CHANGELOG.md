@@ -29,9 +29,12 @@ are logged under **Unreleased** and ship within the current version without a bu
 - **`KNOWN-CAVEATS.md`**: consolidated, user-facing limitations of the skill
   (hard failures, not-covered, render gotchas, source-only/untested, version &
   scope), distilled from `DIVI5-COVERAGE.md`. _(2026-06-23)_
-- **`history/`**: archived the earlier skill versions (0.1.0, 0.2.0, 0.2.1-beta)
-  for transparency on how the skill evolved. Early "V1"/"V2" labels normalized to
-  semantic 0.1.0/0.2.0; site-specific brand references removed. _(2026-06-23)_
+- **`history/`**: archived the earlier skill versions for transparency on how the
+  skill evolved — 0.1.0, 0.2.0, 0.2.1-beta (single-file), and 0.3.0 (first multi-file
+  split, provided both browseable under `history/v0.3.0/` and as `history/v0.3.0.zip`).
+  Early "V1"/"V2" labels normalized to semantic 0.1.0/0.2.0. Third-party/client-site
+  references removed; divilove.com brand attribution retained. 0.4.0 (5.6.2) and 0.5.0
+  (5.7.0) were not archived — no standalone snapshots exist. _(2026-06-23)_
 
 ### Documentation
 - **Gradient model unified** (`DIVI5-STYLING.md` §1): added the `overlaysImage`
