@@ -575,8 +575,17 @@ Section → Row (1 col, max 800px) → Column → icon-list → icon-list-items
 
 A horizontal rule / decorative divider. **Self-closing.**
 
+The divider draws its **own** line via `divider.advanced.line`, which is **`show:"on"` by default** — a line always renders. Style *that* native line; do **not** add a CSS border to recolor it.
+
 ```json
 {
+  "divider": {
+    "advanced": {
+      "line": {"desktop": {"value": {
+        "show": "on", "color": "#C5622E", "style": "solid", "position": "top", "weight": "1px"
+      }}}
+    }
+  },
   "module": {
     "decoration": {
       "spacing": {"desktop": {"value": {"margin": {"top": "16px", "bottom": "16px"}}}}
@@ -586,16 +595,7 @@ A horizontal rule / decorative divider. **Self-closing.**
 }
 ```
 
-**⚠️ Default color is invisible on dark/colored backgrounds.** The divider uses the theme's default line color, which blends into non-white sections. Always set an explicit border color when using on colored backgrounds:
-```json
-"module": {
-  "decoration": {
-    "border": {"desktop": {"value": {"styles": {"bottom": {
-      "color": "rgba(255,255,255,0.3)", "width": "1px", "style": "solid"
-    }}}}}
-  }
-}
-```
+**⚠️ Do NOT add a `module.decoration.border` to "color" the divider — it stacks a SECOND line.** The native line is `show:"on"` by default using the theme's stock global color (`gcid-primary-color`, a blue/teal that's often wrong or invisible on colored/dark sections). A CSS border draws your line *on top of* the still-visible native one → a visible **double line**. Always recolor via `divider.advanced.line.color`. To render no line at all, set `divider.advanced.line.show` to `"off"`.
 
 ---
 
