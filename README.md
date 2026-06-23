@@ -48,6 +48,8 @@ BASE + LAYOUT + STYLING + MODULES-CONTENT + WORDPRESS + PATTERNS
 
 ## Version
 
+> Full change history — including documentation corrections made within a version — is in [CHANGELOG.md](CHANGELOG.md).
+
 **V0.5.1 — Builder Version 5.7.4**
 
 Tracks the current **Divi 5.7.x** line (latest **5.7.4**). Patches 5.7.1–5.7.4 were maintenance/bug-fix releases (builder-UI workspace system + Visual-Builder/migration/front-end render fixes) — **no new authoring schema**, so only the `builderVersion` stamp moved to `"5.7.4"`. The authoring features are unchanged from V0.5.0 below.
