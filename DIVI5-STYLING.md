@@ -98,6 +98,9 @@ The gradient object accepts these keys (all optional except `stops`):
 | `stops` | array of `{position, color}` **or** a gradient-variable token string | position is a unitless number 0–100 |
 | `repeat` | `"on"` / `"off"` | emits `repeating-*-gradient` |
 | `length` | `"100%"` | max length of the last stop |
+| `overlaysImage` | `"on"` / `"off"` | "Place Gradient Above Background Image" — paints the gradient over a background image instead of under it |
+
+> **Direction vs position by type:** `linear` and `conic` use **`direction`** (an angle); `circular` and `elliptical` use **`directionRadial`** (a named position — one of `center`, `top left`, `top`, `top right`, `right`, `bottom right`, `bottom`, `bottom left`, `left`). You can store both; Divi reads the one matching `type`.
 
 ```json
 "gradient": {
@@ -134,8 +137,8 @@ The token is also accepted as `"var(--gvid-hero-grad)"` or the bare `"gvid-hero-
 **Gradient types:** `"linear"`, `"conic"`, `"elliptical"`, `"circular"`.
 > ⚠️ In 5.7.0 the render switch only recognizes these four — a bare `"radial"` is **not** a distinct case and falls back to `linear`. For radial gradients use `"elliptical"` or `"circular"` and set `directionRadial`.
 
-### Background applies to all container elements
-`module.decoration.background` works identically on: `section`, `row`, `column`, `group`, `slide`. The same `image` + `gradient` format applies everywhere.
+### Background (and its gradient) applies to nearly every module
+`module.decoration.background` — and the **identical** `image` + `gradient` object documented above — works the same on container elements (`section`, `row`, `column`, `group`, `slide`) **and on essentially every content module** that has a Background option (blurb, cta, text, button, etc.). There is **one gradient model**: the same keys/values are used for a module background gradient, a text-effects fill gradient (§7b), and the `settings` embedded inside a reusable gradient variable (§10). Learn it once; it applies everywhere.
 
 ---
 
@@ -602,14 +605,18 @@ for your own named font tokens.)
 
 ### Gradient variables (NEW in 5.7.0)
 
-Reusable gradients are stored as global variables of **type `gradients`**, keyed by `gvid-` id. The stored `value` is the CSS gradient string:
+Reusable gradients are stored as global variables of **type `gradients`**, keyed by `gvid-` id.
+
+> ⚠️ **The stored `value` is NOT a CSS gradient string** (e.g. `"linear-gradient(…)"`) and **not** a bare settings object. Divi's variable sanitizer forces a gradient's `value` to a scalar, so it must be a **`$variable(...)$` payload STRING that embeds the gradient settings**. A raw CSS string saves but renders nothing and shows **empty** in the Variable Manager — this is the #1 gradient-variable mistake.
+
+The settings inside the payload are **exactly the §1 module gradient model** (same `type` / `direction` / `directionRadial` / `stops` / `repeat` / `length` / `overlaysImage` keys) — plus `enabled` must be `"on"`. The wrapper also carries a literal `value.name: "gradient"`:
 
 ```json
 "global_variables": {
   "gradients": {
     "gvid-hero-grad": {
       "label":  "Hero Gradient",
-      "value":  "linear-gradient(90deg, #6366f1 0%, #ec4899 100%)",
+      "value":  "$variable({\"type\":\"gradient\",\"value\":{\"name\":\"gradient\",\"settings\":{\"enabled\":\"on\",\"stops\":[{\"position\":\"0\",\"color\":\"#6366f1\"},{\"position\":\"100\",\"color\":\"#ec4899\"}],\"length\":\"100%\",\"type\":\"linear\",\"direction\":\"90deg\",\"directionRadial\":\"center\",\"overlaysImage\":\"off\",\"repeat\":\"off\"}}})$",
       "status": "active",
       "order":  1
     }
@@ -617,11 +624,21 @@ Reusable gradients are stored as global variables of **type `gradients`**, keyed
 }
 ```
 
-Reference it from any `gradient.stops` (background **or** `textEffects`) with the token:
+> **`enabled: "on"` matters:** the front-end PHP ignores it (so a gradient missing it may still render in CSS), but the builder's **Variable Manager swatch treats `enabled` ≠ `"on"` as empty**. Always include it.
+
+**Via Divi Connect (v1.6.2+):** don't hand-build the payload — `POST /variables` (`divi_set_variables`) accepts a plain settings **object** and wraps it for you, filling defaults:
+```json
+{"variables":[{"id":"gvid-hero-grad","label":"Hero Gradient","type":"gradient",
+  "value":{"type":"linear","direction":"90deg",
+    "stops":[{"color":"#6366f1","position":0},{"color":"#ec4899","position":100}]}}]}
+```
+A raw CSS-gradient string is rejected with an error. (On older plugin versions, gradient variables created via REST save empty — upgrade to 1.6.2+.)
+
+Reference the variable from any `gradient.stops` (background **or** `textEffects`) with the token:
 ```
 $variable({"type":"gradient","value":{"name":"gvid-hero-grad","settings":{}}})$
 ```
-Divi resolves the token to `var(--gvid-hero-grad)`. Like all `gvid-*` tokens, for REST-API/portable workflows the `--gvid-*` custom property must be defined in `:root` (the builder UI does this automatically; inject it via the same wp_head mu-plugin pattern used for global colors otherwise).
+Divi resolves the token to `var(--gvid-hero-grad)` and, when the value is stored in the correct payload shape above, **automatically emits the `:root{--gvid-…: linear-gradient(…)}` definition on the front end** (no mu-plugin injection needed, unlike size variables).
 
 ### Variable generators (NEW in 5.4–5.5.2)
 
