@@ -188,6 +188,32 @@ Newer Divi Connect adds two tools that make live building cheaper and self-corre
 
 When these are unavailable (older plugin), build with `divi_create_page` and the markup rules above.
 
+### Section presets — let the server design common sections *(Divi Connect v1.6.3+)*
+
+For common section types, send a **preset** instead of composing rows/cols/modules by hand. A section
+in the spec can be `{ "preset": "hero|features|cta|steps", ...content }` and the server expands it into
+a well-structured, well-spaced section — you supply only **content + brand colours**, it handles the
+layout, spacing, type scale and alignment. Prefer presets for these sections; they produce tidier output
+than hand-built ones, especially on smaller models.
+
+- **hero** — `{preset:"hero", eyebrow?, heading, sub?, button?{text,url,bg,fg}, bg?, fg?, accent?, align?}`
+- **features** — `{preset:"features", eyebrow?, heading?, sub?, items:[{title,text,icon?}], card_bg?, accent?, bg?}`
+- **cta** — `{preset:"cta", heading, sub?, button{text,url,bg,fg}, bg? (the band), fg?, accent?}`
+- **steps** — `{preset:"steps", heading?, items:[{title,text}], accent?, bg?}`
+
+Pass colours as `gcid-…`/`gvid-…` ids or literals exactly as elsewhere; anything you omit gets a tasteful default.
+
+### Build guardrails — always check `warnings` *(Divi Connect v1.6.3+)*
+
+`divi_build_page` now protects design quality and returns a `warnings` array — read it and fix what it flags:
+
+- **Unknown colour / size / font ids are dropped** (the element inherits instead of rendering the wrong
+  default colour) and reported. So call `divi_get_design_system` first and use only ids that exist — never
+  invent token names.
+- **WCAG AA contrast** is enforced: leave a text colour unset over a known background and the server
+  auto-supplies a legible light/dark colour; set an explicit colour that fails AA (4.5:1 normal, 3:1 large)
+  and it keeps your colour but warns. Aim for AA-passing pairs.
+
 ### Create a real blog POST (not a page)
 For blog/journal articles that should appear in the blog, feeds and archives, create a **post**, not a page.
 
