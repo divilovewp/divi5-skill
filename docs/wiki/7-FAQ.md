@@ -6,7 +6,7 @@ yourself. The plugin is an optional convenience for reading your design system a
 publishing live.
 
 **Which Divi version does it target?**
-The Divi 5.7.x line (latest 5.7.4). Generated markup stamps `"builderVersion": "5.7.4"`.
+The Divi 5.8.x line (latest 5.8.1). Generated markup stamps `"builderVersion": "5.8.1"`.
 Older builder versions still import via Divi's backward-compatibility migration, but
 match your installed version where you can.
 

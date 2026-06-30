@@ -1,7 +1,7 @@
 # Divi 5 Skill — Known Caveats & Limitations
 
 > The detailed source of truth behind each item is [`DIVI5-COVERAGE.md`](DIVI5-COVERAGE.md)
-> (the canonical coverage map, v0.5.1 / Divi 5.7.4).
+> (the canonical coverage map, v0.6.0 / Divi 5.8.1).
 
 These are the known limits of building Divi 5 with the skill (and, by extension, via Divi Connect). They
 fall into five buckets.
@@ -30,12 +30,14 @@ fall into five buckets.
 
 - **Size / numeric variables (`gvid-*`)** inline a simplified literal value, **not** a CSS `var()` — a precise `clamp()` collapses to its minimum. (This is exactly why Divi Connect's Free tier "bakes" size tokens.)
 - **Grid layout** does **not** auto-stack on mobile — set a responsive `gridColumnCount`.
+- **Text columns** (`font.columnCount`, NEW 5.8.0) also do **not** auto-stack on mobile — set a responsive `columnCount:"1"`.
 - **Transparent button background** → invisible text; use a border instead.
 - **`divi/divider`** has a native line that is on-by-default — set its color explicitly (don't add a separate border, or you get a double line).
 - **Button alignment** must be set **per breakpoint** or it falls back to left-aligned on mobile.
 - **`pricing-tables`** with multiple tables in one container won't stack on mobile (use one table per container per column).
 - **Empty column** with a background image and no children collapses to zero height — add `minHeight`.
 - **`number-counter` / `circle-counter` / `countdown-timer` / `table-of-contents`** need a real browser (scroll / JS); headless screenshots show blank or static output. TOC must be built via the builder UI, not raw REST.
+- **`divi/tooltip`** (NEW 5.8.0) hover/click triggers + final placement are **script-dependent** — on a raw REST page the tooltip script may not enqueue (like TOC), so the popover never reveals; `trigger:"always"` renders without JS. Build via the builder UI for hover/click.
 - **Responsive values do not inherit** across breakpoints — set each breakpoint you care about.
 
 ## 4. Documented from source but not render-tested (⚙)
@@ -47,11 +49,13 @@ haven't been confirmed with a real render.
 
 ## 5. Version & scope
 
-- The skill is confirmed against **Divi 5.7.4** (v0.5.1). Newer Divi 5 releases (e.g. 5.8.0, and a build
-  released ~2026-06-20) are **not yet recorded** in the skill — treat newer-than-5.7.4 features as unverified.
+- The skill is confirmed against **Divi 5.8.1** (v0.6.0). The 5.8.0 additions — Tooltip module + the
+  Advanced Text Styling batch (variable fonts, columns, drop caps, vertical text, line-wrap, hyphenation,
+  paragraph spacing, stroke position) — are recorded and render-confirmed. Treat any feature newer than
+  5.8.1 as unverified.
 - Still on the skill backlog: documenting **Canvas creation/usage** and the **native off-canvas menu pattern**
   (see `BACKLOG.md` in the divi-connect repo).
 
 ---
 
-*Generated from DIVI5-COVERAGE.md (V0.5.1 · Builder Version 5.7.4). Keep both in sync when coverage changes.*
+*Generated from DIVI5-COVERAGE.md (V0.6.0 · Builder Version 5.8.1). Keep both in sync when coverage changes.*

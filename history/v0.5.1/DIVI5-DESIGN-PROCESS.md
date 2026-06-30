@@ -380,4 +380,4 @@ Blueprint:
 
 ---
 
-*DIVI5 Design Process Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Design Process Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

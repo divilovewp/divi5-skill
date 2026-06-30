@@ -315,11 +315,9 @@ Controls flex behavior inside a column or group. On rows, only `flexWrap` is rel
 }
 ```
 
-**Font weights:** `"100"` – `"900"`, `"normal"`, `"bold"` (or `"variable"` + `weightFineTune` — §7e)
-**Font styles (array):** `"italic"`, `"uppercase"`, `"underline"`, `"overline"`, `"strikethrough"`
+**Font weights:** `"100"` – `"900"`, `"normal"`, `"bold"`
+**Font styles (array):** `"italic"`, `"uppercase"`, `"underline"`, `"line-through"`
 **Text align:** `"left"`, `"center"`, `"right"`, `"justify"`
-
-> **NEW in 5.8.0:** variable fonts, capitalization/small-caps, drop caps, text columns, vertical text direction, line-wrap/hyphenation, and decoration-line styling — all on this same `font` object. See **§7e**.
 
 ---
 
@@ -412,124 +410,7 @@ A gradient-variable token string works here too: `"gradient": {"enabled":"on","s
 
 `fillType:"transparent"` + a stroke gives a hollow/outlined headline. Drop `fillType` (or keep `"none"`) to add a stroke *over* the normal solid text.
 
-**Stroke position (NEW in 5.8.0)** — `strokePosition` controls `paint-order`: `"stroke-fill"` paints the stroke first (sits *outside* the glyph, fill on top — a clean outline that doesn't eat the letterform); any other value paints the fill first (stroke *centered* on the glyph edge, the old default). With no `strokePosition` set, Divi auto-applies `paint-order:stroke` when `strokeWidth > 1px`.
-
-```json
-"textEffects": {"desktop": {"value": {
-  "strokeWidth": "3px", "strokeColor": "#0f172a", "strokePosition": "stroke-fill"
-}}}
-```
-
 **Applies to** any module with a font group: heading, text (`content.decoration.bodyFont.body.font.textEffects`), blurb title, CTA, pricing, etc. — path mirrors that element's existing `font` group.
-
----
-
-## 7e. Advanced Text Styling — variable fonts + new presentation options (NEW in 5.8.0 — ⚙ source-verified)
-
-> Divi 5.8.0 added a large batch of new typography controls to **every** font group. All keys below are **siblings of `family`/`size`/`weight`** inside the same `font` value object you already use (§7) — e.g. heading = `title.decoration.font.font.desktop.value`, Text-module body = `content.decoration.bodyFont.body.font.desktop.value`, link/ul/ol/quote sub-elements = `content.decoration.bodyFont.{link,ul,ol,quote}.font`. The **only** exception is paragraph/list spacing, which lives on the sibling `list` group (see the last sub-section). Verified from `Declarations/Font/Font.php` + `Text/TextPresetAttrsMap.php` (5.8.1).
-
-### Variable fonts
-Smoothly interpolate a font's OpenType axes instead of picking a discrete weight. Requires a **variable font family** (Divi 5.8 ships the latest Google Fonts collection incl. variable fonts; a static font ignores the axes).
-
-```json
-"font": {"desktop": {"value": {
-  "family": "Roboto Flex",
-  "weight": "variable",
-  "weightFineTune": "450",
-  "variationSettings": {"WDTH": "125", "SLNT": "-6", "GRAD": "80"},
-  "opticalSizing": "auto"
-}}}
-```
-| Key | Effect |
-|-----|--------|
-| `weight: "variable"` | switches the field into variable-weight mode (enables `weightFineTune`) |
-| `weightFineTune` | precise WGHT value (e.g. `"450"`) → `font-weight` |
-| `variationSettings` | map of **axis-tag → value**. **WGHT** → `font-weight`, **WDTH** → `font-stretch` (as %), every **other** axis → `font-variation-settings: "TAG" value, …`. Values are clamped to the font's axis range. |
-| `opticalSizing` | `"auto"` (default) or `"none"`/`"off"` → emits `font-optical-sizing: none`. Control optical size here — do **not** pass `OPSZ` in `variationSettings` (it's intentionally skipped). |
-
-**Any axis the chosen font exposes works** — not just weight/width/slant. The Divi builder reads the font's axis metadata and shows one control per axis; in JSON you pass its 4-char OpenType tag. **Casing in `font-variation-settings`:** the 5 registered axes (`wght`,`wdth`,`opsz`,`slnt`,`ital`) are lower-cased; **custom/parametric axes keep their uppercase tag**. Builder-label → tag for two common variable fonts (all render-confirmed for Roboto Flex):
-
-| Roboto Flex (builder label) | tag | Bitcount | tag |
-|---|---|---|---|
-| Grade | `GRAD` | Element Shape | `ELSH` |
-| Thin Stroke | `YOPQ` | Element Expansion | `ELXP` |
-| Thick Stroke | `XOPQ` | | |
-| Counter Width | `XTRA` | | |
-| Lowercase Height | `YTLC` | | |
-| Uppercase Height | `YTUC` | | |
-| Ascender Height | `YTAS` | | |
-| Descender Depth | `YTDE` | | |
-| Figure Height | `YTFI` | | |
-
-```json
-"variationSettings": {"GRAD": "120", "XTRA": "500", "YOPQ": "40", "slnt": "-6"}
-```
-→ `font-variation-settings:"GRAD" 120,"XTRA" 500,"YOPQ" 40,"slnt" -6`. **Bitcount's `ELSH`/`ELXP` render-confirmed too** (`variationSettings:{"ELSH":"61","ELXP":"67"}` → `font-variation-settings:"ELXP" 67,"ELSH" 61`, visible as the changed dotted-grid glyphs) — so any font's custom axes flow through identically.
-
-### Capitalization (`capitalization`) — separate from the `style[]` array
-```json
-"font": {"desktop": {"value": {"capitalization": "smallCaps"}}}
-```
-| Value | CSS |
-|-------|-----|
-| `"uppercase"` / `"lowercase"` / `"capitalize"` | `text-transform` |
-| `"smallCaps"` / `"allSmallCaps"` | `font-variant-caps: small-caps` / `all-small-caps` |
-
-(The legacy `style:["uppercase"]` still works for transform; `capitalization` is the new dedicated control and is the only way to get small-caps.)
-
-### Text-decoration line styling
-The `style[]` array now also accepts **`"overline"`** (alongside `"underline"`, `"strikethrough"`, `"italic"`). New sibling keys style the line itself:
-| Key | CSS |
-|-----|-----|
-| `lineColor` | `text-decoration-color` |
-| `lineStyle` | `text-decoration-style` (`solid`/`dashed`/`dotted`/`double`/`wavy`) |
-| `lineThickness` | `text-decoration-thickness` |
-| `underlineOffset` | `text-underline-offset` |
-
-### Text columns (CSS multi-column)
-```json
-"font": {
-  "desktop": {"value": {
-    "columnCount": "2", "columnGap": "2rem",
-    "columnRuleWidth": "1px", "columnRuleStyle": "solid", "columnRuleColor": "#cbd5e1"
-  }},
-  "phone": {"value": {"columnCount": "1"}}
-}
-```
-`columnCount` only emits when **> 1** (`1` is treated as UI-only). `columnGap` of `0` is ignored. The rule (divider line between columns) only applies when `columnCount > 1`; default rule = `solid #333` if a width is set without style/color. **⚠️ Columns do NOT auto-stack on mobile** (render-confirmed — 2 columns stayed 2-up at 390px): set a responsive `columnCount:"1"` on `phone`/`phoneWide`, same as the grid rule.
-
-### Drop caps — dedicated `dropCap` group (NOT on `body.font`)
-Drop cap is its **own group** under `bodyFont`, rendered to the `::first-letter` pseudo. Putting `dropCapLineSize` on `body.font` is wrong — it then scales the **whole paragraph** (the giant-paragraph bug). Correct path:
-```json
-"content": {"decoration": {"bodyFont": {"dropCap": {"font": {"desktop": {"value": {
-  "dropCapLineSize": "3", "dropCapSpacing": "0.1em",
-  "weight": "700", "color": "#6366f1"
-}}}}}}}
-```
-`dropCapLineSize` → `initial-letter` (lines tall). `dropCapSpacing` → `margin-inline-end` (gap to body). The `dropCap.font` group also takes its own `family`/`weight`/`color`/`capitalization`/`style`/line-decoration + a `textShadow` — all scoped to the first letter only. Text-module only (`content.decoration.bodyFont.dropCap.font`).
-
-### Text direction (`writingMode`)
-| Value | Render |
-|-------|--------|
-| `"horizontal-tb"` | normal horizontal (default) |
-| `"vertical-lr"` | Divi emits `writing-mode: vertical-rl` **+ `transform: rotate(180deg)`** (top-to-bottom, left column first) |
-
-### Line wrap style (`textWrap`) + Hyphenation (`hyphens`)
-```json
-"font": {"desktop": {"value": {"textWrap": "balance", "hyphens": "on"}}}
-```
-`textWrap` → CSS `text-wrap` (`"balance"`, `"pretty"`, `"nowrap"`, `"wrap"`, `"stable"`). `hyphens: "on"` → `hyphens: auto` + `word-wrap: break-word`; `"off"` → `hyphens: none`.
-
-### Paragraph & list spacing — on the `list` group (NOT `font`)
-Controls the gap between paragraphs / list items in body copy. Lives one level over, on the sibling `list` group:
-```json
-"content": {"decoration": {"bodyFont": {"body": {
-  "list": {"desktop": {"value": {"paragraphSpacing": "1.5em"}}}
-}}}}
-```
-Path: `content.decoration.bodyFont.body.list.paragraphSpacing` (also `listSpacing` for list-item gaps, `itemIndent` for list padding). Render-confirmed: `paragraphSpacing` → `margin-block-end` on each paragraph (with the **last** paragraph reset to `0`), `listSpacing` → `margin-block-end` on `> *`, `itemIndent` → `padding-left` on `li`. Verified from `ListFontStyle.php`.
-
-> ✓ **Status (render-confirmed on local Divi 5.8.1):** Every key above emitted exactly the expected CSS and rendered visually — variable axes — `font-stretch:140%/75%` (WDTH), `font-weight:650/220` (`weightFineTune`), and all 9 Roboto Flex parametric/custom axes via `font-variation-settings` (`GRAD`,`YOPQ`,`XOPQ`,`XTRA`,`YTLC`,`YTUC`,`YTAS`,`YTDE`,`YTFI`) plus `slnt` — `font-variant-caps:small-caps`, decoration lines (italic/underline/overline/strikethrough + `text-decoration-*`), `column-count`+`column-rule-*`, drop cap `initial-letter`+`margin-inline-end` (via the `dropCap` group), `writing-mode:vertical-rl`, `paint-order:stroke`, `hyphens:auto`, `text-wrap` (default/balance/pretty), paragraph spacing `margin-block-end`. All pure server-rendered CSS from `Font.php`/`ListFontStyle.php` — **no builder-UI save needed** (like Text Effects §7b). One caveat: variable-font *visual* interpolation needs the chosen family to actually be a variable font (Divi 5.8 ships them via Google Fonts).
 
 ---
 
@@ -822,14 +703,7 @@ Form-based modules (contact-form, contact-field, signup, comments, search, login
 | Image object-fit | `<imageElement>.decoration.fit.desktop.value.objectFit` |
 | Image object-position | `<imageElement>.decoration.fit.desktop.value.objectPosition` |
 | Text gradient/image fill | `<element>.decoration.font.textEffects.desktop.value.fillType` (+ `gradient`/`imageFill`) |
-| Text stroke | `<element>.decoration.font.textEffects.desktop.value.strokeWidth` / `strokeColor` / `strokePosition` (§7b) |
-| Variable font axes | `<element>.decoration.font.font.desktop.value.{weight:"variable",weightFineTune,variationSettings,opticalSizing}` (§7e) |
-| Capitalization / small-caps | `...font.font.desktop.value.capitalization` (§7e) |
-| Drop cap | `...font.font.desktop.value.dropCapLineSize` / `dropCapSpacing` (§7e) |
-| Text columns | `...font.font.desktop.value.columnCount` / `columnGap` / `columnRule*` (§7e) |
-| Text direction (vertical) | `...font.font.desktop.value.writingMode` = `"vertical-lr"` (§7e) |
-| Line wrap / hyphens | `...font.font.desktop.value.textWrap` / `hyphens` (§7e) |
-| Paragraph/list spacing | `content.decoration.bodyFont.body.list.desktop.value.paragraphSpacing` (§7e) |
+| Text stroke | `<element>.decoration.font.textEffects.desktop.value.strokeWidth` / `strokeColor` |
 | Gradient variable ref | `...gradient.stops` = `$variable({"type":"gradient",...})$` |
 | Grid display | `module.decoration.layout.desktop.value.display` (`"grid"`) |
 | Grid columns | `module.decoration.layout.desktop.value.gridColumnCount` |
@@ -904,4 +778,4 @@ def html_attr(attr_name, attr_value, label=''):
 
 ---
 
-*DIVI5 Styling Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Styling Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

@@ -52,7 +52,7 @@ Post grid/list. Self-closing. **Confirmed (scenario 21):** rendered recent posts
   },
   "title":   {"decoration": {"font": {"font": {"desktop": {"value": {"headingLevel": "h2"}}}}}},
   "blogGrid": {"decoration": {"layout": {"desktop": {"value": {"display": "grid", "gridColumnCount": "3"}}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -87,7 +87,7 @@ Project (Divi `project` CPT) grids. `filterable-portfolio` adds category filter 
   },
   "title":         {"decoration": {"font": {"font": {"desktop": {"value": {"headingLevel": "h2"}}}}}},
   "portfolioGrid": {"decoration": {"layout": {"desktop": {"value": {"display": "grid", "gridColumnCount": "4"}}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -127,13 +127,13 @@ Meant for **single-post / archive Theme Builder templates**; they render the *cu
     }
   },
   "image": {"advanced": {"enabled": {"desktop": {"value": "on"}}, "placement": {"desktop": {"value": "below"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 `image.advanced.placement`: `"below"` / `"above"` / `"background"`. `textWrapper.advanced.useBackground` + `textWrapper.decoration.background` add a panel behind the title.
 
 ### `divi/post-content`
-Renders the current post body. Minimal — no required attrs: `{"builderVersion": "5.8.1"}`. Only meaningful inside a single template.
+Renders the current post body. Minimal — no required attrs: `{"builderVersion": "5.7.4"}`. Only meaningful inside a single template.
 
 ### `divi/post-slider` — ✓ render-confirmed (scenario 32)
 Posts as a slider (like `divi/slider` but auto-populated). **Standalone** — runs its own `WP_Query`, so it renders on any page (no single-post context). Confirmed showing featured image, title, author/date/comments meta, excerpt, and Read More. ⚠️ Its default background is a global-color variable (`gcid-primary-color`) — set an explicit `module.decoration.background` color if that token isn't defined.
@@ -153,7 +153,7 @@ Posts as a slider (like `divi/slider` but auto-populated). **Standalone** — ru
   "button": {"innerContent": {"desktop": {"value": {"text": "Read More"}}}, "advanced": {"enable": {"desktop": {"value": "on"}}}},
   "arrows": {"advanced": {"enable": {"desktop": {"value": "on"}}}},
   "module": {"advanced": {"autoSpeed": {"desktop": {"value": "7000"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 `post.advanced.orderby`: `"date_desc"`, `"date_asc"`, `"title_asc"`, `"rand"`, etc. `slideOverlay.advanced.use: "on"` adds a dark tint over background images.
@@ -164,7 +164,7 @@ Previous/next links for the current post. Self-closing. **Needs single-post cont
 {
   "module": {"advanced": {"inSameTerm": {"desktop": {"value": "off"}}}},
   "links":  {"advanced": {"showPrev": {"desktop": {"value": "on"}}, "showNext": {"desktop": {"value": "on"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 `inSameTerm: "on"` restricts prev/next to the same category. (Loop **Pagination** for blog/portfolio result sets is handled by those modules' own `pagination.advanced.enable`.)
@@ -194,7 +194,7 @@ Renders a WordPress nav menu with logo + optional cart/search icons. Self-closin
     "advanced": {"text": {"text": {"desktop": {"value": {"color": "light"}}}}},
     "decoration": {"background": {"desktop": {"value": {"color": "#ffffff"}}}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 | Field | Path | Values |
@@ -221,7 +221,7 @@ Site search box. Self-closing. **Confirmed (scenario 25):** rendered the search 
       "excludePosts": {"desktop": {"value": "off"}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 Placeholder/button text and input styling flow through the module's design groups. Field focus styling uses the pseudo-class states (STYLING §10c).
@@ -236,7 +236,7 @@ WordPress login form. Self-closing. **Confirmed (scenario 25):** rendered Userna
   "title":  {"decoration": {"font": {"font": {"desktop": {"value": {"headingLevel": "h2"}}}}}},
   "button": {"innerContent": {"desktop": {"value": {"text": "Login", "linkUrl": "#"}}}},
   "module": {"advanced": {"currentPageRedirect": {"desktop": {"value": "off"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 `currentPageRedirect: "on"` returns the user to the current page after login. When logged in, the module shows a logged-in message + logout link.
@@ -252,7 +252,7 @@ Renders a registered WordPress widget area. Self-closing. **Confirmed (scenario 
     "innerContent": {"desktop": {"value": {"area": "sidebar-1"}}},
     "advanced": {"layout": {"desktop": {"value": {"alignment": "left", "showBorder": "on"}}}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 `sidebar.innerContent.desktop.value.area` = the widget area ID registered by the theme (e.g. `"sidebar-1"`). The area must contain widgets to render anything.
@@ -273,7 +273,7 @@ Comment list + comment form for the current post. Self-closing. **Confirmed** in
   },
   "formTitle": {"decoration": {"font": {"font": {"desktop": {"value": {"headingLevel": "h3"}}}}}},
   "field": {"advanced": {"focusUseBorder": {"desktop": {"value": "off"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 The `field` element uses the harmonized form-field structure incl. focus pseudo-state (STYLING §10c). Only meaningful on a post that allows comments.
@@ -296,13 +296,13 @@ Google Map with pins. **Requires a Google Maps API key configured in Divi → Th
     }
   },
   "module": {"decoration": {"sizing": {"desktop": {"value": {"height": "440px"}}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 
 // map-pin (child, self-closing):
 {
   "pin": {"innerContent": {"desktop": {"value": {"address": "123 Main St", "zoom": 18, "lat": 40.7128, "lng": -74.006}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 - `lat`/`lng` are **numbers** (not strings); `zoom` is a number.
@@ -429,4 +429,4 @@ Output of every module here depends on real WordPress content, so verify on a si
 
 ---
 
-*DIVI5 Dynamic Modules Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Dynamic Modules Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

@@ -1,11 +1,11 @@
 ---
 name: divi5-modules-interactive
-description: Confirmed JSON structures for Divi 5 interactive modules — accordion, toggle, tabs, contact-form (all field types), signup, tooltip, dropdown, CF7, the full interaction trigger/target system, and canvas popup pattern.
+description: Confirmed JSON structures for Divi 5 interactive modules — accordion, toggle, tabs, contact-form (all field types), signup, the full interaction trigger/target system, and canvas popup pattern.
 author: Shashank Gupta @ divilove.com
 ---
 
 # DIVI5 Skill — Interactive Modules
-> **Part of the DIVI5 skill set. Attach when using accordion, toggle, tabs, contact-form, signup, tooltip, dropdown, or CF7.**
+> **Part of the DIVI5 skill set. Attach when using accordion, toggle, tabs, contact-form, signup, dropdown, or CF7.**
 > Skill files: BASE · LAYOUT · STYLING · MODULES-CONTENT · MODULES-INTERACTIVE (this) · MODULES-MEDIA · MODULES-DATA · MODULES-DYNAMIC · MODULES-WOOCOMMERCE · WORDPRESS · PATTERNS
 
 ---
@@ -17,7 +17,7 @@ Expandable FAQ items. `accordion` is **NOT self-closing**. `accordion-item` **IS
 ```json
 // accordion (parent — container):
 {
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 
 // accordion-item (child — self-closing):
@@ -27,7 +27,7 @@ Expandable FAQ items. `accordion` is **NOT self-closing**. `accordion-item` **IS
   },
   "title":   {"innerContent": {"desktop": {"value": "Question text?"}}},
   "content": {"innerContent": {"desktop": {"value": "\u003cp\u003eAnswer text.\u003c/p\u003e"}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -50,7 +50,7 @@ Single expand/collapse toggle. **Self-closing.** Confirmed working.
 {
   "title":   {"innerContent": {"desktop": {"value": "Toggle Title"}}},
   "content": {"innerContent": {"desktop": {"value": "\u003cp\u003eContent here.\u003c/p\u003e"}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -65,14 +65,14 @@ Tabbed panels. `tabs` is **NOT self-closing**. `tab` **IS self-closing**. Confir
 ```json
 // tabs (parent — container):
 {
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 
 // tab (child — self-closing):
 {
   "title":   {"innerContent": {"desktop": {"value": "Tab Label"}}},
   "content": {"innerContent": {"desktop": {"value": "\u003cp\u003eTab content.\u003c/p\u003e"}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -102,7 +102,7 @@ Tabbed panels. `tabs` is **NOT self-closing**. `tab` **IS self-closing**. Confir
       }}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 
 // contact-field (child — self-closing):
@@ -125,7 +125,7 @@ Tabbed panels. `tabs` is **NOT self-closing**. `tab` **IS self-closing**. Confir
     },
     "innerContent": {"desktop": {"value": "Email Address"}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -149,7 +149,7 @@ Tabbed panels. `tabs` is **NOT self-closing**. `tab` **IS self-closing**. Confir
     },
     "innerContent": {"desktop": {"value": {"text": "Send Message"}}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -222,7 +222,7 @@ Same structure as `checkboxOptions` — `checked: '1'` pre-selects that radio op
             'selectOptions': {'desktop': {'value': [...]}}  # or checkboxOptions / radioOptions
         }
     },
-    'builderVersion': '5.8.1'
+    'builderVersion': '5.7.4'
 }
 ```
 
@@ -247,7 +247,7 @@ Email subscription form. **Self-closing.**
       "color": "#94a3b8", "size": "16px", "textAlign": "center"
     }}}}}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -283,7 +283,7 @@ A flyout/dropdown panel that reveals nested modules on hover or click. Typically
       }}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 | `module.advanced.dropdown.*.value` | Values |
@@ -298,64 +298,6 @@ A flyout/dropdown panel that reveals nested modules on hover or click. Typically
 
 ---
 
-## `divi/tooltip` (NEW in 5.8.0 — ✓ render-confirmed on Divi 5.8.1)
-
-A small popover that attaches to a **parent module** and reveals rich-text content on hover/click (or always). Slug `divi/tooltip`, class `et_pb_tooltip`. **Not self-closing** (it can also hold nested child modules after its body text).
-
-**How it attaches — this is the key rule:** the tooltip is a **child placed *inside* the module/container it annotates**. At render it reads its parent block's id and emits `data-et-tooltip-parent-id`, then positions itself relative to that parent. So nest it inside the section / row / column / group / module you want the tooltip to pop from — its *parent* block is the trigger target.
-
-```json
-// divi/tooltip — place INSIDE the target module/container:
-{
-  "content": {
-    "innerContent": {"desktop": {"value": "Free shipping on all orders over $50."}},
-    "decoration": {"bodyFont": {"body": {"font": {"desktop": {"value": {
-      "color": "#FFFFFF", "size": "14px"
-    }}}}}}
-  },
-  "module": {
-    "advanced": {
-      "tooltip": {"desktop": {"value": {
-        "trigger": "hover",
-        "positionMode": "anchored",
-        "placement": "outside top center",
-        "distance": "10px",
-        "showArrow": "on",
-        "arrowSize": "8px"
-      }}}
-    },
-    "decoration": {
-      "background": {"desktop": {"value": {"color": "#0f172a"}}},
-      "spacing":    {"desktop": {"value": {"padding": {"top": "10px", "bottom": "10px", "left": "14px", "right": "14px"}}}},
-      "border":     {"desktop": {"value": {"radius": {"topLeft": "8px", "topRight": "8px", "bottomLeft": "8px", "bottomRight": "8px", "sync": "on"}}}}
-    }
-  },
-  "builderVersion": "5.8.1"
-}
-```
-
-**Tooltip config — `module.advanced.tooltip.desktop.value`:**
-| Key | Values / notes |
-|-----|----------------|
-| `trigger` | `"hover"` (default) · `"click"` · `"always"` (always visible) |
-| `positionMode` | `"anchored"` (default, fixed to target) · `"followCursor"` (tracks the pointer while open) |
-| `placement` | grid string, default `"outside top center"`. Valid: `inside {top\|center\|bottom} {left\|center\|right}` and `outside {top\|bottom} {left\|center\|right}` / `outside {left\|right} {top\|center\|bottom}`. "outside" = beside the target; "inside" = within it. |
-| `skid` | cross-axis nudge along the target edge (px) |
-| `distance` | gap from the target along the placement direction (px) |
-| `openDelay` / `closeDelay` | ms before open / close (close mainly for hover) |
-| `showArrow` | `"on"` / `"off"` (default **off**) — small pointer toward the parent |
-| `arrowColor` | defaults to the module **background** color |
-| `arrowPlacement` | outer-ring grid string, default `"outside bottom center"` |
-| `arrowOffset` / `arrowSize` | px — slide / size the arrow |
-
-**Bubble styling:** `module.decoration.background` is the tooltip bubble's fill (and the default arrow color); `content.decoration.bodyFont.body.font` styles the text. All settings are responsive (per-breakpoint `tooltip` values supported).
-
-**Render-confirmed (page 276, raw REST insert):** the SSR markup is correct — each tooltip is `<span role="tooltip" aria-hidden="true" id="et_pb_tooltip_…" data-et-tooltip-parent-id="divi/column-8">`, i.e. it **attaches to its parent block** (here the column it sits in) exactly as designed. `trigger:"always"` **renders visible with its arrow** even on a plain REST page. The bubble/arrow styling, body font, and `placement`/`showArrow` all apply.
-
-**⚠️ Script-dependent for hover/click + final positioning:** show/hide for `trigger:"hover"`/`"click"` is driven by Divi's frontend `tooltip` ScriptData (markup starts `aria-hidden="true"`). On a raw REST insert the script may not enqueue (same class as Table-of-Contents) — the hover tooltip then never reveals; needs a builder-UI save (or the dynamic-assets enqueue) to wire it. **Final on-screen placement is also JS-computed (floating-ui)** — in a static/SSR capture the always-on bubble floats to a computed position rather than sitting neatly under the target, so verify placement in a real browser / after a builder save. Use `trigger:"always"` when you need a guaranteed-visible callout without JS. See BASE "Script-Dependent Modules".
-
----
-
 ## `divi/contact-form-7` — CF7 Styler (NEW in 5.3.0 — ✓ render-confirmed)
 
 Styles an existing **Contact Form 7** form (the CF7 plugin must be installed and the form created in CF7). This module does not define fields itself — it selects a CF7 form by ID and applies Divi styling. **Self-closing.** **Confirmed (scenario 21):** `formId:"77"` (default "Contact form 1") rendered the full form — name/email/subject/message fields + Submit button.
@@ -363,7 +305,7 @@ Styles an existing **Contact Form 7** form (the CF7 plugin must be installed and
 ```json
 {
   "form": {"advanced": {"formId": {"desktop": {"value": "123"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 | Field | Path | Notes |
@@ -563,7 +505,7 @@ A canvas can serve as a modal/popup overlay. The popup lives inside a local canv
 
 ```json
 {
-  "builderVersion": "5.8.1",
+  "builderVersion": "5.7.4",
   "module": {
     "decoration": {
       "interactionTarget": "POPUP_TARGET_ID",
@@ -623,4 +565,4 @@ For a button-triggered popup instead of auto-show, use `trigger: "click"` on the
 
 ---
 
-*DIVI5 Interactive Modules Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Interactive Modules Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

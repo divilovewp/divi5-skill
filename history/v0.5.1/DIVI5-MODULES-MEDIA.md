@@ -23,7 +23,7 @@ Embeds a video. **Self-closing.** Confirmed working.
       "desktop": {"value": {"src": "https://www.youtube.com/watch?v=XXXXX"}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -47,7 +47,7 @@ Image gallery grid. **Self-closing.**
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -62,7 +62,7 @@ Image gallery grid. **Self-closing.**
 ```json
 // slider (parent — container):
 {
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 
 // slide (child — self-closing):
@@ -91,7 +91,7 @@ Image gallery grid. **Self-closing.**
       }}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -108,7 +108,7 @@ Image gallery grid. **Self-closing.**
 ```json
 // video-slider (parent — minimal attrs):
 {
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 
 // video-slider-item (child — self-closing):
@@ -116,7 +116,7 @@ Image gallery grid. **Self-closing.**
   "video": {
     "innerContent": {"desktop": {"value": {"src": "https://www.youtube.com/watch?v=XXXXX"}}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -135,7 +135,7 @@ Lottie animation. **Self-closing.** Format confirmed — URL reliability is the 
   "lottie": {
     "innerContent": {"desktop": {"value": {"src": "https://example.com/animation.json"}}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -160,7 +160,7 @@ Audio player. **Self-closing.** Confirmed working including audio src.
   "audio": {
     "innerContent": {"desktop": {"value": "https://example.com/track.mp3"}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -190,7 +190,7 @@ Before/after comparison slider. **Self-closing.** Confirmed working.
       }}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -198,4 +198,4 @@ Before/after comparison slider. **Self-closing.** Confirmed working.
 
 ---
 
-*DIVI5 Media Modules Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Media Modules Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

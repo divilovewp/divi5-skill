@@ -91,7 +91,7 @@ All WooCommerce modules are **self-closing**.
       "useCurrentLoop": {"desktop": {"value": "off"}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 | Field (`content.advanced.*`) | Values |
@@ -111,7 +111,7 @@ All WooCommerce modules are **self-closing**.
 {
   "content": {"advanced": {"product": {"desktop": {"value": "dynamic"}}}},
   "title":   {"decoration": {"font": {"font": {"desktop": {"value": {"headingLevel": "h1"}}}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -119,7 +119,7 @@ All WooCommerce modules are **self-closing**.
 ```json
 {
   "content": {"advanced": {"product": {"desktop": {"value": "dynamic"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -133,7 +133,7 @@ All WooCommerce modules are **self-closing**.
       "showStock":    {"desktop": {"value": "on"}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -153,7 +153,7 @@ All WooCommerce modules are **self-closing**.
       "orderby":       {"desktop": {"value": "default"}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 `"dynamic"` for count/columns = inherit WooCommerce theme defaults. "Included Categories → All Categories" uses all product categories; "Current Category" restricts to the current product's categories.
@@ -165,7 +165,7 @@ All WooCommerce modules are **self-closing**.
 These render the live WooCommerce cart/checkout for the current session and have minimal required attrs — typically just `builderVersion` plus design groups:
 
 ```json
-{ "builderVersion": "5.8.1" }
+{ "builderVersion": "5.7.4" }
 ```
 
 **✓ Render-confirmed (scenarios 30/31)** with a populated session cart (2 line items):
@@ -185,4 +185,4 @@ The WooCommerce family is **fully render-confirmed (5.7.0)** against fixture pro
 
 ---
 
-*DIVI5 WooCommerce Modules Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 WooCommerce Modules Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

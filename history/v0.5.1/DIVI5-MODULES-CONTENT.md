@@ -38,7 +38,7 @@ Renders a standalone heading element. **Self-closing.**
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -77,7 +77,7 @@ Renders HTML content (paragraphs, lists, etc.). **Self-closing.**
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -109,7 +109,7 @@ Renders a styled CTA button. **Self-closing.**
     }
   },
   "module": {"advanced": {"alignment": {"desktop": {"value": "center"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -145,7 +145,7 @@ Displays an image. **Self-closing.**
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -224,7 +224,7 @@ rendered into `<div class="et_pb_blurb_description">`. Body styling →
     "decoration": {"bodyFont": {"body": {"font": {"desktop": {"value": {"color": "#475569", "textAlign": "center"}}}}}}
   },
   "module": {"decoration": {"background": {"desktop": {"value": {"color": "#FFFFFF"}}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -237,7 +237,7 @@ rendered into `<div class="et_pb_blurb_description">`. Body styling →
   },
   "title": {"innerContent": {"desktop": {"value": {"text": "Fast"}}}},
   "content": {"innerContent": {"desktop": {"value": "<p>Blazing performance.</p>"}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -275,7 +275,7 @@ Title + body + button combined. **Self-closing.** Confirmed working.
       "font": {"font": {"desktop": {"value": {"color": "#2563eb", "weight": "700"}}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -324,7 +324,7 @@ Testimonial quote with author and optional portrait. **Self-closing.**
       }}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -348,7 +348,7 @@ Team member card with photo, name, position. **Self-closing.** (Tag is `divi/tea
     "innerContent": {"desktop": {"value": {"url": "https://example.com/photo.jpg"}}}
   },
   "content": {"innerContent": {"desktop": {"value": "\u003cp\u003eBio text here.\u003c/p\u003e"}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -378,7 +378,7 @@ A text hyperlink. **Self-closing.**
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -433,7 +433,7 @@ Use `module.advanced.loop` to loop a WordPress menu. Each item in the menu becom
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -496,7 +496,7 @@ def link_menu_loop(menu_id, menu_label, font_color='#e2e8f0', font_size='14px'):
                 'font': {'font': {'desktop': {'value': {'weight': '400', 'color': font_color, 'size': font_size}}}}
             }
         },
-        'builderVersion': '5.8.1',
+        'builderVersion': '5.7.4',
     }
 ```
 
@@ -519,7 +519,7 @@ Renders a single Divi icon. **Self-closing.** **Confirmed working (real-render t
       "size":  {"desktop": {"value": "48px"}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -542,7 +542,7 @@ Icon list. `icon-list` is **NOT self-closing**. `icon-list-item` **IS self-closi
 
 ```json
 // icon-list (parent — container):
-{"builderVersion": "5.8.1"}
+{"builderVersion": "5.7.4"}
 
 // icon-list-item (child — self-closing):
 {
@@ -558,7 +558,7 @@ Icon list. `icon-list` is **NOT self-closing**. `icon-list-item` **IS self-closi
   "content": {
     "innerContent": {"desktop": {"value": "List item text (plain string, not HTML)"}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -591,7 +591,7 @@ The divider draws its **own** line via `divider.advanced.line`, which is **`show
       "spacing": {"desktop": {"value": {"margin": {"top": "16px", "bottom": "16px"}}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -615,7 +615,7 @@ Renders raw HTML/CSS/JS. **Self-closing.**
       "zIndex": {"desktop": {"value": "-10"}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -654,7 +654,7 @@ Full-width hero header with title, subhead, content, and up to 2 buttons. **Self
       "background": {"desktop": {"value": {"color": "#0f172a"}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 
 // fullwidth-header (self-closing, goes directly inside the fullwidth section — no row/column):
@@ -689,7 +689,7 @@ Full-width hero header with title, subhead, content, and up to 2 buttons. **Self
   "buttonTwo": {
     "innerContent": {"desktop": {"value": {"text": "Secondary CTA", "linkUrl": "#"}}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -719,7 +719,7 @@ Renders sanitized inline SVG, either from pasted markup or an uploaded `.svg` UR
       }}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -748,7 +748,7 @@ A vertical/horizontal timeline. **`timeline` is a container**; each `timeline-it
       "timeline": {"desktop": {"value": {"direction": "vertical", "position": "right"}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 | `module.advanced.timeline.*.value` | Values |
@@ -765,7 +765,7 @@ A vertical/horizontal timeline. **`timeline` is a container**; each `timeline-it
   "marker": {
     "decoration": {"icon": {"desktop": {"value": {"unicode": "&#xf00c;", "type": "fa", "weight": "900"}}}}
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 | Field | Path | Notes |
@@ -793,7 +793,7 @@ Accessible breadcrumb trail using native WordPress hierarchy. Self-closing. **Pr
   "home":      {"innerContent": {"desktop": {"value": {"text": "Home", "url": ""}}}},
   "separator": {"innerContent": {"desktop": {"value": {"text": "/"}}}},
   "trail":     {"advanced": {"htmlTag": {"desktop": {"value": "nav"}}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 | Field | Path | Notes |
@@ -808,4 +808,4 @@ Accessible breadcrumb trail using native WordPress hierarchy. Self-closing. **Pr
 
 ---
 
-*DIVI5 Content Modules Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Content Modules Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*
