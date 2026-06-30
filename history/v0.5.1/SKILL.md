@@ -59,7 +59,7 @@ rejects pages that break rules 1-3, so getting them right avoids a failed call.
    the attributes object — put `title`/`content`/`module`/`builderVersion` at the
    **top level**.
    ❌ `<!-- wp:divi/heading {"attrs":{"title":{...}}} /-->` → renders EMPTY
-   ✅ `<!-- wp:divi/heading {"title":{...},"builderVersion":"5.8.1"} /-->`
+   ✅ `<!-- wp:divi/heading {"title":{...},"builderVersion":"5.7.4"} /-->`
    (`attrs` is only a key in **preset** definitions — never in module blocks.)
 
 2. **`divi/text` content key is exactly `content`** — never `body` or `text`.
@@ -71,7 +71,7 @@ rejects pages that break rules 1-3, so getting them right avoids a failed call.
    ❌ `"value":"<p>Hello.</p>"`   ✅ `"value":"\u003cp\u003eHello.\u003c/p\u003e"`
    Also escape **non-ASCII** typography (em-dash `\u2014`, curly quotes `\u2019`/`\u201c`/`\u201d`, emoji) as `\uXXXX`, OR use plain ASCII (`-`, straight quotes). The claude.ai connector corrupts raw multibyte characters into `�`.
 
-4. Every module needs `"builderVersion":"5.8.1"`. Self-closing modules end ` /-->`.
+4. Every module needs `"builderVersion":"5.7.4"`. Self-closing modules end ` /-->`.
    Wrap the whole page in `<!-- wp:divi/placeholder --> ... <!-- /wp:divi/placeholder -->`.
 
 Full detail + all other pitfalls: read `DIVI5-BASE.md`.
@@ -119,8 +119,6 @@ Detail: `DIVI5-CONNECT.md` §3.
 
 ## Version
 
-**V0.6.0 — Builder Version 5.8.1** (tracks the Divi 5.8.x line). The
-`builderVersion` stamp on generated markup must be `"5.8.1"`. v0.6.0 adds the
-**Tooltip module** and the **Advanced Text Styling** batch (variable fonts +
-columns/drop caps/vertical text/line-wrap/hyphenation — STYLING §7e). See
+**V0.5.1 — Builder Version 5.7.4** (tracks the Divi 5.7.x line). The
+`builderVersion` stamp on generated markup must be `"5.7.4"`. See
 `DIVI5-COVERAGE.md` for what is real-render tested vs source-verified.

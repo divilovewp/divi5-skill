@@ -8,7 +8,7 @@ authoritative, always-current status list; this page is a high-level map.
 - **Content** — heading, text, button, image, blurb, CTA, testimonial, team-member,
   link, icon, icon-list, divider, code, fullwidth-header, svg, timeline, breadcrumbs
 - **Interactive** — accordion, toggle, tabs, contact-form (+ fields), signup, dropdown,
-  contact-form-7, interactions
+  contact-form-7, **tooltip** (NEW 5.8.0), interactions
 - **Media** — video, gallery, slider, video-slider, lottie, audio, before-after-image
 - **Data** — number/circle/bar counters, countdown, pricing tables, social, social-follow,
   table-of-contents, instagram-feed
@@ -16,7 +16,9 @@ authoritative, always-current status list; this page is a high-level map.
   sidebar, comments, map, **Loop Builder** + dynamic content tokens
 - **WooCommerce** — shop, the single-product family, cart, and checkout modules
 - **Systems** — the token/variable system, gradients (+ gradient variables), text fill
-  effects, aspect-ratio, image framing, Global Presets, Theme Builder templates
+  effects, **Advanced Text Styling (NEW 5.8.0** — variable fonts incl. custom OpenType axes,
+  capitalization/small-caps, drop caps, text columns, vertical text, line-wrap, hyphenation,
+  paragraph spacing, stroke position), aspect-ratio, image framing, Global Presets, Theme Builder templates
 
 ## Verification levels
 Entries in `DIVI5-COVERAGE.md` are marked as one of:

@@ -6,27 +6,6 @@
 
 ---
 
-## New in v0.6.0 (Divi 5.8.0 / 5.8.1) — ✓ all render-confirmed (Divi 5.8.1)
-
-> Two real authoring additions landed between 5.7.4 and 5.8.1: the **Tooltip module** (5.8.0) and a large **Advanced Text Styling** batch on every font group (5.8.0). (5.8.1 itself was bug-fix-only.) Verified on local Divi 5.8.1 — emitted CSS matched the documented keys and rendered visually (page 276).
-
-| Item | Status | Type | File |
-|------|--------|------|------|
-| `divi/tooltip` — hover/click/always popover, attaches to parent module | ✓ Confirmed | module | MODULES-INTERACTIVE |
-| Variable fonts — `weight:"variable"`, `weightFineTune`, `variationSettings` (any axis), `opticalSizing` | ✓ Confirmed | system | STYLING §7e |
-| Capitalization / small-caps (`font.capitalization`) | ✓ Confirmed | system | STYLING §7e |
-| Decoration-line styling (`lineColor`/`lineStyle`/`lineThickness`/`underlineOffset`, `overline`) | ✓ Confirmed | system | STYLING §7e |
-| Text columns (`font.columnCount`/`columnGap`/`columnRule*`) | ✓ Confirmed | system | STYLING §7e |
-| Drop caps (`bodyFont.dropCap.font.dropCapLineSize`/`dropCapSpacing` → `::first-letter`) | ✓ Confirmed | system | STYLING §7e |
-| Text direction — vertical (`font.writingMode:"vertical-lr"`) | ✓ Confirmed | system | STYLING §7e |
-| Line wrap (`font.textWrap`) + hyphenation (`font.hyphens`) | ✓ Confirmed | system | STYLING §7e |
-| Paragraph/list spacing (`bodyFont.body.list.paragraphSpacing` → `margin-block-end`) | ✓ Confirmed | system | STYLING §7e |
-| Stroke position (`font.textEffects.strokePosition` → `paint-order`) | ✓ Confirmed | system | STYLING §7b |
-
-> Render-confirmed on local Divi **5.8.1** (page 276): variable axes emitted `font-stretch`/`font-weight`/`font-variation-settings` (incl. all 9 Roboto Flex parametric axes + Bitcount `ELSH`/`ELXP` via a builder save), `font-variant-caps:small-caps`, decoration lines, `column-*`, drop cap `::first-letter{initial-letter…}`, `writing-mode:vertical-rl`, `text-wrap` (balance/pretty), `hyphens:auto`, `margin-block-end`, `paint-order:stroke`. **Gotchas:** text columns don't auto-stack on mobile (set responsive `columnCount:"1"`); the Tooltip is script-dependent — hover/click need the frontend tooltip script (builder-UI save on REST-built pages), `trigger:"always"` renders without JS, and final placement is JS-computed.
-
----
-
 ## New in v0.5.1 (Divi 5.7.4) — ✓ all render-confirmed
 
 > The authoring surface below was introduced in **5.7.0**. Patches **5.7.1–5.7.4** were bug-fix/builder-UI releases only — no new authoring features to confirm.
@@ -115,7 +94,6 @@
 | `divi/contact-form` + `divi/contact-field` | ✓ Confirmed | See field types below |
 | `divi/signup` | ✓ Confirmed | Email signup |
 | `divi/dropdown` | ⚙ Source | `module.advanced.dropdown={showOn,direction,alignment,offset}` |
-| `divi/tooltip` | ✓ Confirmed | NEW 5.8.0; attaches to parent module; `module.advanced.tooltip={trigger,positionMode,placement,distance,showArrow,arrow*}`; `trigger:"always"` renders without JS, hover/click need the script |
 | `divi/contact-form-7` | ✓ Confirmed | rendered full form (scenario 21); `form.advanced.formId` = CF7 form ID |
 | Form pseudo-class states | ⚙ Source | focus/checked/active under `<field>.advanced.<state>` (5.3.0) |
 | Interactions system | ✓ Confirmed | Full trigger/target system with canvas popup pattern |
@@ -289,4 +267,4 @@ Entire family verified against fixture products with real data (scenarios 29 pro
 
 ---
 
-*DIVI5 Coverage Map — V0.6.0 | Builder Version 5.8.1*
+*DIVI5 Coverage Map — V0.5.1 | Builder Version 5.7.4*

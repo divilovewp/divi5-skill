@@ -9,6 +9,34 @@ in [SKILL.md](SKILL.md)). The version is bumped only when the **authoring schema
 changes. Documentation corrections and clarifications that don't change the schema
 are logged under **Unreleased** and ship within the current version without a bump.
 
+## [0.6.0] — 2026-06-30 · Divi Builder 5.8.1
+
+Tracks the **Divi 5.8.x** line (5.8.0 + 5.8.1). Two new authoring additions, both
+render-confirmed on local Divi 5.8.1 (page 276). `builderVersion` stamp moved to `"5.8.1"`.
+
+### Added
+- **Tooltip module (`divi/tooltip`)** (`DIVI5-MODULES-INTERACTIVE.md`): hover / click /
+  always-on popover that **attaches to its parent module** (emits `data-et-tooltip-parent-id`).
+  Documented `module.advanced.tooltip` config (trigger, positionMode anchored/followCursor,
+  placement grid, skid/distance, open/close delays, showArrow + arrowColor/placement/offset/size)
+  and bubble styling. Render-confirmed: SSR markup + `trigger:"always"` visible without JS;
+  script-dependent for hover/click and final (floating-ui) placement.
+- **Advanced Text Styling — §7e** (`DIVI5-STYLING.md`): the 5.8.0 batch on every font group —
+  **variable fonts** (`weight:"variable"`, `weightFineTune`, `variationSettings` for any OpenType
+  axis incl. Roboto Flex parametric `GRAD`/`YOPQ`/`XOPQ`/`XTRA`/`YTLC`/`YTUC`/`YTAS`/`YTDE`/`YTFI`
+  and Bitcount `ELSH`/`ELXP`, `opticalSizing`), **capitalization/small-caps**, **decoration-line
+  styling** (`overline` + `lineColor`/`lineStyle`/`lineThickness`/`underlineOffset`), **text
+  columns** (`columnCount`/`columnGap`/`columnRule*`), **drop caps** (dedicated `bodyFont.dropCap`
+  group → `::first-letter`), **vertical text** (`writingMode`), **line-wrap** (`textWrap`) +
+  **hyphenation** (`hyphens`), and **paragraph/list spacing** (`bodyFont.body.list`). All
+  render-confirmed (CSS + visual).
+- **Stroke position** (`DIVI5-STYLING.md` §7b): `textEffects.strokePosition` → `paint-order`.
+
+### Notes / gotchas
+- Text columns do **not** auto-stack on mobile — set a responsive `columnCount:"1"` (like the grid rule).
+- Variable-font *visual* interpolation needs the chosen family to be an actual variable font (Divi 5.8
+  ships them via Google Fonts); the authoring CSS emits regardless.
+
 ## [Unreleased] — corrections within 0.5.1 (Divi 5.7.4)
 
 ### Fixed

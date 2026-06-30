@@ -33,5 +33,5 @@ modules. The skill encodes them up front (full list in `DIVI5-BASE.md`):
 - module attributes go at the top level — never wrapped in an `attrs` key
 - text content lives under the exact `content` key
 - HTML inside a value is unicode-escaped (`<`/`>`)
-- every module carries `"builderVersion": "5.7.4"`
+- every module carries `"builderVersion": "5.8.1"`
 - the page is wrapped in `<!-- wp:divi/placeholder --> … <!-- /wp:divi/placeholder -->`

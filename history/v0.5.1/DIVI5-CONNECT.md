@@ -109,7 +109,7 @@ Scan your markup: every `color`, `size`, `gradient`, padding/margin/gap/radius v
 {
   "modulePreset": "dark-heading",
   "title": {"innerContent": {"desktop": {"value": "My Heading"}}},
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -271,7 +271,7 @@ POST /presets
         "items": {
           "my-preset-id": {
             "id": "my-preset-id", "name": "My Preset", "moduleName": "divi/heading",
-            "version": "5.8.1", "type": "module",
+            "version": "5.7.4", "type": "module",
             "created": 1700000000, "updated": 1700000000,
             "attrs": { /* styling — PRIMARY bucket, must be non-empty */ },
             "styleAttrs": { /* mirror of attrs — auxiliary */ },
@@ -341,4 +341,4 @@ POST /theme-builder
 
 ---
 
-*DIVI5-CONNECT — v1.1.0 | Divi Connect Plugin v1.4.0 | Builder Version 5.8.1*
+*DIVI5-CONNECT — v1.1.0 | Divi Connect Plugin v1.4.0 | Builder Version 5.7.4*

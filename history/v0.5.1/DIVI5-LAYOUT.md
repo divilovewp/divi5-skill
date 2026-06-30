@@ -38,7 +38,7 @@ Top-level container. Every page needs at least one.
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -69,7 +69,7 @@ Horizontal container inside a section. Defines column arrangement via the flex s
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -113,7 +113,7 @@ Horizontal container inside a section. Defines column arrangement via the flex s
       "sizing": {"desktop": {"value": {"maxWidth": "1280px"}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -136,7 +136,7 @@ A column inside a row. Contains content modules.
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -216,7 +216,7 @@ All standard `module.decoration` properties work: `background`, `border` (includ
       }
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -241,12 +241,12 @@ Carousel of `divi/group` slides. Each child `group` is one slide. **Real-render 
 
 ```json
 {
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
 ```
-group-carousel {"builderVersion": "5.8.1"}
+group-carousel {"builderVersion": "5.7.4"}
   └── group (slide 1) — styled with decoration props
         └── modules...
   └── group (slide 2)
@@ -281,7 +281,7 @@ group-carousel {"builderVersion": "5.8.1"}
       "showDots": {"desktop": {"value": "on"}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -370,7 +370,7 @@ Set on a **child** (column/group/module) to span or position it within the paren
 References a **saved global layout/module** so one edit updates every place it is used. The reference is the **`globalModule`** attribute holding the saved layout's WP post ID **as a string**:
 
 ```html
-<!-- wp:divi/global-layout {"globalModule":"123","builderVersion":"5.8.1"} -->
+<!-- wp:divi/global-layout {"globalModule":"123","builderVersion":"5.7.4"} -->
 <!-- /wp:divi/global-layout -->
 ```
 
@@ -477,4 +477,4 @@ def make_equal_row(col_count, children_list, max_width="1280px"):
 
 ---
 
-*DIVI5 Layout Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Layout Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

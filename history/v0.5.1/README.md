@@ -50,13 +50,9 @@ BASE + LAYOUT + STYLING + MODULES-CONTENT + WORDPRESS + PATTERNS
 
 > Full change history — including documentation corrections made within a version — is in [CHANGELOG.md](CHANGELOG.md).
 
-**V0.6.0 — Builder Version 5.8.1**
-
-Tracks the current **Divi 5.8.x** line (latest **5.8.1**). Adds two real authoring additions, both render-confirmed on 5.8.1: the **Tooltip module** (`divi/tooltip` — hover/click/always popover that attaches to its parent module) and the **Advanced Text Styling** batch on every font group — **variable fonts** (weight fine-tune + arbitrary OpenType axes incl. Roboto Flex parametric & Bitcount custom axes + optical sizing), capitalization/small-caps, decoration-line styling, text columns, drop caps, vertical text direction, line-wrap, hyphenation, paragraph/list spacing, and stroke position. See `DIVI5-STYLING.md` §7e/§7b and `DIVI5-MODULES-INTERACTIVE.md`.
-
 **V0.5.1 — Builder Version 5.7.4**
 
-Tracked the **Divi 5.7.x** line (latest **5.7.4**). Patches 5.7.1–5.7.4 were maintenance/bug-fix releases — **no new authoring schema**, so only the `builderVersion` stamp moved to `"5.7.4"`. Authoring features unchanged from V0.5.0 below.
+Tracks the current **Divi 5.7.x** line (latest **5.7.4**). Patches 5.7.1–5.7.4 were maintenance/bug-fix releases (builder-UI workspace system + Visual-Builder/migration/front-end render fixes) — **no new authoring schema**, so only the `builderVersion` stamp moved to `"5.7.4"`. The authoring features are unchanged from V0.5.0 below.
 
 **V0.5.0 — Builder Version 5.7.0**
 

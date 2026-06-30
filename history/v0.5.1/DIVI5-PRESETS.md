@@ -1,4 +1,4 @@
-# DIVI5-PRESETS.md — Divi 5 Global Presets (V0.6.0 / Divi 5.8.1)
+# DIVI5-PRESETS.md — Divi 5 Global Presets (V0.5.1 / Divi 5.7.4)
 
 Presets are saved style configurations for module types. Any module instance can reference a preset by ID; Divi merges the preset attrs with the instance's own attrs at render time.
 
@@ -39,7 +39,7 @@ WP option (logical name): **`builder_global_presets_d5`**
   "id":         "abc123",
   "name":       "My Heading Style",
   "moduleName": "divi/heading",
-  "version": "5.8.1",
+  "version":    "5.7.4",
   "type":       "module",
   "created":    1749999999,
   "updated":    1749999999,
@@ -205,7 +205,7 @@ presets = {
                     "id": preset_id,
                     "name": "Dark Heading",
                     "moduleName": "divi/heading",
-                    "version": "5.8.1",
+                    "version": "5.7.4",
                     "type": "module",
                     "created": ts,
                     "updated": ts,
@@ -247,14 +247,14 @@ Add `modulePreset` at the top level of the module's attrs object (not nested und
 m('heading', {
     'modulePreset': 'skill-heading-dark-01',
     'title': {'innerContent': {'desktop': {'value': 'My Heading'}}},
-    'builderVersion': '5.8.1'
+    'builderVersion': '5.7.4'
 })
 
 # Stacked presets — last item wins on conflict
 m('heading', {
     'modulePreset': ['base-preset-id', 'accent-preset-id'],
     'title': {'innerContent': {'desktop': {'value': 'My Heading'}}},
-    'builderVersion': '5.8.1'
+    'builderVersion': '5.7.4'
 })
 
 # Inline override beats preset — inline attr value wins over preset attr value
@@ -264,7 +264,7 @@ m('heading', {
         'innerContent': {'desktop': {'value': 'Red text despite preset'}},
         'decoration': {'font': {'font': {'desktop': {'value': {'color': '#ef4444'}}}}}
     },
-    'builderVersion': '5.8.1'
+    'builderVersion': '5.7.4'
 })
 ```
 
@@ -289,7 +289,7 @@ def make_heading_typography_preset(id, name, color, size_desktop, size_tablet, s
     }
     return {
         "id": id, "name": name, "moduleName": "divi/heading",
-        "version": "5.8.1", "type": "module", "created": ts, "updated": ts,
+        "version": "5.7.4", "type": "module", "created": ts, "updated": ts,
         "attrs": style,       # PRIMARY
         "styleAttrs": style,  # AUXILIARY
         "renderAttrs": {}
@@ -310,7 +310,7 @@ def make_section_style_preset(id, name, module_name, bg_color, padding="60px"):
     }
     return {
         "id": id, "name": name, "moduleName": module_name,
-        "version": "5.8.1", "type": "module", "created": ts, "updated": ts,
+        "version": "5.7.4", "type": "module", "created": ts, "updated": ts,
         "attrs": style,       # PRIMARY
         "styleAttrs": style,  # AUXILIARY
         "renderAttrs": {}

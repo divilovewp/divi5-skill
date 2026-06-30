@@ -12,17 +12,11 @@ author: Shashank Gupta @ divilove.com
 
 ---
 
-## 0. What's New in v0.6.0 (Divi 5.8.0 / 5.8.1)
+## 0. What's New in v0.5.1 (Divi 5.7.4)
 
-Targets the current **Divi 5.8.x** line (latest **5.8.1**, 06-25-2026). Two real authoring additions landed since 5.7.4 (all **render-confirmed on 5.8.1**):
+Targets the current **Divi 5.7.x** line (latest **5.7.4**, 06-12-2026). The authoring features below were all introduced in **5.7.0**; releases **5.7.1–5.7.4** were maintenance/bug-fix patches with **no new authoring schema, attribute paths, or render contracts** — nothing in hand-authored page JSON changes. (5.7.1–5.7.4 added the builder-UI **workspace** system, command-center comments, and a long list of Visual-Builder / migration / front-end render fixes — none affect generated markup.) `builderVersion` is bumped to `"5.7.4"` to match the installed theme.
 
-- **Tooltip module (`divi/tooltip`):** a hover / click / always-on popover that attaches to its **parent module**; trigger, placement-grid, arrow, delays, follow-cursor → MODULES-INTERACTIVE. (Hover/click need the frontend script; `trigger:"always"` renders without JS.)
-- **Advanced Text Styling — every font group:** **variable fonts** (`weight:"variable"` + `weightFineTune` + `variationSettings` axis map + `opticalSizing`; any axis the font exposes — width, slant, grade, Roboto Flex parametric axes, Bitcount Element Shape/Expansion, …), **capitalization / small-caps**, **decoration-line styling** (`overline` + `lineColor`/`lineStyle`/`lineThickness`/`underlineOffset`), **text columns**, **drop caps** (the dedicated `bodyFont.dropCap` group → `::first-letter`), **vertical text direction** (`writingMode`), **line-wrap** (`textWrap`) + **hyphenation** (`hyphens`), and **paragraph/list spacing** (`bodyFont.body.list`) → STYLING §7e; plus **stroke position** → §7b.
-- **`builderVersion` bumped to `"5.8.1"`** (older values still import via backward-compat migration; match the installed Divi version).
-
-### 0a. Earlier — v0.5.1 / v0.5.0 (Divi 5.7.x)
-
-The 5.7.0 authoring features below were introduced on top of the 5.6.2 baseline; releases **5.7.1–5.7.4** were bug-fix/builder-UI only (workspace system, command-center comments, VB/migration/front-end render fixes) — no authoring-schema change.
+Authoring features (introduced in 5.7.0, on top of the 5.6.2 baseline below):
 
 - **Text fill effects (font groups):** any font group now supports **gradient text fill**, **image text fill**, and **text stroke** via `<element>.decoration.font.textEffects` → STYLING §7b.
 - **Gradient variables:** gradients (backgrounds *and* text fill) can reference a reusable global gradient token — `$variable({"type":"gradient",...})$`, stored under `global_variables` type `gradients` → STYLING §1 + §10.
@@ -43,7 +37,7 @@ Built/confirmed against Divi **5.0.x**; this revision documents everything added
 
 1. **Every page content string is wrapped in `<!-- wp:divi/placeholder -->...<!-- /wp:divi/placeholder -->`.**
 2. **Hierarchy is always: Section → Row → Column → Module(s).** Never skip levels.
-3. **`builderVersion: "5.8.1"` must be on every single module** — section, row, column, and all content modules. (Match the installed Divi version; older values import via backward-compat but should be updated.)
+3. **`builderVersion: "5.7.4"` must be on every single module** — section, row, column, and all content modules. (Match the installed Divi version; older values import via backward-compat but should be updated.)
 4. **Self-closing modules** end with ` /-->` (space + slash): `<!-- wp:divi/heading {...} /-->`.
 5. **Container modules** (section, row, column, group, etc.) use open + close pairs.
 6. **Row flex layout is driven by `flexColumnStructure` + `layout.*.value.flexWrap`** — NOT by a `display: flex` property.
@@ -172,7 +166,7 @@ This affects gallery images and any field where you might try to pass a list. Ar
 ❌ Nested object. ✅ Plain string (see Section 2).
 
 ### Missing `builderVersion`
-❌ Any module without `"builderVersion": "5.8.1"` will fail to render or import.
+❌ Any module without `"builderVersion": "5.7.4"` will fail to render or import.
 
 ### Row Flex Not Working
 ❌ Setting `display: flex` or `"display": "flex"` — ignored by Divi.
@@ -186,7 +180,7 @@ This affects gallery images and any field where you might try to pass a list. Ar
 The JSON after a block name **is** the attributes object. Put the attribute groups
 (`title`, `content`, `module`, `builderVersion`, ...) at the **top level** of the block JSON.
 ❌ `<!-- wp:divi/heading {"attrs":{"title":{...}}} /-->` -- module renders **EMPTY** (blank page).
-✅ `<!-- wp:divi/heading {"title":{...},"builderVersion":"5.8.1"} /-->`
+✅ `<!-- wp:divi/heading {"title":{...},"builderVersion":"5.7.4"} /-->`
 > `attrs` IS a real key in **preset** definitions (see PRESETS) -- do not carry it over. Module **blocks** never use an `attrs` wrapper.
 
 ### `divi/text` content key is `content` — NOT `body`, NOT `text`  (BLANK-PAGE CAUSE #2)
@@ -363,7 +357,7 @@ If `imageIcon.innerContent.desktop.value.src` is an empty string `""` (with `use
 - [ ] Every section → row → column chain is intact
 
 **Modules:**
-- [ ] Every module has `"builderVersion": "5.8.1"`
+- [ ] Every module has `"builderVersion": "5.7.4"`
 - [ ] Every container has matching close tag
 - [ ] Every self-closing ends with ` /-->`
 - [ ] `flexColumnStructure` count matches actual column count
@@ -412,4 +406,4 @@ deploy until every line passes.** A failure here means rework, not a warning.
 
 ---
 
-*DIVI5 Base Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Base Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*

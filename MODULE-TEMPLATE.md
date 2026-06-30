@@ -54,7 +54,7 @@ human has confirmed **every** setting. The rules:
 ## Module: `divi/<name>`
 
 **Branch:** `module/<name>` · **Family file:** `DIVI5-MODULES-<FAMILY>.md` ·
-**Divi version verified:** 5.7.4 · **Date:** ____
+**Divi version verified:** 5.8.1 · **Date:** ____
 
 ### 1. Content tab (module-specific) — REQUIRED
 - [ ] Every `innerContent` field: exact path + shape (string / object / array) + which are required + defaults.

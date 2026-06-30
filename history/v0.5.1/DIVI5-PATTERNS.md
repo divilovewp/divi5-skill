@@ -173,7 +173,7 @@ Group attrs for a styled card:
       "layout": {"desktop": {"value": {"flexDirection":"column","alignItems":"flex-start"}}}
     }
   },
-  "builderVersion": "5.8.1"
+  "builderVersion": "5.7.4"
 }
 ```
 
@@ -181,7 +181,7 @@ Group attrs for a styled card:
 ```
 Row (1-col, max-width 900px)
   └── Column
-        └── group-carousel {"builderVersion": "5.8.1"}
+        └── group-carousel {"builderVersion": "5.7.4"}
               ├── Group (slide 1 — dark bg, border-radius, padding)
               │     └── text + attribution modules
               ├── Group (slide 2)
@@ -368,4 +368,4 @@ Pair grid cells with `aspectRatio` + image `fit` (STYLING §3/§3b) for uniform,
 
 ---
 
-*DIVI5 Patterns Skill — V0.6.0 | Builder Version 5.8.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Patterns Skill — V0.5.1 | Builder Version 5.7.4 | Created by Shashank Gupta @ divilove.com*
