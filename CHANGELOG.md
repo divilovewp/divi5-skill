@@ -9,6 +9,26 @@ in [SKILL.md](SKILL.md)). The version is bumped only when the **authoring schema
 changes. Documentation corrections and clarifications that don't change the schema
 are logged under **Unreleased** and ship within the current version without a bump.
 
+## [0.6.1] — 2026-07-01 · Divi Builder 5.8.1
+
+No authoring-schema change (`builderVersion` stays `"5.8.1"`) — this release syncs the
+**Divi Connect live-site docs** to the plugin's v1.6.5 behaviour and adds a real-world pattern.
+
+### Changed
+- **`DIVI5-CONNECT.md` — post-creation mode synced to Divi Connect v1.6.5.** Divi-builder posts
+  are now **auto-detected** (send Divi markup → the plugin sets `_et_pb_use_builder` for you);
+  `"builder":"divi"|"gutenberg"` documented as an explicit override rather than a "verify in review"
+  TODO. Documented the **VB-wipe-on-save fix**: `divi_get_page` now returns `mode` + `needs_builder_repair`,
+  and editing an older broken post auto-repairs it (with a graceful fallback for plugin <1.6.5).
+
+### Added
+- **`DIVI5-CONNECT.md` — `divi_duplicate_page` + `divi_list_pages`** (Divi Connect v1.6.5+): clone a
+  page/post into a draft (content + meta + featured image + taxonomies) and resolve a page by name → id,
+  with the clone-then-edit flow.
+- **`DIVI5-PATTERNS.md` — Off-canvas mobile menu (hamburger drawer)** built from native Divi Interactions
+  + `disabledOn` responsive hiding (no Canvas / no code module), with wiring and the known tradeoffs
+  (instant show/hide, no backdrop). Live-verified on the divilove.com Theme-Builder header.
+
 ## [0.6.0] — 2026-06-30 · Divi Builder 5.8.1
 
 Tracks the **Divi 5.8.x** line (5.8.0 + 5.8.1). Two new authoring additions, both

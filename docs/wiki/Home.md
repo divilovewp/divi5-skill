@@ -19,6 +19,6 @@ task needs and produces correct Divi 5 markup.
 - **[FAQ](7-FAQ.md)**
 
 ## At a glance
-- **Version:** v0.6.0 · `builderVersion` `"5.8.1"` (tracks the Divi 5.8.x line)
+- **Version:** v0.6.1 · `builderVersion` `"5.8.1"` (tracks the Divi 5.8.x line)
 - **License:** MIT
 - **Two delivery paths:** generate JSON only (paste/import yourself), or publish live via the [Divi Connect](https://divilove.com/) plugin.
