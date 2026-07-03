@@ -38,6 +38,7 @@ fall into five buckets.
 - **Empty column** with a background image and no children collapses to zero height — add `minHeight`.
 - **`number-counter` / `circle-counter` / `countdown-timer` / `table-of-contents`** need a real browser (scroll / JS); headless screenshots show blank or static output. TOC must be built via the builder UI, not raw REST.
 - **`divi/tooltip`** (NEW 5.8.0) hover/click triggers + final placement are **script-dependent** — on a raw REST page the tooltip script may not enqueue (like TOC), so the popover never reveals; `trigger:"always"` renders without JS. Build via the builder UI for hover/click.
+- **Stale `_divi_dynamic_assets_cached_modules` post meta** — Divi 5 caches each page's module list in this post meta to decide which JS bundles to enqueue. If a script-dependent module (slider, entrance animation, scroll effect, sticky, TOC) is **added to a page whose cache predates it**, its script never enqueues: a slider renders all slides stacked vertically with dead arrows/dots, animations/sticky sit inert. Fix: `wp post meta delete <id> _divi_dynamic_assets_cached_modules` + clear `wp-content/et-cache/` after programmatic imports — Divi rebuilds the cache on the next load. This is likely the mechanism behind the raw-REST TOC/tooltip script failures above. (Tested on Divi 5.7.0 → 5.8.1, portability-imported pages.)
 - **Responsive values do not inherit** across breakpoints — set each breakpoint you care about.
 
 ## 4. Documented from source but not render-tested (⚙)
