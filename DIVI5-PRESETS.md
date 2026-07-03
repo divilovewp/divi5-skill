@@ -10,6 +10,8 @@ WP option (logical name): **`builder_global_presets_d5`**
 
 **IMPORTANT — actual DB key:** Divi reads/writes this option via `et_get_option()` / `et_update_option()` with `$is_product_setting=true`, which prefixes the key with `et_{shortname}_`. On a standard Divi install the actual WordPress option row is **`et_divi_builder_global_presets_d5`**. The mu-plugin endpoint uses the same Divi functions so both reads and writes hit the correct key.
 
+> **Note (observed on 5.8.1 — worth double-checking):** on two live Divi 5.8.1 installs (one fresh, one upgraded from 5.7.x) the only preset option row present in `wp_options` was **`et_divi_builder_global_presets_ng`** — no `et_divi_builder_global_presets_d5` row existed, and the front end resolved `modulePreset` references against the `_ng` store. Possibly the `_d5` row only appears after the builder saves presets through the newer endpoint, or the key changed between builds. Before writing presets directly to options, verify which row your install actually reads: `wp option list --search='et_divi_builder_global_presets*'`.
+
 ### Top-level structure
 
 ```json

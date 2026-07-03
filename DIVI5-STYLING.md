@@ -243,6 +243,7 @@ All modules that render an image (`image`, `blurb`, `testimonial`, `team-member`
 "boxShadow": {
   "desktop": {
     "value": {
+      "style": "preset1",
       "horizontal": "0px",
       "vertical": "9px",
       "blur": "15px",
@@ -253,6 +254,8 @@ All modules that render an image (`image`, `blurb`, `testimonial`, `team-member`
   }
 }
 ```
+
+**⚠️ `style` is required.** Without a `"style"` key the shadow resolver falls back to `"none"` and emits **zero CSS** — the horizontal/vertical/blur/color values are silently ignored. Set one of Divi's shadow presets (`"preset1"` … `"preset7"`); the explicit values above then override that preset's defaults (the emitted CSS uses your exact values). `position`: `"outer"` (default) or `"inner"` (inset). Render-verified on Divi 5.8.1.
 
 ---
 
@@ -345,6 +348,8 @@ Every font group now has a sibling **`textEffects`** group at `<element>.decorat
 | `imageFill` | `{url, size, width, height, position, horizontalOffset, verticalOffset, repeat, blend}` — used when `fillType: "image"` |
 
 When `fillType` is `gradient` or `image`, Divi sets `-webkit-background-clip:text` + `-webkit-text-fill-color:transparent`, so the fill replaces the normal `font.color`. `transparent` makes the text see-through (shows background through glyphs). Stroke works with any `fillType`, including alongside a fill.
+
+> **⚠️ Front-end caveat on `divi/heading` (observed on portability-imported pages, Divi 5.8.1):** the gradient/image fill can render **invisible** on the public front end. Divi emits the clip CSS on the module wrapper (`.et_pb_heading_N{background-image:…;background-clip:text;-webkit-text-fill-color:transparent}`), but the heading tag sits inside `.et_pb_heading_container`, which Divi styles `position:relative`. The positioned descendant gets its own paint layer, and Chromium cannot clip a background to text in a separate layer — so the gradient never shows and the `transparent` fill leaves an invisible heading. Reproducing the identical markup with `position:static` renders correctly, so the CSS itself is fine. **Workaround:** add a `cssClasses` hook on the heading (e.g. `fx-text-fill`) plus a one-line override — `.fx-text-fill .et_pb_heading_container{position:static}`. Stroke and `textShadow` are unaffected (both inherit to the heading tag directly).
 
 ### Gradient text fill (heading)
 
