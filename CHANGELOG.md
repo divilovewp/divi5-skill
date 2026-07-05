@@ -9,6 +9,14 @@ in [SKILL.md](SKILL.md)). The version is bumped only when the **authoring schema
 changes. Documentation corrections and clarifications that don't change the schema
 are logged under **Unreleased** and ship within the current version without a bump.
 
+## [0.6.2] — 2026-07-05 · Divi Builder 5.8.1
+
+No authoring-schema change (`builderVersion` stays `"5.8.1"`). Maintenance/metadata release:
+
+- Made the skill `description` **version-agnostic** — it had gone stale reading "Divi Builder 5.7.x"
+  while the skill targets the Divi 5.8.x line. Removed the hardcoded patch from the description so it
+  won't rot on future Divi updates. No content/schema change.
+
 ## [0.6.1] — 2026-07-01 · Divi Builder 5.8.1
 
 No authoring-schema change (`builderVersion` stays `"5.8.1"`) — this release syncs the

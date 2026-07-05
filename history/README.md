@@ -20,10 +20,11 @@ edited in place; this policy prevents that recurring.)
 | 0.5.1 | [v0.5.1/](v0.5.1/) (browse) · [v0.5.1.zip](v0.5.1.zip) (download) | 5.7.4 | Divi 5.7.x line — text fill effects, gradient variables, expanded gradient model (snapshotted at the 0.6.0 bump). |
 | 0.6.0 | [v0.6.0/](v0.6.0/) (browse) · [v0.6.0.zip](v0.6.0.zip) (download) | 5.8.1 | Divi 5.8.x — **Tooltip module** + **Advanced Text Styling** (variable fonts, drop caps, text columns, vertical text, line-wrap, hyphenation, paragraph spacing, stroke position). |
 | 0.6.1 | [v0.6.1/](v0.6.1/) (browse) · [v0.6.1.zip](v0.6.1.zip) (download) | 5.8.1 | Docs release (no schema change) — Divi Connect **v1.6.5** live-site sync (post auto-detect, `divi_duplicate_page`/`divi_list_pages`, `mode`/`needs_builder_repair`) + **off-canvas mobile menu** pattern. |
+| 0.6.2 | [v0.6.2/](v0.6.2/) (browse) · [v0.6.2.zip](v0.6.2.zip) (download) | 5.8.1 | Metadata release (no schema change) — made the skill `description` version-agnostic (was stale at "5.7.x"; skill targets 5.8.x). |
 
 0.3.0+ are multi-file, so each is provided both as browseable files under `vX.Y.Z/` and as a
 downloadable `vX.Y.Z.zip` (mirrors the original "Upload these to Claude" / reference layout). The current
-release lives in the repo root; **0.6.1** is the latest.
+release lives in the repo root; **0.6.2** is the latest.
 
 **Not archived:** 0.4.0 (Divi 5.6.2) and 0.5.0 (Divi 5.7.0) have no surviving snapshot — those skill
 files were edited in place during development, so no standalone copy was kept; they exist only as entries

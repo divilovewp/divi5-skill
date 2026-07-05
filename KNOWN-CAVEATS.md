@@ -58,4 +58,4 @@ haven't been confirmed with a real render.
 
 ---
 
-*Generated from DIVI5-COVERAGE.md (V0.6.1 · Builder Version 5.8.1). Keep both in sync when coverage changes.*
+*Generated from DIVI5-COVERAGE.md (V0.6.2 · Builder Version 5.8.1). Keep both in sync when coverage changes.*
