@@ -250,6 +250,14 @@ Two helpers that make "clone this and tweak it" cheap — if `tools/list` shows 
 
 Typical flow: `divi_list_pages` (find the id by name) → `divi_duplicate_page` (get a draft copy + its content) → edit the returned markup → `PUT /pages/{id}` → publish.
 
+### Create a Portfolio PROJECT  *(Divi Connect v1.7.0+)*
+Divi's **Projects** are a separate post type (the Portfolio CPT) used for case studies / portfolio entries — they have their own archive, single-project template and Portfolio-module listings. A page or blog post is **not** the same thing, so when the user asks for a "project" / "case study" / "portfolio item", use the project tools (only present in `tools/list` when the site has Divi Portfolio enabled):
+
+- **`divi_create_project`** — `POST /projects` → creates a Divi-built project. Same markup rules as a page/post; supports `categories` + `tags` (these are the **project** taxonomies `project_category` / `project_tag`, created if missing) and `excerpt`.
+- Projects are just another post id to the rest of the toolset: **`divi_get_page`**, **`divi_update_page`**, **`divi_duplicate_page`**, **`divi_get_tree`** / edit tools, **`divi_get_rendered_page`** and snapshots/rollback all accept a project id directly. Find one by name with `divi_list_pages` `type:"project"`.
+
+> **⭐ Match an existing project's look — clone, don't rebuild.** Portfolio projects usually share a designed layout (e.g. alternating left/right case-study sections). To make a new one consistent, **`divi_list_pages` `type:"project"` → `divi_duplicate_page` the closest existing project → edit the copy's returned `content` → publish.** Building a project from scratch will miss those established patterns; cloning preserves them.
+
 ### Set global colors  *(Pro)*
 Writes to the Divi 5 Variables panel (global colors). `merge:true` keeps existing colors; omit/false replaces all.
 ```

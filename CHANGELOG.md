@@ -9,6 +9,15 @@ in [SKILL.md](SKILL.md)). The version is bumped only when the **authoring schema
 changes. Documentation corrections and clarifications that don't change the schema
 are logged under **Unreleased** and ship within the current version without a bump.
 
+## [Unreleased] — within 0.6.2 (Divi 5.8.1)
+
+No schema change. Documentation only:
+
+- **DIVI5-CONNECT.md:** added a "Create a Portfolio PROJECT" section covering Divi
+  Connect v1.7.0's project (Portfolio CPT) support — `divi_create_project`, that
+  all id-based tools accept a project id, and the **clone-a-reference-project →
+  edit** workflow for a consistent case-study look.
+
 ## [0.6.2] — 2026-07-05 · Divi Builder 5.8.1
 
 No authoring-schema change (`builderVersion` stays `"5.8.1"`). Maintenance/metadata release:
