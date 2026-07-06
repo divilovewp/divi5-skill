@@ -150,6 +150,37 @@ Section (dark bg, no padding)
 ```
 The empty image-background column needs `minHeight` set or it collapses since it has no content.
 
+### Case-Study / Project Rows — Alternating Image + Text (Confirmed)
+For case studies, portfolio **projects**, and "how it works" pages: a stack of 2-column rows that alternate image-left / image-right down the page.
+```
+Section (padding ~80px top/bottom)
+  ├── Row 1 (2-col: 12_24 image | 12_24 text, alignItems:center, columnGap:48px, maxWidth:1080px)
+  │     ├── Column → Image (rounded)
+  │     └── Column → eyebrow + Heading (h3) + Text + Button
+  └── Row 2 (same, but the IMAGE is on the RIGHT)
+        ├── Column → eyebrow + Heading + Text + Button
+        └── Column → Image
+```
+Two ways to alternate the sides:
+- **Simplest (render-confirmed):** swap the column **order** each row — image-column first on odd rows, text-column first on even rows. On mobile both columns stack in markup order.
+- **Better on mobile (image always on top):** keep the image column **first in every row** and flip only the **desktop** direction on even rows with `flexDirection:"row-reverse"`; mobile stays `column`, so the image sits on top consistently (same mechanism as the confirmed hero `column-reverse`, LAYOUT §hero).
+
+Row `layout` for an even / reversed row:
+```json
+"layout": {
+  "desktop": {"value": {"flexWrap":"nowrap","alignItems":"center","columnGap":"48px","flexDirection":"row-reverse"}},
+  "phone":   {"value": {"flexWrap":"wrap"}}
+}
+```
+`divi/image` block, exactly as the server emits it (src path = `image.innerContent.desktop.value.src`):
+```json
+<!-- wp:divi/image {"image":{"innerContent":{"desktop":{"value":{"src":"URL","alt":"..."}}}},"module":{"decoration":{"border":{"desktop":{"value":{"radius":{"topLeft":"12px","topRight":"12px","bottomLeft":"12px","bottomRight":"12px","sync":"on"}}}}}},"builderVersion":"5.8.1"} /-->
+```
+- Set `alignItems:center` on the row so the image and the text block line up vertically against each other.
+- **Tip (projects):** to match the look of a site's existing projects, `divi_duplicate_page` a reference project and edit the copy instead of building from scratch — see DIVI5-CONNECT "Create a Portfolio PROJECT".
+
+Render-confirmed via `divi_build_page` (2 alternating rows, image + eyebrow/heading/text/button each, zero warnings).
+
 ### Group Card Pattern (Confirmed)
 ```
 Row (equal-columns_3)
