@@ -17,6 +17,19 @@ No schema change. Documentation only:
   Connect v1.7.0's project (Portfolio CPT) support — `divi_create_project`, that
   all id-based tools accept a project id, and the **clone-a-reference-project →
   edit** workflow for a consistent case-study look.
+- **Community contributions from @MDHMatt** (render-verified against live front-end
+  renders; reviewed + re-checked on Divi 5.9.0 before merge):
+  - **DIVI5-WORDPRESS.md** (#1): warn that `page-template-blank.php` suppresses
+    Theme Builder chrome — use the `default` template + `_et_pb_page_layout:
+    et_full_width_page` for full-width pages *with* a TB header/footer, plus the
+    three wiring conditions for imported TB layouts.
+  - **DIVI5-MODULES-MEDIA.md / KNOWN-CAVEATS.md** (#2): document the stale
+    `_divi_dynamic_assets_cached_modules` post-meta that stops slider/animation/
+    scroll/sticky/TOC scripts from enqueuing on programmatically-imported pages.
+  - **DIVI5-STYLING.md / DIVI5-PRESETS.md** (#3): `boxShadow` needs a `style` key
+    or it emits no CSS; gradient/image text-fill can render invisible on
+    `divi/heading` (positioned container paint layer); and a preset-store note
+    (`_d5` created lazily, full `divi/<type>` buckets, CSS gated on `attrs`).
 
 ## [0.6.2] — 2026-07-05 · Divi Builder 5.8.1
 
