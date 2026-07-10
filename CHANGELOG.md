@@ -11,7 +11,12 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
-_Nothing yet._
+- **DIVI5-CONNECT.md:** documented Divi Connect v1.7.3's `divi_build_page` fidelity primitives
+  (background image + overlay on sections/columns, the `badge` module, `rotate`/`scale` tilt, and
+  variable-font axes) as an "editorial / premium looks" subsection, plus a "Design nudges" note under
+  Build guardrails (the non-blocking slop warnings that point back to DESIGN-PROCESS §8b). Field-level
+  detail stays in the tool's own description; the Skill just steers when to reach for them. Docs-only,
+  no version bump.
 
 ## [0.6.3] — 2026-07-10 · Divi Builder 5.9.0
 

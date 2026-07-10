@@ -213,6 +213,29 @@ Pass colours as `gcid-…`/`gvid-…` ids or literals exactly as elsewhere; anyt
 - **WCAG AA contrast** is enforced: leave a text colour unset over a known background and the server
   auto-supplies a legible light/dark colour; set an explicit colour that fails AA (4.5:1 normal, 3:1 large)
   and it keeps your colour but warns. Aim for AA-passing pairs.
+- **Design nudges** *(Divi Connect v1.7.3+)* — the server also flags common AI-design tells (non-blocking):
+  emoji used as UI in headings/labels/buttons, HTML/CSS dumped into a `code` module, buttons with no hover
+  state, and Inter as the only typeface. These aren't errors — they're a prompt to self-correct toward the
+  taste rules in DESIGN-PROCESS §8b ("Avoid AI-design clichés"). If a nudge fires, fix it or justify it.
+
+### Fidelity primitives — for editorial / premium looks *(Divi Connect v1.7.3+)*
+
+`divi_build_page` can build the bespoke touches that make a page read as *designed*, all with real Divi
+modules (never a `divi/code` + `<style>` dump — see Rule 14). Reach for these on premium/editorial designs:
+
+- **Background image + overlay** on a section or column: `bg_image` (URL) with `bg_size`/`bg_position`/`bg_repeat`,
+  and `bg_overlay` (a colour laid *over* the photo) + `bg_overlay_opacity` (0–1) to keep text legible. The overlay
+  colour also drives auto text-contrast, so white copy over a dark overlay is graded correctly.
+- **Badge** module (`type:"badge"`) — a numeral/short label centred in a coloured `circle` / `pill` / `square`
+  (chapter markers, step numbers, tags). Use for the "navy circle around each chapter number" kind of detail.
+- **Tilt** — `rotate` (degrees) on a column (tilted "cards"), an `image`, or a `badge`; `scale` for a subtle zoom.
+  Keep angles small (±2–6°); overuse reads as gimmicky.
+- **Variable-font axes** (opt-in, only if the family is a variable font that's actually loaded): `weight:"variable"`
+  + `weight_fine`, an `axes` map (e.g. Fraunces `{ "SOFT":60, "WONK":1 }`), and `optical` for optical sizing.
+
+Exact field lists live in the `divi_build_page` tool description. Prefer these over hand-writing raw
+`decoration` markup — but for anything the compact spec doesn't cover, raw `divi_create_page`/`divi_edit_module`
+markup still works.
 
 ### Create a real blog POST (not a page)
 For blog/journal articles that should appear in the blog, feeds and archives, create a **post**, not a page.
