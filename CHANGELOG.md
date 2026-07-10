@@ -30,6 +30,13 @@ No schema change. Documentation only:
     or it emits no CSS; gradient/image text-fill can render invisible on
     `divi/heading` (positioned container paint layer); and a preset-store note
     (`_d5` created lazily, full `divi/<type>` buckets, CSS gated on `attrs`).
+- **DIVI5-DESIGN-PROCESS.md §8b "Avoid AI-design clichés":** a tight, Divi-specific
+  do/don't table (the "AI default" cream+serif+terracotta reflex, rainbow gradients,
+  emoji-as-UI, left-border cards, Inter-everywhere, dead interaction states,
+  decoration-as-crutch) + a "3-brands test" + a matching Self-Critique checkbox.
+  Framed around **grounding in the real brand/tokens**, not banning any one style
+  (so it never fights a genuinely warm/editorial brand). Addresses beta design-
+  quality feedback.
 
 ## [0.6.2] — 2026-07-05 · Divi Builder 5.8.1
 

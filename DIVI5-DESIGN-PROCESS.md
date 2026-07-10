@@ -293,6 +293,34 @@ State per-section how it adapts (don't leave it to chance):
 
 ---
 
+## 8b. Avoid AI-design clichés (read "designed," not "AI-generated")
+
+A page can be **valid and thoughtless at once**: correct modules, but the instantly-recognisable "AI default" look. That look — not broken markup — is the #1 reason output reads as generic. The fix isn't more decoration. It's **grounding every choice in the brief and a coherent design system**, with deliberate hierarchy and restraint.
+
+> **Where the "design system" comes from depends on your mode (§0):**
+> - **Mode A (live site / Divi Connect):** the site's **real tokens** from `/design-system` — use them, never invent token names.
+> - **Mode B (JSON only):** there's no site to read, so ground in **the brand you were given** and **define a coherent token set** — reference the `gcid-*`/`gvid-*` ids the user says their site defines, or emit `global_colors`/`global_variables` definitions in the export, or (if the user opted for literals) reuse a small consistent set. Either way it's a *deliberate* system, **not** a per-element reflex.
+
+> This is about the **ungrounded reflex**, not any one style. If the brand genuinely is warm/editorial/serif, use it — *deliberately*. The sin is reaching for a default look with no grounding in this brand.
+
+### The tells to avoid — and what to do instead
+
+| ❌ AI cliché | ✅ Do instead |
+|---|---|
+| **The "AI default" aesthetic** — cream/beige bg + a serif display (Playfair/Fraunces) + a terracotta/amber/sage accent, chosen *by reflex* | Ground in the brand + a coherent token set (Mode A: the site's real tokens; Mode B: the ids the site defines / your exported definitions / stated brand). Warm-editorial is fine *when it's the brand*, not as a fallback. |
+| **Aggressive gradients** — purple→pink hero, rainbow CTAs, a gradient on every section | Solid brand colours; a gradient only if it's part of the brand, used once, with intent. |
+| **Emoji as UI** — emoji in headings, as bullets, as section markers | Real `divi/icon` / `divi/svg` in a brand colour. Emoji only if the voice is explicitly playful. |
+| **"Alert" cards** — every card a rounded box with a thick coloured left border | One radius + one shadow + consistent padding (§6); differentiate by hierarchy, not a left stripe. |
+| **Inter / system font everywhere**, no type personality | One display + one body font on a real type scale (`font-display` / `font-body` role tokens); let type carry voice. |
+| **Everything centred**, uniform section rhythm, no focal point | Deliberate hierarchy (§8) + varied layout rhythm (§2): mix full-width / split / grid; left-align body blocks. |
+| **Dead interactions** — no hover/focus, or one style on every state | Define hover/focus on buttons, links and cards via decoration **states** (`:hover`); keep visible keyboard focus. Real interaction states read as "designed." |
+| **Decoration as a crutch** — glassmorphism / blur / heavy shadows papering over a weak layout | Fix layout first (hierarchy, spacing, alignment); effects are seasoning, not structure. |
+
+### The 3-brands test
+Before building, ask: **"Would this look identical for a law firm, a taco truck, and a SaaS?"** If yes, it's the generic default — reground it in *this* brand's tokens, voice and content. **Restraint + grounding beats decoration.** (See §8 Restraint · §6 Design System · STYLING §10 tokens.)
+
+---
+
 ## 9. Map the Plan to the Skill Files (where each decision is implemented)
 
 | Plan decision | Implement via |
@@ -349,6 +377,7 @@ Score the plan; fix any "no":
 - [ ] **Copy is verbatim** vs the user's source/reference (no paraphrasing)?
 - [ ] **Variable gate honoured** — tokens used where they exist / user opted in; inline only where they don't or the user opted out?
 - [ ] **Contrast on dark backgrounds** checked (titles/meta/icons use light tokens; no undefined `var()`)?
+- [ ] **No AI-design clichés (§8b)** — grounded in the brief + a coherent token set (Mode A live tokens / Mode B defined-or-stated), not the reflex cream+serif+terracotta default, rainbow gradients, emoji-as-UI, left-border cards, or Inter-everywhere; hover/focus states defined?
 
 > Then run the full **Authoring Self-Audit Gate (BASE §9)** before deploying.
 
