@@ -52,6 +52,25 @@ payload = {
 | `"et_right_sidebar"` | Right sidebar (default if meta not set) |
 | `"et_left_sidebar"` | Left sidebar |
 
+### ⚠️ Caveat — `page-template-blank.php` suppresses Theme Builder chrome
+
+If the site uses **Theme Builder** templates (global header/footer, body layouts), do **not** use `page-template-blank.php` — the blank template suppresses Theme Builder output entirely, so pages created with it render with no site header or footer. The full-width look does not depend on the blank template: `_et_pb_page_layout: "et_full_width_page"` already removes the sidebar and lets content span 100%.
+
+For full-width pages **with** Theme Builder chrome, use this combination instead:
+
+```python
+'template': '',   # default template (_wp_page_template = default)
+'meta': {
+    '_et_pb_use_builder': 'on',
+    '_et_pb_use_divi_5':  'on',
+    '_et_pb_page_layout': 'et_full_width_page',
+},
+```
+
+Keep `page-template-blank.php` only when a chrome-less page is exactly what you want (e.g. a standalone landing page whose header is baked into the layout itself).
+
+*Tested on Divi 5.7.0 → 5.8.1, portability-imported pages.*
+
 ---
 
 ## 2. Prerequisites: mu-plugin for Meta Access
@@ -184,6 +203,16 @@ This does **not** require Application Passwords or the mu-plugin.
 | Modules missing (counters, etc.) | Builder not activated | Set `_et_pb_use_builder: "on"` |
 | `meta` field silently ignored | Protected meta not registered | Install `divi-rest-meta.php` mu-plugin |
 | Auth fails | Wrong credentials or basic auth disabled | Use Application Password |
+| TB header/footer missing on a page | `page-template-blank.php` suppresses Theme Builder output | Use the default template + `_et_pb_page_layout: "et_full_width_page"` (see §1 caveat) |
+| Imported TB layout never renders | Per-slot templates clobber each other / no `homepage` condition | See "Theme Builder chrome on imported pages" below |
+
+### Theme Builder chrome on imported pages
+
+If a programmatically imported Theme Builder header/footer doesn't render, three wiring conditions must all hold (tested on Divi 5.7.0 → 5.8.1, portability-imported pages):
+
+1. **All slots share ONE `et_template` post** — separate header-only and footer-only templates have overlapping display conditions, and Divi applies only one template per request, so they clobber each other. Attach the header, body, and footer layouts to the same template.
+2. **The template carries explicit `_et_use_on` conditions, including `homepage`** — a bare `_et_default` template does not match a static front page, so the chrome renders everywhere except the homepage.
+3. **Pages use the `default` WP template** — `page-template-blank.php` suppresses Theme Builder output entirely (see the §1 caveat).
 
 ---
 
