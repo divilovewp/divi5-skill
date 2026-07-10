@@ -10,6 +10,8 @@ WP option (logical name): **`builder_global_presets_d5`**
 
 **IMPORTANT — actual DB key:** Divi reads/writes this option via `et_get_option()` / `et_update_option()` with `$is_product_setting=true`, which prefixes the key with `et_{shortname}_`. On a standard Divi install the actual WordPress option row is **`et_divi_builder_global_presets_d5`**. The mu-plugin endpoint uses the same Divi functions so both reads and writes hit the correct key.
 
+> **Note — `_d5` is created lazily; don't be fooled by seeing only `_ng` (verified on 5.8.1):** the `et_divi_builder_global_presets_d5` row does not exist until the first successful Divi 5 preset save/import (`GlobalPreset::save_data()`). A sibling row, `et_divi_builder_global_presets_ng`, is the **Divi 4 legacy store**, read once for migration (`GlobalPreset::get_legacy_data()`, gated by `et_divi_builder_is_legacy_presets_imported_to_d5`) — it exists as `{}` by default on fresh installs. So if `wp option list --search='et_divi_builder_global_presets*'` shows only `_ng`, it means no D5 preset has ever landed on that site, not that `_ng` is the live store. Two related import-side traps for programmatic workflows: render lookup searches `presets.module` buckets by the **full `divi/<type>` block name** (a bare-tag bucket like `"button"` imports fine but never matches), and front-end CSS generation is gated on the item's **`attrs`** key (`GlobalPresetItem::has_data_attrs()`) holding a full `{"module":{"decoration":…}}` tree — a `styleAttrs`-only item emits no CSS. Verified with a 4-variant live experiment on Divi 5.8.1.
+
 ### Top-level structure
 
 ```json
