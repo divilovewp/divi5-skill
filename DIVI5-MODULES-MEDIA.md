@@ -97,6 +97,8 @@ Image gallery grid. **Self-closing.**
 
 **Confirmed:** First slide is active on page load. Navigation dots render automatically. `module.decoration.background.color` sets per-slide background. Remove section padding (`0px` all sides) to let the slider be full-width.
 
+**⚠️ Slides stacked vertically with dead navigation?** Divi 5 caches the page's module list in the `_divi_dynamic_assets_cached_modules` post meta to decide which JS bundles to enqueue. If the slider is added to a page that was previously saved/imported **without** one, the stale cache omits `divi/slider`, the slider script never loads, and all slides render stacked with no cycling and no working arrows/dots — even though the JSON is correct. Fix: `wp post meta delete <post_id> _divi_dynamic_assets_cached_modules` (and clear `wp-content/et-cache/`), then reload — Divi re-scans the content and writes a fresh cache. The same stale-cache class affects entrance animations, scroll effects, sticky, and table-of-contents. Tested on Divi 5.7.0 → 5.8.1, portability-imported pages.
+
 ---
 
 ## `divi/video-slider` + `divi/video-slider-item`
