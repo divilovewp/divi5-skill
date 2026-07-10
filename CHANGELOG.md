@@ -9,10 +9,25 @@ in [SKILL.md](SKILL.md)). The version is bumped only when the **authoring schema
 changes. Documentation corrections and clarifications that don't change the schema
 are logged under **Unreleased** and ship within the current version without a bump.
 
-## [Unreleased] — within 0.6.2 (Divi 5.8.1)
+## [Unreleased]
 
-No schema change. Documentation only:
+_Nothing yet._
 
+## [0.6.3] — 2026-07-10 · Divi Builder 5.9.0
+
+**Divi 5.9.0 line.** One new authoring feature + a roll-up of doc improvements.
+`builderVersion` stamp moves to `"5.9.0"` (older values still import via backward-
+compat; the connector auto-stamps the site's installed version regardless).
+
+- **NEW (Divi 5.9.0) — Grid Editor / `gridOffsetRules`:** container-driven per-item
+  grid placement, documented in **DIVI5-LAYOUT.md §5b** + **DIVI5-COVERAGE.md**.
+  Set `gridOffsetRules:{rules:[…]}` on a `display:"grid"` container's `layout` to
+  place children by position (`first-child`/`last-child`/nth/`custom`) via
+  `columnStart`/`columnEnd`/`columnSpan` + `rowStart`/`rowEnd`/`rowSpan`. **Render-
+  confirmed on local Divi 5.9.0 (page 983):** `columnSpan:"2"` → `:nth-of-type(1)
+  {grid-column-end:span 2}`; `rowSpan:"2"` on `last-child` → `:last-of-type
+  {grid-row-end:span 2}`. Offset values also accept number-variable (`gvid-`) tokens
+  (source-noted). (Divi 5.9.0 added no new modules — same 84 as 5.8.x.)
 - **DIVI5-CONNECT.md:** added a "Create a Portfolio PROJECT" section covering Divi
   Connect v1.7.0's project (Portfolio CPT) support — `divi_create_project`, that
   all id-based tools accept a project id, and the **clone-a-reference-project →
