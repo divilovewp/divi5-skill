@@ -10,6 +10,7 @@ author: Shashank Gupta @ divilove.com
 
 ---
 
+<!-- dc:standalone-only -->
 ## 0. Connection Mode — Ask This First (Before Anything Else)
 
 Before discovery questions or planning, ask the user which output mode they want. Ask it as a single short question:
@@ -48,6 +49,7 @@ Generate Divi 5 markup as a code block. The user imports it via Divi → Import 
 > If the user says "just go" without answering, default to **B (JSON only)**.
 
 ---
+<!-- /dc:standalone-only -->
 
 ## 0b. The One Rule — Plan Before You Build
 
@@ -55,7 +57,7 @@ Generate Divi 5 markup as a code block. The user imports it via Divi → Import 
 
 **Output contract — every page request runs in this order:**
 
-0. **Connection mode** — ask A vs B (above), then if A ask for connection info and call `/design-system`.
+0. **Setup** — read the site's design system first so you build on real tokens (Divi Connect connector: `divi_get_design_system`; raw REST / standalone: `GET /design-system`).
 1. **`## Discovery`** — ask the user a focused set of relevant questions, then **wait for answers** before planning (see Phase 0b). Skip only if the brief already answers them or the user says "just go."
 2. `## Page Plan` — the written blueprint (Phases 1–7 below, kept concise), built from the answers.
 3. `## Self-Critique` — a quick pass against the rubric (§11); revise the plan if needed.
