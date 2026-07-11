@@ -228,6 +228,7 @@ Section patterns *(Divi Connect v1.7.4+)* — token-adaptive, light/dark aware, 
 - **skills** — `{preset:"skills", eyebrow?, heading?, items:[{label, percent}], circles?}` — labelled progress bars (native bar counters; `circles:true` = circular counters).
 - **contact** — `{preset:"contact", eyebrow?, heading?, sub?, email?, button?, fields?}` — a WORKING contact form (native contact-form; default Name/Email/Message).
 - **map** — `{preset:"map", eyebrow?, heading?, lat, lng, zoom?, api_key?}` — a location map (native map module). Needs a Google Maps API key + coordinates (an address alone won't geocode).
+- **before-after** — `{preset:"before-after", eyebrow?, heading?, before, after, before_label?, after_label?}` — a draggable before/after image slider (native module).
 
 Pass colours as `gcid-…`/`gvid-…` ids or literals exactly as elsewhere; anything you omit gets a tasteful default.
 
