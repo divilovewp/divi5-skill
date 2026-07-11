@@ -213,6 +213,11 @@ Section patterns *(Divi Connect v1.7.4+)* — token-adaptive, light/dark aware, 
 - **logo-strip** — `{preset:"logo-strip", eyebrow?, heading?, logos:[{src, alt?, url?}], logo_width?}` — a centred, wrapping "trusted by" logo row.
 - **bento** — `{preset:"bento", eyebrow?, heading?, items:[{title, text, icon?, wide?}]}` — an asymmetric mixed-width feature grid (`wide:true` = 2/3 width).
 - **cta banner** — `preset:"cta"` also accepts `bg_image` + `bg_overlay` (+`bg_overlay_opacity`) for a full-bleed CTA over a photo with a legible overlay.
+- **feature-list** — `{preset:"feature-list", eyebrow?, heading?, items:[{title, text, icon?}], columns?}` — icon-beside-text rows (1 or 2 columns); denser than the `features` grid.
+- **timeline** — `{preset:"timeline", eyebrow?, heading?, items:[{date?, title, text, icon?}], position?}` — a chronological sequence on Divi's native timeline module (connector track + markers). `position`: alternate | left | right.
+- **gallery** — `{preset:"gallery", eyebrow?, heading?, images:[{src, alt?, url?}], columns?}` — a responsive image grid (2-4 up, rounded).
+- **comparison** — `{preset:"comparison", eyebrow?, heading?, options:[name,...], rows:[{feature, values:[true|false|"text", ...]}], highlight?}` — a feature comparison table; `highlight` accents the featured option.
+- **newsletter** — `{preset:"newsletter", eyebrow?, heading?, sub?, form?, button?}` — an email-capture split. Pass `form:"[your_form_shortcode]"` (Fluent Forms / Mailchimp / etc.) to embed a real signup form; without it a placeholder button is shown.
 
 Pass colours as `gcid-…`/`gvid-…` ids or literals exactly as elsewhere; anything you omit gets a tasteful default.
 

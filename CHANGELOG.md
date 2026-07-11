@@ -15,7 +15,8 @@ are logged under **Unreleased** and ship within the current version without a bu
   discovery tool, with an "assemble a page by naming patterns first" nudge (free-form a raw section only when
   no pattern fits). Tier-1: `split` (case-study L/R), `pricing`, `testimonial`, `stats`. Tier-2: `faq`
   (native accordion), `team` (native person cards), `logo-strip`, `bento`, and a `cta` banner variant
-  (bg_image + overlay). Docs-only, no version bump.
+  (bg_image + overlay). Tier-3: `feature-list`, `timeline` (native timeline module), `gallery`,
+  `comparison` (feature table), `newsletter` (email-capture split). Docs-only, no version bump.
 - **DIVI5-CONNECT.md:** documented Divi Connect v1.7.3's `divi_build_page` fidelity primitives
   (background image + overlay on sections/columns, the `badge` module, `rotate`/`scale` tilt, and
   variable-font axes) as an "editorial / premium looks" subsection, plus a "Design nudges" note under
