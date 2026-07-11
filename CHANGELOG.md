@@ -18,7 +18,9 @@ are logged under **Unreleased** and ship within the current version without a bu
   (bg_image + overlay). Tier-3: `feature-list`, `timeline` (native timeline module), `gallery`,
   `comparison` (feature table), `newsletter` (email-capture split). These use purpose-built native
   modules where they fit — gallery = native gallery module, timeline = native timeline, newsletter =
-  native email opt-in (signup). Docs-only, no version bump.
+  native email opt-in (signup). Tier-4 (all native modules): `tabs`, `slider`, `social-follow`, `blog`
+  (real posts), `portfolio` (real projects), `video`, `countdown`, `skills` (bar/circle counters),
+  `contact` (working form), `map`. 27 patterns total. Docs-only, no version bump.
 - **DIVI5-CONNECT.md:** documented Divi Connect v1.7.3's `divi_build_page` fidelity primitives
   (background image + overlay on sections/columns, the `badge` module, `rotate`/`scale` tilt, and
   variable-font axes) as an "editorial / premium looks" subsection, plus a "Design nudges" note under

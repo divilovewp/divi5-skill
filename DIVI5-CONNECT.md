@@ -218,6 +218,16 @@ Section patterns *(Divi Connect v1.7.4+)* — token-adaptive, light/dark aware, 
 - **gallery** — `{preset:"gallery", eyebrow?, heading?, ids:[media id,...] | images:["url",...], captions?}` — a plain image gallery on Divi's native gallery module (grid + lightbox). URLs are imported to the media library. For a custom layout mixing images with other content, build image modules in a grid instead.
 - **comparison** — `{preset:"comparison", eyebrow?, heading?, options:[name,...], rows:[{feature, values:[true|false|"text", ...]}], highlight?}` — a feature comparison table; `highlight` accents the featured option.
 - **newsletter** — `{preset:"newsletter", eyebrow?, heading?, sub?, form?, form_title?, button?}` — an email-capture split. By default the form side uses Divi's **native email opt-in (signup) module** (select the provider/list in the VB so the form renders). Or pass `form:"[your_form_shortcode]"` (Fluent Forms / Mailchimp / etc.) to embed an existing form.
+- **tabs** — `{preset:"tabs", eyebrow?, heading?, items:[{title, text}]}` — tabbed content (native tabs module).
+- **slider** — `{preset:"slider", slides:[{heading, text, button?, image?}]}` — a full-width carousel (native slider), optional per-slide background images.
+- **social-follow** — `{preset:"social-follow", eyebrow?, heading?, networks:{facebook:"url", linkedin:"url", ...}}` — brand-coloured follow icons (native module).
+- **blog** — `{preset:"blog", eyebrow?, heading?, count?, categories?, excerpt?}` — a grid of the site's REAL recent posts (native blog module).
+- **portfolio** — `{preset:"portfolio", eyebrow?, heading?, count?, categories?, filterable?}` — a grid of REAL Portfolio projects (native module; `filterable:true` adds category tabs).
+- **video** — `{preset:"video", eyebrow?, heading?, src}` — a video feature (native video module; YouTube/Vimeo/mp4).
+- **countdown** — `{preset:"countdown", eyebrow?, heading?, date:"YYYY-MM-DD HH:MM", button?}` — a launch/promo countdown (native timer).
+- **skills** — `{preset:"skills", eyebrow?, heading?, items:[{label, percent}], circles?}` — labelled progress bars (native bar counters; `circles:true` = circular counters).
+- **contact** — `{preset:"contact", eyebrow?, heading?, sub?, email?, button?, fields?}` — a WORKING contact form (native contact-form; default Name/Email/Message).
+- **map** — `{preset:"map", eyebrow?, heading?, lat, lng, zoom?, api_key?}` — a location map (native map module). Needs a Google Maps API key + coordinates (an address alone won't geocode).
 
 Pass colours as `gcid-…`/`gvid-…` ids or literals exactly as elsewhere; anything you omit gets a tasteful default.
 
