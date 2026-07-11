@@ -11,7 +11,14 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
-- **DIVI5-CONNECT.md:** documented Divi Connect v1.7.4's section-pattern library and the `divi_list_patterns`
+## [0.6.4] — 2026-07-11 · Divi Builder 5.9.0
+
+**Documentation / patterns release.** No change to the Divi 5.9.0 authoring schema
+(`builderVersion` stays `"5.9.0"`); this cuts the accumulated Divi Connect
+pattern-library documentation into a versioned release so the downloadable bundle
+and the website track it.
+
+- **DIVI5-CONNECT.md:** documented Divi Connect's section-pattern library and the `divi_list_patterns`
   discovery tool, with an "assemble a page by naming patterns first" nudge (free-form a raw section only when
   no pattern fits). Tier-1: `split` (case-study L/R), `pricing`, `testimonial`, `stats`. Tier-2: `faq`
   (native accordion), `team` (native person cards), `logo-strip`, `bento`, and a `cta` banner variant
@@ -20,13 +27,12 @@ are logged under **Unreleased** and ship within the current version without a bu
   modules where they fit — gallery = native gallery module, timeline = native timeline, newsletter =
   native email opt-in (signup). Tier-4 (all native modules): `tabs`, `slider`, `social-follow`, `blog`
   (real posts), `portfolio` (real projects), `video`, `countdown`, `skills` (bar/circle counters),
-  `contact` (working form), `map`. 27 patterns total. Docs-only, no version bump.
+  `contact` (working form), `map`, and `before-after` (native draggable image slider). 28 patterns total.
 - **DIVI5-CONNECT.md:** documented Divi Connect v1.7.3's `divi_build_page` fidelity primitives
   (background image + overlay on sections/columns, the `badge` module, `rotate`/`scale` tilt, and
   variable-font axes) as an "editorial / premium looks" subsection, plus a "Design nudges" note under
   Build guardrails (the non-blocking slop warnings that point back to DESIGN-PROCESS §8b). Field-level
-  detail stays in the tool's own description; the Skill just steers when to reach for them. Docs-only,
-  no version bump.
+  detail stays in the tool's own description; the Skill just steers when to reach for them.
 
 ## [0.6.3] — 2026-07-10 · Divi Builder 5.9.0
 

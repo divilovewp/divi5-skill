@@ -22,6 +22,7 @@ edited in place; this policy prevents that recurring.)
 | 0.6.1 | [v0.6.1/](v0.6.1/) (browse) · [v0.6.1.zip](v0.6.1.zip) (download) | 5.8.1 | Docs release (no schema change) — Divi Connect **v1.6.5** live-site sync (post auto-detect, `divi_duplicate_page`/`divi_list_pages`, `mode`/`needs_builder_repair`) + **off-canvas mobile menu** pattern. |
 | 0.6.2 | [v0.6.2/](v0.6.2/) (browse) · [v0.6.2.zip](v0.6.2.zip) (download) | 5.8.1 | Metadata release (no schema change) — made the skill `description` version-agnostic (was stale at "5.7.x"; skill targets 5.8.x). |
 | 0.6.3 | [v0.6.3/](v0.6.3/) (browse) · [v0.6.3.zip](v0.6.3.zip) (download) | 5.9.0 | Divi 5.9.0 — **Grid Editor** (`gridOffsetRules` container-driven per-item placement, LAYOUT §5b, render-confirmed) + doc roll-up ("avoid AI-design clichés" §8b, render-verified community gotchas, connector-tailored bundling). No new modules vs 5.8.x. |
+| 0.6.4 | [v0.6.4/](v0.6.4/) (browse) · [v0.6.4.zip](v0.6.4.zip) (download) | 5.9.0 | Documentation/patterns release (no schema change) — documents the Divi Connect **section-pattern library** (28 mostly-native patterns) + the `divi_list_patterns` tool + `divi_build_page` fidelity primitives (bg-image overlays, badges, tilt, variable fonts). |
 
 0.3.0+ are multi-file, so each is provided both as browseable files under `vX.Y.Z/` and as a
 downloadable `vX.Y.Z.zip` (mirrors the original "Upload these to Claude" / reference layout). The current
