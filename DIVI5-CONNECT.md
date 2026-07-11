@@ -190,16 +190,24 @@ When these are unavailable (older plugin), build with `divi_create_page` and the
 
 ### Section presets — let the server design common sections *(Divi Connect v1.6.3+)*
 
-For common section types, send a **preset** instead of composing rows/cols/modules by hand. A section
-in the spec can be `{ "preset": "hero|features|cta|steps", ...content }` and the server expands it into
-a well-structured, well-spaced section — you supply only **content + brand colours**, it handles the
-layout, spacing, type scale and alignment. Prefer presets for these sections; they produce tidier output
-than hand-built ones, especially on smaller models.
+**Assemble a page by NAMING patterns first.** For common section types, send a **preset** instead of
+composing rows/cols/modules by hand. A section in the spec can be `{ "preset": "<name>", ...content }` and
+the server expands it into a responsive, WCAG-contrast-checked, well-spaced section — you supply only
+**content + brand colours**, it handles layout, spacing, type scale, alignment and mobile behaviour.
+Prefer presets; only free-form a raw `rows`/`cols` section when no pattern fits. Call **`divi_list_patterns`**
+for the full catalog (each pattern + a one-line "use when" + its params).
 
+Content-block presets:
 - **hero** — `{preset:"hero", eyebrow?, heading, sub?, button?{text,url,bg,fg}, bg?, fg?, accent?, align?}`
 - **features** — `{preset:"features", eyebrow?, heading?, sub?, items:[{title,text,icon?}], card_bg?, accent?, bg?}`
 - **cta** — `{preset:"cta", heading, sub?, button{text,url,bg,fg}, bg? (the band), fg?, accent?}`
 - **steps** — `{preset:"steps", heading?, items:[{title,text}], accent?, bg?}`
+
+Section patterns *(Divi Connect v1.7.4+)* — token-adaptive, light/dark aware, responsive:
+- **split** — `{preset:"split", eyebrow?, heading?, sub?, items:[{image:{src,alt?}|"url", eyebrow?, heading, text, button?, reverse?}], accent?, bg?, fg?}` — case-study / feature-story image+text rows that auto-alternate L/R.
+- **pricing** — `{preset:"pricing", eyebrow?, heading?, sub?, plans:[{name, price, period?, desc?, features:[..], excluded?:[..], button{text,url}, featured?, badge?}], card_bg?, accent?, bg?}` — 2-3 tier cards, one optionally featured (accent ring + pill). Add `native:true` to use Divi's dedicated pricing-tables module (available/excluded features, currency formatting, editable in the VB).
+- **testimonial** — `{preset:"testimonial", quote, name, role, avatar?}` (single pull-quote) **or** `{preset:"testimonial", eyebrow?, heading?, quotes:[{quote,name,role,avatar?}], layout?}` (3-up cards). Add `native:true` to render Divi's dedicated testimonial module (portrait + quote icon, editable in the VB).
+- **stats** — `{preset:"stats", eyebrow?, heading?, items:[{value,label}], accent?, bg?}` — a proof band of 3-4 big numbers. Uses Divi's native **number-counter** (animated count-up); values may carry a suffix (`"98%"`, `"12k+"`, `"4.9/5"`). `animate:false` for static numbers.
 
 Pass colours as `gcid-…`/`gvid-…` ids or literals exactly as elsewhere; anything you omit gets a tasteful default.
 

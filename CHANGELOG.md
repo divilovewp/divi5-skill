@@ -11,6 +11,10 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+- **DIVI5-CONNECT.md:** documented Divi Connect v1.7.4's section-pattern library — the new `split`
+  (case-study L/R), `pricing`, `testimonial` and `stats` presets and the `divi_list_patterns` discovery
+  tool — with an "assemble a page by naming patterns first" nudge (free-form a raw section only when no
+  pattern fits). Docs-only, no version bump.
 - **DIVI5-CONNECT.md:** documented Divi Connect v1.7.3's `divi_build_page` fidelity primitives
   (background image + overlay on sections/columns, the `badge` module, `rotate`/`scale` tilt, and
   variable-font axes) as an "editorial / premium looks" subsection, plus a "Design nudges" note under

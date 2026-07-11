@@ -102,7 +102,7 @@ Horizontal progress bars. `counters` is **NOT self-closing**. `counter` **IS sel
 // pricing-table (child — self-closing):
 {
   "currencyFrequency": {
-    "innerContent": {"desktop": {"value": {"currency": "$", "frequency": "/month"}}}
+    "innerContent": {"desktop": {"value": {"currency": "$", "per": "month"}}}
   },
   "title":    {"innerContent": {"desktop": {"value": "Pro Plan"}}},
   "subtitle": {"innerContent": {"desktop": {"value": "For growing teams"}}},
@@ -131,26 +131,26 @@ Horizontal progress bars. `counters` is **NOT self-closing**. `counter` **IS sel
 
 **Confirmed working (real-render tested):**
 - `currencyFrequency.currency` renders as small superscript before the price number
-- `currencyFrequency.frequency` renders as small text after the price (e.g. `/month`)
-- `content` newline-separated (`\n`) lines render as a bullet list
+- `currencyFrequency.per` renders as small text after the price; Divi prepends a `/` separator, so pass `"month"` / `"mo"` (NOT `"/mo"`, which would double the slash). *(The key is `per`, not `frequency`.)*
+- `content` newline-separated (`\n`) lines render as a bullet list; a leading `-` marks a feature **unavailable** (greyed/struck). Bullet colour = `content.advanced.bulletColor.desktop.value`.
 - `button` field works with the same structure as `divi/button`
+- **Header background** = `title.decoration.background.desktop.value.color` (the title element IS the header bar). Header text colour = `title.decoration.font.font.desktop.value.color`.
+- Card padding on the module is applied to **each inner block** (heading/price/features), so a large value gaps everything — prefer Divi's defaults. Each inner element (`title`, `price`, `content`) also takes its own `decoration.spacing.padding` for fine control.
 
-**CRITICAL — Responsive layout:** `pricing-tables` manages its own internal flex layout and does NOT respond to the row/column breakpoint system. If you put 3 `pricing-table` children in one `pricing-tables` container, they will NOT stack on mobile — they overflow and break.
+**Responsive layout:** `pricing-tables` manages its own internal flex and does NOT respond to the row/column breakpoint system. Two ways to make it stack on mobile:
 
-✅ **Correct responsive pattern — one table per container per column:**
+✅ **Simplest — set the parent's own flex to wrap on phone** (Design-tab layout): put all tables in ONE container and set
+```json
+"module": {"decoration": {"layout": {
+  "desktop": {"value": {"flexWrap": "nowrap"}},
+  "phone":   {"value": {"flexWrap": "wrap"}}
+}}}
 ```
-Row (3-col)
-  Column → pricing-tables → pricing-table (Plan A)
-  Column → pricing-tables → pricing-table (Plan B)
-  Column → pricing-tables → pricing-table (Plan C)
+✅ **Alternative — one table per container per column** (the row/column grid then handles stacking):
 ```
-The `row()` helper then handles stacking at tablet/mobile breakpoints.
-
-❌ **Wrong — all tables in one container:**
+Row (3-col) → each Column → pricing-tables → one pricing-table
 ```
-Row (1-col)
-  Column → pricing-tables → pricing-table × 3   ← breaks on mobile
-```
+❌ **Wrong — multiple tables in one container with no wrap** → they overflow and don't stack on mobile.
 
 ---
 
