@@ -208,6 +208,11 @@ Section patterns *(Divi Connect v1.7.4+)* — token-adaptive, light/dark aware, 
 - **pricing** — `{preset:"pricing", eyebrow?, heading?, sub?, plans:[{name, price, period?, desc?, features:[..], excluded?:[..], button{text,url}, featured?, badge?}], card_bg?, accent?, bg?}` — 2-3 tier cards, one optionally featured (accent ring + pill). Add `native:true` to use Divi's dedicated pricing-tables module (available/excluded features, currency formatting, editable in the VB).
 - **testimonial** — `{preset:"testimonial", quote, name, role, avatar?}` (single pull-quote) **or** `{preset:"testimonial", eyebrow?, heading?, quotes:[{quote,name,role,avatar?}], layout?}` (3-up cards). Add `native:true` to render Divi's dedicated testimonial module (portrait + quote icon, editable in the VB).
 - **stats** — `{preset:"stats", eyebrow?, heading?, items:[{value,label}], accent?, bg?}` — a proof band of 3-4 big numbers. Uses Divi's native **number-counter** (animated count-up); values may carry a suffix (`"98%"`, `"12k+"`, `"4.9/5"`). `animate:false` for static numbers.
+- **faq** — `{preset:"faq", eyebrow?, heading?, items:[{q,a}], open_first?}` — interactive Q&A on Divi's native accordion (first answer open by default).
+- **team** — `{preset:"team", eyebrow?, heading?, members:[{name, role, image, bio?, socials?{network:url}}]}` — a responsive grid of native person cards (photo + name + role + social icons).
+- **logo-strip** — `{preset:"logo-strip", eyebrow?, heading?, logos:[{src, alt?, url?}], logo_width?}` — a centred, wrapping "trusted by" logo row.
+- **bento** — `{preset:"bento", eyebrow?, heading?, items:[{title, text, icon?, wide?}]}` — an asymmetric mixed-width feature grid (`wide:true` = 2/3 width).
+- **cta banner** — `preset:"cta"` also accepts `bg_image` + `bg_overlay` (+`bg_overlay_opacity`) for a full-bleed CTA over a photo with a legible overlay.
 
 Pass colours as `gcid-…`/`gvid-…` ids or literals exactly as elsewhere; anything you omit gets a tasteful default.
 
