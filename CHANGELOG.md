@@ -11,6 +11,17 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+- **DIVI5-DESIGN-PROCESS.md:** added **§8c "Landing-page heuristics (objective, checkable)"** — concrete rules
+  distilled from established web-design guidance (NN/g homepage principles, best-practice): value prop above the
+  fold, one primary CTA per section, high-scent CTA labels (not "Learn more"/"Click here"), one H1 + no skipped
+  heading levels, ≤2 fonts / ≤3 core colours, 45–75char line length, alt text + contrast + focus. Notes that
+  `divi_build_page` now warns on several of these. Added a matching line to the §11 Self-Critique Rubric. Docs-only.
+- **DIVI5-PRESETS.md:** added **§1b "Preset system model — design it in levels (role-based)"** — the Divi 5
+  four-level preset model (variables → Option-Group presets in the `group` bucket → nested/composable → Element
+  presets with a per-module `default`), the base-then-variation stacking order, and role-based scope-prefixed
+  naming ("Button: Primary Filled", "Border: Card"). Steers stacked/OGP presets over hardcoded per-module
+  overrides. Docs-only.
+
 ## [0.6.4] — 2026-07-11 · Divi Builder 5.9.0
 
 **Documentation / patterns release.** No change to the Divi 5.9.0 authoring schema

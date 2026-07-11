@@ -34,6 +34,23 @@ WP option (logical name): **`builder_global_presets_d5`**
 
 ---
 
+## §1b Preset system model — design it in levels (role-based)
+
+Divi 5 presets form a **four-level system**. Designing with the levels — not one-off per-module styles — is what makes output feel like a coherent design system and keeps it editable (a key AI-slop fix; DESIGN-PROCESS §8b/§8c).
+
+1. **Design variables** (foundation) — colours, fonts, sizes, radii as global tokens (`gcid-*` / `gvid-*`). Role-based names beat raw values ("Primary Color", "Space M"). See STYLING §10.
+2. **Option-Group presets** — reusable single-group styles (Border, Spacing, Text, Button, Background) that **stack and nest across module types**. Divi stores these in the top-level **`group`** bucket (alongside `module`). Define **8–12 foundational ones first** (e.g. `Text: Body`, `Text: Heading`, `Button: Primary Filled`, `Border: Card`, `Spacing: Section`) before styling whole components.
+3. **Nested (composable) presets** — an Option-Group preset applied inside a module's sub-element (a card's inner button, a blurb's image) via Divi's Composable Settings, so sub-elements join the system instead of carrying hardcoded overrides.
+4. **Element (module) presets** — a full module style that **bundles** the lower levels; stored in `module.<moduleName>.items` (§1). Assign a **`default`** per module type so new instances arrive pre-styled.
+
+**Stacking order (page JSON):** apply the **base** preset first, then **variation** presets — later wins on overlapping keys (`modulePreset: ["btn-base","btn-dark"]`; §6). Prefer **base + variation** over a separate preset per context.
+
+**Naming:** role-based and scope-prefixed, never page-specific — `Button: Primary Filled`, `Border: Card`, `Text: Body`; variations as `Base` vs `Base: Dark` (`Pill` → `Pill: Dark`). Reads cleanly in the Preset Manager and maps straight to descriptive layer names.
+
+**Avoid:** inline overrides that silently break the preset link (audit them); a bloated library of near-duplicate Element presets where a base + one variation would do.
+
+---
+
 ## §2 Preset Item Schema
 
 ```json

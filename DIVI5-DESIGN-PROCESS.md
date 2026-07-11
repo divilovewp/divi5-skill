@@ -321,6 +321,33 @@ A page can be **valid and thoughtless at once**: correct modules, but the instan
 ### The 3-brands test
 Before building, ask: **"Would this look identical for a law firm, a taco truck, and a SaaS?"** If yes, it's the generic default — reground it in *this* brand's tokens, voice and content. **Restraint + grounding beats decoration.** (See §8 Restraint · §6 Design System · STYLING §10 tokens.)
 
+## 8c. Landing-page heuristics (objective, checkable)
+Where §8b is about *taste*, these are **concrete rules** from established web-design guidance (NN/g homepage principles, general best-practice). Several are also enforced by the connector: `divi_build_page` emits non-blocking `warnings` for heading hierarchy, missing alt text, generic CTA labels and competing hero CTAs — treat a warning as a prompt to fix, not noise.
+
+**Above the fold**
+- Lead the hero with a **clear value proposition** (what this is + who it's for), not a generic "Welcome". Front-load keywords; sentence case.
+- **One primary action per section.** The hero gets a single filled/primary CTA; make any second action a **secondary** button (outline/ghost — set `border_color`, leave `bg` unset) so it doesn't compete.
+- Avoid a **false floor** — leave a visual hint that content continues below.
+
+**CTAs & links**
+- Use **high-scent labels** that say where they go — "See pricing", "Start free trial" — never "Learn more", "Click here", "Read more", "Submit".
+- Same action ⇒ same label everywhere; give every CTA a **hover state**.
+
+**Typography & colour**
+- **≤2 font families** (one display + one body) and a small set of sizes on a real scale; body **line length 45–75 characters**, line-height **1.4–1.6** (headings tighter, ~1.1–1.2).
+- **≤3 core colours** + neutrals, role-based (primary = CTAs, accent used sparingly). Never rely on colour alone to convey meaning.
+
+**Hierarchy, spacing, scanability**
+- Exactly **one H1**; descend h2 → h3 in order (no skipped levels) — it's the page outline for readers *and* search engines.
+- Widen the **gap between sections** to signal distinct groups; let content breathe.
+- Break prose into **scannable chunks** (2–4 sentence paragraphs, subheadings, lists), not walls of text.
+
+**Accessibility (also SEO)**
+- Every image gets **alt text** (decorative → empty alt); text contrast **≥4.5:1** (large text/UI ≥3:1); visible keyboard **focus**; real form labels, not placeholder-only.
+
+**Convention over novelty**
+- Prefer **familiar, conventional layouts** — reach for a ready-made section pattern (CONNECT / PATTERNS) before inventing one. Minimise autoplaying motion and intrusive popups.
+
 ---
 
 ## 9. Map the Plan to the Skill Files (where each decision is implemented)
@@ -380,6 +407,7 @@ Score the plan; fix any "no":
 - [ ] **Variable gate honoured** — tokens used where they exist / user opted in; inline only where they don't or the user opted out?
 - [ ] **Contrast on dark backgrounds** checked (titles/meta/icons use light tokens; no undefined `var()`)?
 - [ ] **No AI-design clichés (§8b)** — grounded in the brief + a coherent token set (Mode A live tokens / Mode B defined-or-stated), not the reflex cream+serif+terracotta default, rainbow gradients, emoji-as-UI, left-border cards, or Inter-everywhere; hover/focus states defined?
+- [ ] **Landing-page heuristics (§8c)** — one clear value prop above the fold; **one primary CTA** per section with a high-scent label (not "Learn more"); exactly one **H1**, no skipped heading levels; every image has **alt** text; ≤2 fonts / ≤3 core colours?
 
 > Then run the full **Authoring Self-Audit Gate (BASE §9)** before deploying.
 
