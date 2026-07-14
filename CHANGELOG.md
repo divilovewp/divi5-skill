@@ -11,6 +11,12 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+- **DIVI5-DESIGN-PROCESS.md:** added **§11b "Post-build polish pass"** — the after-build twin of the §11
+  pre-build rubric: after building, read the build's `warnings[]`, fetch `divi_get_rendered_page` (with byte
+  caps), self-check the *rendered* result against §8c, then fix **surgically** (edit/add/move/delete — not a
+  full rebuild) and re-render. Turns the connector's non-blocking nudges from "printed" into "acted on." Also
+  noted in §8c that `divi_build_page` now caps body text at ~65ch and floors buttons at a 44px tap target.
+  Docs-only.
 - **DIVI5-DESIGN-PROCESS.md:** added **§8c "Landing-page heuristics (objective, checkable)"** — concrete rules
   distilled from established web-design guidance (NN/g homepage principles, best-practice): value prop above the
   fold, one primary CTA per section, high-scent CTA labels (not "Learn more"/"Click here"), one H1 + no skipped

@@ -334,7 +334,7 @@ Where §8b is about *taste*, these are **concrete rules** from established web-d
 - Same action ⇒ same label everywhere; give every CTA a **hover state**.
 
 **Typography & colour**
-- **≤2 font families** (one display + one body) and a small set of sizes on a real scale; body **line length 45–75 characters**, line-height **1.4–1.6** (headings tighter, ~1.1–1.2).
+- **≤2 font families** (one display + one body) and a small set of sizes on a real scale; body **line length 45–75 characters**, line-height **1.4–1.6** (headings tighter, ~1.1–1.2). `divi_build_page` already caps free-form body text at a readable ~65ch by default (set `maxw:"none"` to opt a block out) and floors buttons at a 44px tap target.
 - **≤3 core colours** + neutrals, role-based (primary = CTAs, accent used sparingly). Never rely on colour alone to convey meaning.
 
 **Hierarchy, spacing, scanability**
@@ -410,6 +410,35 @@ Score the plan; fix any "no":
 - [ ] **Landing-page heuristics (§8c)** — one clear value prop above the fold; **one primary CTA** per section with a high-scent label (not "Learn more"); exactly one **H1**, no skipped heading levels; every image has **alt** text; ≤2 fonts / ≤3 core colours?
 
 > Then run the full **Authoring Self-Audit Gate (BASE §9)** before deploying.
+
+---
+
+## 11b. Post-build polish pass (after you build — verify what actually rendered)
+
+§11 critiques the *plan*; this checks the *result*. A build that returns
+`success` is not finished — "created a page" ≠ "the page looks right". Before you
+tell the user it's done, close the loop:
+
+1. **Read the build's `warnings[]`.** `divi_build_page` returns non-blocking
+   nudges — heading hierarchy (>1 H1 / skipped level), missing `alt`, generic CTA
+   labels ("Learn more"), competing filled buttons in the hero, low text/background
+   contrast, emoji-as-UI. **Treat each as a fix item, not noise.**
+2. **Fetch the rendered result** with `divi_get_rendered_page` (pass `max_css_kb` /
+   `max_html_kb` to keep the payload light) so you're checking the real HTML + CSS
+   Divi produced, not your intent.
+3. **Self-check the render against §8c** (the objective heuristics): exactly one
+   **H1** and in-order headings; **one primary CTA** per section with a high-scent
+   label and a hover state; body **line length 45–75ch** and readable line-height;
+   **≤2 fonts / ≤3 core colours**; every image has **alt**; text contrast **≥4.5:1**;
+   clear section rhythm (not five identical rows). Also sanity-check §8b taste tells.
+4. **Fix in place, surgically.** Correct issues with `divi_edit_module` /
+   `divi_add_module` / `divi_move_module` / `divi_delete_module` — **do not rebuild
+   the whole page** (a surgical edit is cheaper and avoids the escaping/timeout
+   surface of a full rewrite). Then **re-render to confirm** the fix landed.
+
+Loop: **build → `divi_get_rendered_page` → check vs §8c + warnings → surgical fix →
+re-render.** Only surface the page to the user once the warnings are resolved or
+consciously accepted. (This is the after-build twin of §11; run BASE §9 too.)
 
 ---
 
