@@ -11,6 +11,23 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+- **DIVI5-STYLING.md:** corrected **§10** — a font variable reference must be wrapped `{"type":"content"}`, never
+  `{"type":"font"}`, which §10 had previously documented as "verified". Divi's font-enqueue scanner
+  (`DynamicAssetsUtils::extract_used_fonts_from_content`) resolves a `$variable()` font reference only under
+  `'content' === $data['type']`; there is no branch for `"font"`. Both forms resolve the CSS variable — so the
+  family lands in the stylesheet and the Visual Builder renders correctly — but only `content` also tells Divi
+  the font is in use, so a `"font"`-typed reference never enqueues the webfont and the front end silently falls
+  back. The original "verified" note only ever proved CSS resolution, never the enqueue. §10 now teaches
+  `content` and explains why `font` looks right and isn't. Docs-only: Divi's 5.9.0 authoring schema is unchanged
+  (it never accepted `"font"`), so no version bump — but note that skills already downloaded at 0.6.4 carry the
+  incorrect guidance.
+- **DIVI5-BASE.md:** corrected the button example in §"Correct (everything on `button.decoration`)", whose
+  `family` reference wrapped `{"type":"font"}` — under a **✅ Correct** heading, so the most-read file in the
+  skill was certifying the broken form. Now `{"type":"content"}`, matching §10. Note this is distinct from
+  `type: "font"` in a `POST /variables` payload (DIVI5-CONNECT §, DIVI5-STYLING §10), which is the *variable
+  kind* used to declare a font variable and remains correct — the same two words mean different things in the
+  two positions.
+
 - **DIVI5-DESIGN-PROCESS.md:** added **§11b "Post-build polish pass"** — the after-build twin of the §11
   pre-build rubric: after building, read the build's `warnings[]`, fetch `divi_get_rendered_page` (with byte
   caps), self-check the *rendered* result against §8c, then fix **surgically** (edit/add/move/delete — not a

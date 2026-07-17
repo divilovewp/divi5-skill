@@ -308,7 +308,7 @@ This differs from `divi/video` which uses `{"src": "..."}` as an object. Audio u
     "background": {"desktop": {"value": {"color": "#2563eb"}}},
     "border":     {"desktop": {"value": {"radius": {"topLeft": "10px", "topRight": "10px", "bottomLeft": "10px", "bottomRight": "10px", "sync": "on"}}}},
     "spacing":    {"desktop": {"value": {"padding": {"top": "16px", "bottom": "16px", "left": "36px", "right": "36px"}}}},
-    "font": {"font": {"desktop": {"value": {"color": "#FFFFFF", "weight": "700", "family": "$variable({\"type\":\"font\",\"value\":{\"name\":\"gvid-font-body\",\"settings\":{}}})$"}}}}
+    "font": {"font": {"desktop": {"value": {"color": "#FFFFFF", "weight": "700", "family": "$variable({\"type\":\"content\",\"value\":{\"name\":\"gvid-font-body\",\"settings\":{}}})$"}}}}
   }
 },
 "module": {"advanced": {"alignment": {"desktop": {"value": "center"}}}}
