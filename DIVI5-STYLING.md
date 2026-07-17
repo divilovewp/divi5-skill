@@ -688,19 +688,36 @@ Divi limitation; see DIVI5-CONNECT.)*
 
 ### Global font-family variable
 
-A font-family field can reference a reusable **font variable** (`type:"font"`,
-created via `POST /variables` type `font`, stored under `global_variables` →
-`fonts`). Verified on 5.7.4: `Font.php` resolves it to `var(--gvid-NAME)`
-and Divi emits e.g. `:root{--gvid-font-display:'Cormorant Garamond'}`.
+A font-family field can reference a reusable **font variable** (created via
+`POST /variables` type `font`, stored under `global_variables` → `fonts`).
+**Wrap the reference as `type:"content"`** — same form the size/number tokens use:
 ```
-$variable({"type":"font","value":{"name":"gvid-font-display","settings":{}}})$
-$variable({"type":"font","value":{"name":"gvid-font-body","settings":{}}})$
+$variable({"type":"content","value":{"name":"gvid-font-display","settings":{}}})$
+$variable({"type":"content","value":{"name":"gvid-font-body","settings":{}}})$
 ```
 Place it in a `font.family` value (heading, text bodyFont, button, etc.):
-`"font":{"font":{"desktop":{"value":{"family":"$variable({...font...})$"}}}}`.
-(The older `type:"content"` + `--et_global_heading_font` / `--et_global_body_font`
-names still reference Divi's built-in theme font slots; use the `gvid-font-*` form
-for your own named font tokens.)
+`"font":{"font":{"desktop":{"value":{"family":"$variable({...content...})$"}}}}`.
+Divi resolves it to `var(--gvid-NAME)` and emits e.g.
+`:root{--gvid-font-display:'Fraunces'}`.
+
+> 🔴 **Never wrap a font reference as `type:"font"`.** It *looks* correct — Divi
+> resolves the CSS variable, the family reaches the stylesheet, and the Visual
+> Builder renders the right typeface — but Divi's font-**enqueue** scanner
+> (`DynamicAssetsUtils::extract_used_fonts_from_content`) only resolves a
+> `$variable()` font reference under `'content' === $data['type']`. There is no
+> `"font"` branch. So the webfont is never enqueued and **the front end silently
+> falls back to a system serif** while the VB looks perfect.
+>
+> Verified 2026-07-17 on 5.9.0 with one page, one variable and two headings
+> differing only in this word: `type:"font"` → no font request, falls back;
+> `type:"content"` → Divi reports the font as used, emits the
+> `fonts.googleapis.com` request, renders.
+>
+> ⚠️ Testing this needs care: `document.fonts.check()` returns `true` for fonts
+> that do not exist, and a reused browser profile caches faces across loads. Test
+> in a fresh profile by measuring a string under two different fallbacks
+> (`"X", serif` vs `"X", monospace` — equal widths ⇒ the real face rendered), with
+> a deliberately fake family name as a control.
 
 ### Defining `global_colors` in export JSON
 
@@ -855,7 +872,7 @@ Form-based modules (contact-form, contact-field, signup, comments, search, login
 | HTML anchor id | `module.decoration.attributes.desktop.value.attributes[].value` |
 | Hover state | `<group>.<breakpoint>.hover` (sibling of `value`, un-wrapped — §7c) |
 | Position (absolute) | `module.decoration.position.desktop.value` (`mode`/`origin[mode]`/`offset`; parent `relative`+`top left` — §7d) |
-| Font-family variable | `...font.font.desktop.value.family` = `$variable({"type":"font",...})$` (§10 / §10b) |
+| Font-family variable | `...font.font.desktop.value.family` = `$variable({"type":"content",...})$` — NOT `"font"`, or the webfont never enqueues (§10 / §10b) |
 | Standalone button styling | `button.decoration.{background,border,spacing,font.font}` (NOT `module.decoration` — BASE §7) |
 
 ---
