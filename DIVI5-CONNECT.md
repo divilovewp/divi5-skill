@@ -266,6 +266,30 @@ Exact field lists live in the `divi_build_page` tool description. Prefer these o
 `decoration` markup — but for anything the compact spec doesn't cover, raw `divi_create_page`/`divi_edit_module`
 markup still works.
 
+### Match a reference — "make it like this" *(Divi Connect v1.8.0+)*
+
+When the user wants a page to match something — a link, another site, a mockup — the result is only as
+good as how precisely you read the reference. **Do not one-shot it from a glance.** Work down this ladder
+(highest fidelity first) and *confirm the structure before building*:
+
+1. **A page already on THIS site** → read it exactly. `divi_get_tree` (its real module structure) or, to reuse
+   it wholesale, `divi_duplicate_page` then edit the copy. Nothing beats reading the actual Divi tree.
+2. **A public URL (a live site / a hosted mockup preview)** → **`divi_import_reference`** `{ url }`. It fetches
+   the page and returns its **structure + content** — ordered `sections`, each with a `role_guess`
+   (hero/features/cta/footer…), a `columns_guess`, and the `modules` inside (headings with `level`, `text`,
+   `image` URLs, calls-to-action). This reads **layout + content, not styling** — colours/spacing/fonts are
+   *not* copied (a server can't read computed styles). That's deliberate: you rebuild the layout in the
+   **user's own tokens**, so it lands in their brand instead of cloning someone else's.
+3. **Only an image / screenshot / Figma export** → there is nothing to fetch; read it visually. Describe it as
+   the *same* structured shape `divi_import_reference` returns (sections → role → columns → modules) so the
+   build path is identical. Vision can't recover exact measurements, so treat sizes/colours as approximate and
+   lean on the design system.
+
+**The loop (all three inputs):** read the reference → **restate the structure you found and get the user's
+OK** (section order, what each section is, column counts) → `divi_get_design_system` → `divi_build_page` using
+*their* tokens/presets → `divi_get_rendered_page` and adjust. Confirming the interpretation up front is what
+turns "that's nowhere close" into "that's it." Replace the reference's own image URLs with the user's assets.
+
 ### Create a real blog POST (not a page)
 For blog/journal articles that should appear in the blog, feeds and archives, create a **post**, not a page.
 

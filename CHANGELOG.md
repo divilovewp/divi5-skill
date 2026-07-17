@@ -11,6 +11,15 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+- **DIVI5-CONNECT.md:** added **§5 "Match a reference — make it like this"** — a fidelity-ladder workflow for
+  when the user wants a page to match something. (1) a page already on this site → `divi_get_tree` /
+  `divi_duplicate_page` (read the real Divi tree — highest fidelity); (2) a public URL → the new
+  **`divi_import_reference`** tool (fetches the page, returns structure + content: sections with role/column
+  guesses and their modules — layout + content, NOT styling, so you rebuild in the user's own tokens); (3) only
+  an image/mockup → read it visually into the *same* structured shape. Plus the confirm-loop (read → restate the
+  structure and get the user's OK → get_design_system → build with their tokens → render and adjust) that turns
+  "nowhere close" into "that's it". Answers the #1 beta ask. Docs-only; no schema change, no version bump.
+
 - **DIVI5-STYLING.md:** corrected **§10** — a font variable reference must be wrapped `{"type":"content"}`, never
   `{"type":"font"}`, which §10 had previously documented as "verified". Divi's font-enqueue scanner
   (`DynamicAssetsUtils::extract_used_fonts_from_content`) resolves a `$variable()` font reference only under
