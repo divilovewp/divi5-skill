@@ -161,7 +161,7 @@
 | `divi/before-after-image` | ✓ Confirmed | Both sides accept external URLs |
 | `divi/audio` | ✓ Confirmed | `audio.innerContent.desktop.value` = **plain string URL** (NOT object) |
 | `divi/lottie` | ✓ Confirmed | `lottie.innerContent.desktop.value.src` = object with `src` key |
-| `divi/gallery` | ⚠️ Partial | Grid layout attrs work; **images cannot be passed via JSON** — requires WP media library IDs set via editor |
+| `divi/gallery` | ✓ Confirmed | Grid via `galleryGrid.decoration.layout`; **images ARE JSON-definable via `image.advanced.galleryIds`** (array of WP media-library attachment IDs — NOT URLs). Render-confirmed 5.8.1 / 5.9.0 |
 
 ---
 
@@ -262,7 +262,7 @@ Entire family verified against fixture products with real data (scenarios 29 pro
 
 | Module | Reason |
 |--------|--------|
-| `divi/gallery` (images) | Images require WP media library IDs — cannot be defined in standalone JSON (grid attrs work) |
+| `divi/gallery` (image upload) | Images must be **pre-uploaded** to the media library; the gallery then references them by **attachment ID** in JSON (`image.advanced.galleryIds`), so the selection IS JSON-definable — only the upload step isn't. See MODULES-MEDIA |
 | `divi/instagram-feed` | Needs a connected Instagram account |
 | `divi/map` / `map-pin` | Needs a Google Maps API key |
 | Fullwidth post/menu/map variants | Same attrs as standard variants; need a fullwidth section / external service |

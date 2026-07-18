@@ -60,6 +60,12 @@ render-confirmed on local Divi 5.8.1 (page 276). `builderVersion` stamp moved to
 ## [Unreleased] — corrections within 0.5.1 (Divi 5.7.4)
 
 ### Fixed
+- **Gallery** (`DIVI5-MODULES-MEDIA.md`, `DIVI5-COVERAGE.md`): `divi/gallery` images CAN be
+  defined in JSON after all — via `image.advanced.galleryIds` (an array of WP media-library
+  **attachment IDs**), render-confirmed on Divi 5.8.1 / 5.9.0 with a 6-image gallery. Only
+  image URLs, or an `innerContent` array, crash (500 `ltrim(): array given`); `galleryIds`
+  (attachment IDs) is the supported path. Corrected the "images cannot be passed via JSON"
+  note. _(2026-07-18)_
 - **Gradient variables** (`DIVI5-STYLING.md` §10): corrected the stored shape. A
   `gradients` global variable's `value` is **not** a CSS gradient string and not a
   bare settings object — Divi's sanitizer forces it to a scalar, so it must be a

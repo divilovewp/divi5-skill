@@ -47,11 +47,14 @@ Image gallery grid. **Self-closing.**
       }
     }
   },
+  "image": {"advanced": {"galleryIds": {"desktop": {"value": [101, 102, 103]}}}},
   "builderVersion": "5.8.1"
 }
 ```
 
-**⚠️ Gallery images cannot be passed via JSON markup.** Passing `innerContent.desktop.value` as an array crashes WordPress with a 500 error (`ltrim(): array given`). Gallery images must be added via the Divi editor UI (WP media library IDs). The `galleryGrid` column count settings work and are safe to include.
+**✓ Gallery images CAN be defined in JSON — via `image.advanced.galleryIds`** (an array of WP media-library **attachment IDs**). Render-confirmed on Divi 5.8.1 / 5.9.0 with a 6-image gallery. The IDs reference existing media-library attachments, but they are set right here in the JSON markup — no per-gallery editor step once the images are uploaded. `GalleryModule.php` reads `image.advanced.galleryIds.desktop.value` as an int array; the `galleryGrid` column-count settings are safe to include.
+
+**⚠️ Do NOT pass image URLs, or `innerContent.desktop.value` as an array** — passing an array to `innerContent` crashes WordPress with a 500 (`ltrim(): array given`). Use `galleryIds` (attachment IDs), never image URLs.
 
 ---
 
