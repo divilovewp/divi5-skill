@@ -237,9 +237,11 @@ Auto-builds a linked list from the headings of the current post. Self-closing. *
 
 ---
 
-## `divi/instagram-feed` (NEW in 5.6.0 — ⚙ source-verified)
+## `divi/instagram-feed` (NEW in 5.6.0 — ✓ live-render confirmed)
 
-Displays an Instagram account's recent posts in a grid. Self-closing. Requires a connected Instagram account (the `accountId` references the connection configured on the site).
+Displays an Instagram account's recent posts in a grid. Self-closing. Requires a connected Instagram account (the `accountId` references the connection configured on the site). **Real-feed render-verified against a live connected account** (pulls real posts + the follow button); renders an empty state without an `accountId`.
+
+> **`followButton` is an `elementType: "button"` sub-element.** Its label value is an **object** keyed `{text, linkUrl, rel, …}` — the renderer reads `followButton.innerContent.desktop.value.text` (exactly like `divi/button`). Setting the label as a bare string (`{"desktop":{"value":"Follow us"}}`) **or** wrapped in an outer `text` breakpoint (`{"text":{"desktop":{"value":…}}}`) renders fine on the empty state but **fatals the whole page** (`InvalidArgumentException` / `ArrayUtility` TypeError in `MultiViewUtils`) the moment a live `accountId` makes the button actually render. Use `{"desktop":{"value":{"text":"…"}}}`. The follow URL is derived from the account, so only `text` is needed.
 
 ```json
 {
@@ -251,7 +253,10 @@ Displays an Instagram account's recent posts in a grid. Self-closing. Requires a
     }}}},
     "advanced": {"config": {"desktop": {"value": {"lightbox": "on"}}}}
   },
-  "followButton": {"advanced": {"show": {"desktop": {"value": "on"}}}},
+  "followButton": {
+    "innerContent": {"desktop": {"value": {"text": "Follow us"}}},
+    "advanced": {"show": {"desktop": {"value": "on"}}}
+  },
   "builderVersion": "5.8.1"
 }
 ```
@@ -262,6 +267,7 @@ Displays an Instagram account's recent posts in a grid. Self-closing. Requires a
 | Grid columns | `feed.decoration.layout.desktop.value.gridColumnCount` | grid layout (see LAYOUT §5b) |
 | Lightbox | `feed.advanced.config.desktop.value.lightbox` | `"on"` / `"off"` |
 | Follow button | `followButton.advanced.show.desktop.value` | `"on"` / `"off"` |
+| Follow button label | `followButton.innerContent.desktop.value.text` | Button-element value **object** `{text, linkUrl, …}` — NOT a bare string / `text`-wrapped breakpoint (either fatals the page once the button renders; see the callout above) |
 
 ---
 

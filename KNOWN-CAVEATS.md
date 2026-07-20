@@ -34,6 +34,7 @@ fall into five buckets.
 - **Transparent button background** → invisible text; use a border instead.
 - **`divi/divider`** has a native line that is on-by-default — set its color explicitly (don't add a separate border, or you get a double line).
 - **Button alignment** must be set **per breakpoint** or it falls back to left-aligned on mobile.
+- **`elementType:"button"` sub-element labels** (e.g. `divi/instagram-feed` `followButton`) take an **object** value `{"desktop":{"value":{"text":"…"}}}` (keyed `{text, linkUrl, …}`, same as `divi/button`) — a bare string or a `text`-wrapped breakpoint **fatals the whole page** (`InvalidArgumentException` / `ArrayUtility` TypeError) the instant the button renders. Empty/placeholder states hide the bug.
 - **`pricing-tables`** with multiple tables in one container won't stack on mobile (use one table per container per column).
 - **Empty column** with a background image and no children collapses to zero height — add `minHeight`.
 - **`number-counter` / `circle-counter` / `countdown-timer` / `table-of-contents`** need a real browser (scroll / JS); headless screenshots show blank or static output. TOC must be built via the builder UI, not raw REST.
@@ -42,7 +43,7 @@ fall into five buckets.
 
 ## 4. Documented from source but not render-tested (⚙)
 
-`divi/dropdown`, form pseudo-class states (focus/checked/active), `divi/instagram-feed`, `divi/map`,
+`divi/dropdown`, form pseudo-class states (focus/checked/active), `divi/map`,
 box-shadow, `viewportEnter` / `viewportExit` interaction triggers, global canvas, and the variable
 generators (Color Scale / Harmony / fluid). These are extracted from Divi source and should work, but
 haven't been confirmed with a real render.

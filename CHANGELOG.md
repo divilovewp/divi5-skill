@@ -9,6 +9,19 @@ in [SKILL.md](SKILL.md)). The version is bumped only when the **authoring schema
 changes. Documentation corrections and clarifications that don't change the schema
 are logged under **Unreleased** and ship within the current version without a bump.
 
+## [Unreleased]
+
+No authoring-schema change — documentation correction + a newly render-confirmed module.
+
+### Changed
+- **`divi/instagram-feed` — live-render confirmed + follow-button label shape documented.** Verified
+  against a real connected account (pulls real posts + follow button); promoted from ⚙ source-only to
+  ✓ confirmed in `DIVI5-COVERAGE.md` / `KNOWN-CAVEATS.md`. Documented that **`followButton` is an
+  `elementType:"button"` sub-element**, so its label value is an **object** `{"desktop":{"value":{"text":"…"}}}`
+  (keyed `{text, linkUrl, …}`, read as `innerContent.desktop.value.text` like `divi/button`). A bare-string
+  or `text`-wrapped label renders fine on the empty state but **fatals the whole page**
+  (`InvalidArgumentException` / `ArrayUtility` TypeError) the instant a live account makes the button render.
+
 ## [0.6.1] — 2026-07-01 · Divi Builder 5.8.1
 
 No authoring-schema change (`builderVersion` stays `"5.8.1"`) — this release syncs the

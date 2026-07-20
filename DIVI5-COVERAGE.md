@@ -176,7 +176,7 @@
 | `divi/social-media-follow` + network | ✓ Confirmed | facebook, twitter, instagram, linkedin, youtube confirmed |
 | `divi/countdown-timer` | ✓ Confirmed (UI) | Live countdown requires browser; headless Playwright shows static render only |
 | `divi/table-of-contents` | ✓ Confirmed | built ordered list linking post `<h2>`s in a TB body template over a Gutenberg post. Must be built via builder UI (raw-REST insert won't enqueue its client-side script); list populates in-browser only. |
-| `divi/instagram-feed` | ⚙ Source | `feed.innerContent={accountId,postCount}`; grid layout; needs connected IG account |
+| `divi/instagram-feed` | ✓ Confirmed | `feed.innerContent={accountId,postCount}`; grid layout; needs connected IG account. Live-render verified against a real account. **`followButton` label** is a button-element value object `{"desktop":{"value":{"text":…}}}` — bare-string / `text`-wrapped shapes fatal the page once the button renders |
 
 ---
 
