@@ -102,6 +102,7 @@ Detail: `DIVI5-CONNECT.md` §3.
 | `DIVI5-MODULES-WOOCOMMERCE.md` | shop, single-product, cart & checkout modules |
 | `DIVI5-PRESETS.md` | Global Presets — storage format, attrs key paths, REST endpoint, helpers |
 | `DIVI5-PATTERNS.md` | Real-world layout patterns + Python generation helpers |
+| `DIVI5-CUSTOM-MODULES.md` | Building your own custom Divi 5 module — plugin structure, PHP/JS registration, `module.json` schema, parent/child contract (render-confirmed 5.9.0) |
 | `DIVI5-COVERAGE.md` | What is confirmed, source-verified, and untested |
 
 ## Typical combinations
