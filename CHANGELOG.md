@@ -9,6 +9,62 @@ in [SKILL.md](SKILL.md)). The version is bumped only when the **authoring schema
 changes. Documentation corrections and clarifications that don't change the schema
 are logged under **Unreleased** and ship within the current version without a bump.
 
+## [Unreleased] — corrections within 0.6.9 (Divi 5.11.1)
+
+### Fixed — the `divi/charts` data shape, and the assertion that missed it
+
+**MODULES-DATA described `data` as a flat list of rows with the header row first.** The stored
+attribute is an object of `columns` + `rows`:
+
+```json
+"data": {
+  "columns": [{"label": "Quarter", "role": "category"}, {"label": "Revenue", "role": "series"}],
+  "rows":    [{"cells": ["Q1", "120"]}, {"cells": ["Q2", "180"]}]
+}
+```
+
+Several separate requirements were missing, and each one on its own means no chart:
+
+- **`label` must be present and a string**, or `_normalize_chart_columns` drops that column's
+  `role` (it survives only inside `is_array($column) && isset($column['label']) &&
+  is_string($column['label'])`) and the whole config becomes `null`. A **numeric** label is enough
+  to do it. The Visual Builder coerces a non-string label to `""` and keeps the role, so this
+  renders in the builder and is blank on the front end.
+- **Every column needs an explicit `role`** — `category` · `value` · `series` · `x` · `y` ·
+  `size`. `_get_column_roles()` collects only persisted roles from **visible** columns; there is no
+  inference and no default.
+- **Rows are `{"cells": [...]}` objects.** `_get_row_cells()` returns `[]` for a bare array and
+  `_to_number(null)` yields `0`, so the chart draws with empty categories and zero values.
+- **The required roles differ by chart-type family** — `categorySeries` (line/area/bar/radar),
+  `categoryValue` (pie/doughnut/polarArea), `scatter`, `bubble`.
+- **A non-array `rows` is a fatal**, not a blank chart: `count($rows)` is unguarded.
+- **Nothing assigns colours at render time** — the Visual Builder bakes the palette into the
+  persisted attrs while you edit, and the server-side palette is dead code. Hand-authored JSON with
+  no `color` emits `backgroundColor: ""` / `borderColor: ""`.
+- `chart.innerContent` and `chart.advanced.config` are **`responsive: false`** — the `{bp}` in the
+  path table implied an axis that does not exist.
+- `showLegendTitle` **defaults to `"off"`**, so setting `legendTitle` alone shows nothing. There is
+  no axis/scale surface at all in 5.11.1. CSV import is a builder convenience that writes the same
+  shape with no roles and no colours.
+
+🪤 **Worth recording, because it is why this shipped as "✓ render-confirmed":** the entry asserted
+that "`et_pb_charts` wrapper present and the title text rendered". Both are true of a chart that
+draws nothing. `render_callback()` never consults the chart config — it always emits the wrapper
+and a `<canvas … aria-label="{title}">`, so the **title string is in the markup whatever the data
+says**. The data travels separately via `module_script_data()`, which calls `_build_chart_config()`
+and **returns early, adding no script data**, when that returns `null`. The visible result is a
+200 with an empty ~300px box; the `.et_pb_charts__error` div is only written when the builder is
+running.
+
+⇒ For this module the wrapper and the title are not evidence. Assert on the emitted `charts`
+script-data payload. §`divi/charts` now says so.
+
+(The same entry also said the title is "not in the accessibility tree". It is — the canvas carries
+`role="img"` and the title as its `aria-label`. That line is corrected too.)
+
+Read from `Packages/ModuleLibrary/Charts/ChartsModule.php` on Divi 5.11.1, plus
+`_all_modules_default_render_attributes.php` for the registered defaults.
+
 ## [0.6.9] — 2026-08-26 · Divi Builder 5.11.1
 
 **A design's font sizes are now a question the AI asks, not a guess.**

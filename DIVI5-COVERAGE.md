@@ -20,7 +20,7 @@
 
 | Item | Status | Type | File |
 |------|--------|------|------|
-| `divi/charts` — Chart.js chart, data as a table (header row first) | ✓ Confirmed | module | MODULES-DATA |
+| `divi/charts` — Chart.js chart; `data` is `{columns, rows}`, every column needs an explicit `role` | ✓ Confirmed | module | MODULES-DATA |
 | `divi/gravity-forms` — renders a Gravity Forms form, large styling surface | ✓ Confirmed | module | MODULES-INTERACTIVE |
 | `divi/imagely-gallery` — NextGEN gallery; key is `galleryId`, not `item` | ✓ Confirmed | module | MODULES-MEDIA |
 | `divi/payment-button` — provider checkout button; `environment` defaults to `"sandbox"` | ✓ Confirmed | module | MODULES-CONTENT |
@@ -29,7 +29,12 @@
 > Render-confirmed on Divi **5.11.1** (`diviconnect-test.local`): all four module wrappers
 > appeared in the served HTML, each on a page carrying a control `divi/text` that also
 > rendered — so "the module is missing" could never be a symptom of the page having failed.
-> Charts and Payment Button additionally rendered their own content. **Gravity Forms and
+> Payment Button additionally rendered its own content. **Charts did NOT** — see the
+> Unreleased entry in CHANGELOG: its wrapper and its title render regardless of whether
+> the data resolves, because `render_callback()` never consults the chart config and
+> writes the title into the canvas `aria-label`. The chart itself is only drawn when
+> `module_script_data()` emits a `charts` payload, which it skips entirely when
+> `_build_chart_config()` returns `null`. **Gravity Forms and
 > Imagely were NOT content-asserted**: their output comes from a third-party plugin that was
 > not installed, and inventing an expected string would have been asserting a guess.
 >

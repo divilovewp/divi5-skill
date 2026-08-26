@@ -269,40 +269,128 @@ Displays an Instagram account's recent posts in a grid. Self-closing. Requires a
 
 Chart.js-backed data chart. **Self-closing.** No third-party plugin — Chart.js ships with Divi.
 
-The data is a **table**, entered through Divi's `divi/table-editor` field, so the attribute is a
-list of rows with the header row first:
+The data is a **table**, entered through Divi's `divi/table-editor` field. The stored attribute is
+an **object of `columns` + `rows`** — not a flat list of rows:
 
 ```json
 {
   "chart": {
     "innerContent": {"desktop": {"value": {
       "title": "Revenue by quarter",
-      "subtitle": "FY 2026",
-      "legendTitle": "Region",
-      "data": [["Quarter", "Revenue"], ["Q1", "120"], ["Q2", "180"]]
-    }}}
+      "data": {
+        "columns": [
+          {"label": "Quarter", "role": "category"},
+          {"label": "Revenue", "role": "series", "color": "#5b8def"}
+        ],
+        "rows": [
+          {"cells": ["Q1", "120"]},
+          {"cells": ["Q2", "180"]}
+        ]
+      }
+    }}},
+    "advanced": {"config": {"desktop": {"value": {"type": "bar"}}}}
   },
   "builderVersion": "5.11.1"
 }
 ```
 
-| What | Path (under `chart.innerContent.{bp}.value`) | Notes |
+⚠️ **These attributes are DESKTOP-ONLY.** `chart.innerContent` and `chart.advanced.config` declare
+`features.responsive: false`, and `_resolve_mode_value` takes the first of `desktop`. A
+`tablet`/`phone` branch is dead JSON.
+
+### Column shape
+
+| Key | Required | Notes |
 |---|---|---|
-| Data | `data` | rows; **first row is the header**, min 2 columns |
-| Title | `title` | rendered by Chart.js, not as a Divi heading |
-| Subtitle | `subtitle` | |
-| Legend title | `legendTitle` | |
+| `label` | **yes — and must be a string** | see the trap below |
+| `role` | **yes**, per column you want used | `category` · `value` · `series` · `x` · `y` · `size` |
+| `visible` | no (default `true`) | only a **strict boolean `false`** hides it |
+| `color` | effectively yes | per-series colour for the categorySeries family |
 
-⚠️ **The title is drawn by Chart.js inside the canvas, not emitted as a heading element.** It is
-not selectable text, it is not in the accessibility tree as a heading, and your font/heading
-presets do not style it. If the chart needs a real heading for structure or SEO, put a
-`divi/heading` above it and leave `title` empty.
+`highlight` / `overline` / `type` appear in the Visual Builder's column schema but the PHP render
+path never reads them. Rows are `{"cells": [...]}`, positionally indexed to `columns`;
+`rows[].color` sets the per-slice colour for `categoryValue` / `scatter` / `bubble`.
 
-⛔ **A chart is a canvas.** Anything that depends on text being in the DOM — search, contrast
-grading, copy-paste — does not apply to what is inside it.
+### The ways a chart silently draws nothing
 
-> Render-confirmed on Divi **5.11.1**: `et_pb_charts` wrapper present and the title text
-> rendered, on a page whose control `divi/text` also rendered.
+🪤 **`label` must be present AND a string, or the column silently loses its `role`.**
+`_normalize_chart_columns` keeps `role` only inside the branch guarded by
+`is_array($column) && isset($column['label']) && is_string($column['label'])`. A missing, null or
+**numeric** label falls to a fallback entry labelled `"Column N"` with **no role**, role
+resolution fails, and the whole chart is `null`. `""` is fine; `123` is not. This is the most
+likely way a hand-authored chart fails.
+
+🪤 **PHP/VB divergence on that rule:** the Visual Builder coerces a non-string label to `""` and
+*keeps* the role — so the chart renders in the builder and is blank on the front end.
+
+🪤 **Every column needs an explicit `role`.** `_get_column_roles()` collects only roles persisted
+on **visible** columns — no inference, no default.
+
+🪤 **A row must be `{"cells": [...]}`.** `_get_row_cells()` returns `[]` for anything else and
+`_to_number(null)` yields **`0`**, so a bare `["Q1","120"]` row gives empty categories and values
+of zero — not an error.
+
+🪤 **The roles a type needs differ by family:**
+
+| Family | Chart types | Required roles |
+|---|---|---|
+| `categorySeries` | `line` · `area` · `bar` · `radar` | ≥1 `category` + ≥1 `series` |
+| `categoryValue` | `pie` · `doughnut` · `polarArea` | ≥1 `category` + ≥1 `value` |
+| `scatter` | `scatter` | `x` + `y` |
+| `bubble` | `bubble` | `x` + `y` + `size` |
+
+A `type` outside that table resolves to no family, which is also nothing. `area` is drawn as a
+`line` with `fill: true`.
+
+🚨 **A non-array `rows` is a FATAL, not a blank chart.** `count($rows)` is unguarded, so a string
+there is a PHP 8 `TypeError` once role columns resolve.
+
+🎨 **Nothing assigns colours at render time.** The Visual Builder bakes palette colours into the
+persisted attrs while you edit; server-side the default palette is dead code. Hand-authored JSON
+with no `color` emits datasets carrying `backgroundColor: ""` / `borderColor: ""`.
+
+### Config toggles (`chart.advanced.config.desktop.value`)
+
+`type` (default `"line"`) · `showTitle` · `showSubtitle` · `showLegend` · `showTooltip` (all
+default `"on"`, compared as `'off' !== $value`) · **`showLegendTitle` (default `"off"`)** — the
+only toggle defaulting off, so setting `legendTitle` alone shows nothing.
+
+⛔ **There is no axis or scale surface at all in 5.11.1.** `_build_chart_options` emits only
+`responsive`, `maintainAspectRatio` and `plugins`.
+
+⛔ **CSV is a builder convenience, not an attribute.** A CSV import writes the same
+`{columns:[{label}], rows:[{cells}]}` shape with **no roles and no colours**.
+
+### ⚠️ Why "the wrapper rendered" does not prove a chart rendered
+
+`render_callback()` never consults the chart config. It always emits the `et_pb_charts` wrapper and
+a `<canvas class="et_pb_charts__canvas" role="img" aria-label="{title}">` — so the **title text is
+in the markup whatever the data says** (and the chart *is* in the accessibility tree, as an image).
+The data travels separately through `module_script_data()`, which calls `_build_chart_config()` and
+**returns early, adding no script data at all**, when that returns `null`.
+
+⇒ A broken chart is a 200 with a visible empty ~300px box and no error text — the
+`.et_pb_charts__error` div is only written when the builder is running. **Assert on the emitted
+`charts` script-data payload**, not the wrapper or the title.
+
+⛔ The title is drawn by Chart.js **inside the canvas**: not a heading element, not selectable
+text, not styled by heading presets. For real structure or SEO put a `divi/heading` above it.
+
+> **Render-confirmed on Divi 5.11.1.** A probe page carried four valid charts — `bar` (two
+> series), `line`, `pie`, `scatter` — plus a deliberately broken control using the flat
+> header-row-first array, and a live `divi/text` so "the module is missing" could never be a
+> symptom of the page having failed.
+>
+> `diviModuleChartsData` emitted **four entries, not five**. Each valid chart carried real
+> numeric data and colours (`bar`: `[120,180,150,210]` and `[90,140,160,175]`); `pie` and
+> `scatter` carried a per-row colour **list**, confirming the colour-axis rule. **The broken
+> control emitted no entry at all — while its `et_pb_charts` wrapper and its `<canvas>` were
+> both present in the HTML.**
+>
+> Contract read from `Packages/ModuleLibrary/Charts/ChartsModule.php` (`_build_chart_config`,
+> `_normalize_chart_columns`, `_get_row_cells`, `_get_column_roles`, `_get_visible_chart_columns`,
+> `_get_chart_column_role_family`, `_to_number`, `render_callback`, `module_script_data`) plus
+> `_all_modules_default_render_attributes.php` for the defaults.
 
 ---
 
