@@ -505,11 +505,17 @@ deploy until every line passes.** A failure here means rework, not a warning.
   fine and consistent. (Rule 15 + DESIGN-PROCESS variable-availability gate.)
 - [ ] **Copy is verbatim.** On-page text matches the source/reference exactly — no
   paraphrasing. (DESIGN-PROCESS verbatim-copy rule.)
-- [ ] **Contrast checked.** Every text/icon has adequate contrast on its actual
-  background (incl. *dark cards* — titles/meta/icons must use light tokens, not the
-  light-bg colours). No element relies on an **undefined** `var()` (an unmapped
-  token on `color`/`stroke`/`fill` silently renders nothing). Spot-check dark
-  sections specifically.
+- [ ] **Contrast checked — BOTH kinds.** (a) Every text/icon clears 4.5:1 (3:1 large)
+  on its actual background, incl. *dark cards*. (b) Every element that PAINTS — button,
+  card, badge, chip — clears 3:1 against **what it sits on**; a `primary` button on a
+  `primary` section is invisible while its text still passes. No element relies on an
+  **undefined** `var()` (an unmapped token on `color`/`stroke`/`fill` silently renders
+  nothing). Spot-check dark sections specifically.
+- [ ] **Ink is the surface's own `on-*` token.** Text on `primary` takes `on-primary`,
+  on `accent` takes `on-accent`, and so on — never a hand-picked hex and never a
+  neutral from the ramp. ⛔ **Fixing contrast means changing a token CHOICE, not
+  inventing a colour**: put the surface's `on-*` ink on the text, or change the
+  surface. (STYLING §1 "Ink follows its surface".)
 - [ ] **Tokens resolve.** Every `gcid-*`/`gvid-*` used actually exists in the
   site's design system (don't invent token names); recolor/alias helpers map every
   variant incl. `-mid`/`-soft`/`-deep`.

@@ -406,6 +406,8 @@ Score the plan; fix any "no":
 - [ ] **Copy is verbatim** vs the user's source/reference (no paraphrasing)?
 - [ ] **Variable gate honoured** — tokens used where they exist / user opted in; inline only where they don't or the user opted out?
 - [ ] **Contrast on dark backgrounds** checked (titles/meta/icons use light tokens; no undefined `var()`)?
+- [ ] **Every ink is its surface's `on-*` token** — not a hand-picked hex, not a neutral from the ramp? (STYLING §1)
+- [ ] **Every element that PAINTS clears 3:1 against what it sits on** — a `primary` button on a `primary` band passes every text check and is still invisible?
 - [ ] **No AI-design clichés (§8b)** — grounded in the brief + a coherent token set (Mode A live tokens / Mode B defined-or-stated), not the reflex cream+serif+terracotta default, rainbow gradients, emoji-as-UI, left-border cards, or Inter-everywhere; hover/focus states defined?
 - [ ] **Landing-page heuristics (§8c)** — one clear value prop above the fold; **one primary CTA** per section with a high-scent label (not "Learn more"); exactly one **H1**, no skipped heading levels; every image has **alt** text; ≤2 fonts / ≤3 core colours?
 

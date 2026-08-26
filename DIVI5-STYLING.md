@@ -19,6 +19,59 @@ author: Shashank Gupta @ divilove.com
 }
 ```
 
+### 🚨 Ink follows its surface — the `on-*` pairing rule
+
+**The moment you set a background from a token, the text on it is decided.** A design
+system ships surfaces and their inks *in pairs*, and the ink is the only correct answer
+for that surface:
+
+| surface token | the ink that goes on it |
+|---|---|
+| `primary` | `on-primary` |
+| `secondary` | `on-secondary` |
+| `accent` | `on-accent` |
+| `inverse` | `on-inverse` |
+| `surface` / `surface-2` / `surface-3` | `on-surface` |
+| `success` `warning` `danger` `info` | `on-success` `on-warning` `on-danger` `on-info` |
+| `*-subtle` | the matching `on-*-subtle` |
+| `bg` (the page) | `text`, with `muted` for secondary copy |
+
+⛔ **Never hand-pick a colour for text on a coloured surface** — not a hex, and *especially*
+not a neutral from the ramp (`neutral-950`, `neutral-50`…). The ramp is for borders,
+dividers and chrome. The `on-*` token exists because the pair was checked when the system
+was built; a neutral that merely *looks* dark or light enough has been checked by nobody.
+
+⛔ **Fixing contrast means changing a TOKEN CHOICE, not inventing a colour.** There are
+exactly three legitimate repairs, in this order:
+1. Put the surface's own `on-*` ink on the text.
+2. Change the **surface** to one whose ink you actually want.
+3. Only if neither works, take a `-shade-N`/`-tint-N` step of a token already in play.
+
+> **Measured failure, 2026-08-26.** A model asked to "fix the contrast" on a hero button
+> changed the button's text from `on-primary` (`#FFFFFF`) to `neutral-950` (`#191C1F`) and
+> left the `primary` background alone. It went from **5.82:1 to 2.94:1** — below AA for body
+> text *and* below the 3:1 large-text floor — and reported the contrast as fixed. The
+> correct ink was already on the element before the "fix".
+
+### 🚨 Text contrast is not the only contrast — check the EDGE too
+
+A button, card, badge or chip is a **shape**. Its text can pass at 5:1 while the shape
+itself is invisible, and no text-contrast check will ever notice:
+
+> **Same page, same day.** A `primary` button was placed on a section whose background was
+> also `primary`. Its white text read at 5.82:1 and passed every text check — but the
+> button against the band was **1.00:1**. It rendered as floating words with no button
+> around them.
+
+⇒ **Whenever an element that PAINTS sits on a coloured surface, ask two questions:**
+- does its **text** clear 4.5:1 (3:1 for large text) against **the element's own fill**, and
+- does the **element** clear 3:1 against **what it sits on**?
+
+The usual repairs for the second one: give the element the *inverse* pairing (an
+`on-primary`-filled button on a `primary` band), add a border in a token that contrasts
+with the band, or move the element to a different surface. A `primary` button belongs on
+`bg` or `surface` — **not** on `primary`.
+
 ### Background image (confirmed working on sections, rows, columns, groups, slides)
 ```json
 "background": {
