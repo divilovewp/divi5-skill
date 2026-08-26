@@ -89,7 +89,15 @@ Renders a styled CTA button. **Self-closing.**
 
 > Uses `linkUrl` and `linkTarget` — NOT `url`/`newWindow` (those are Divi 4 names).
 
-> **⚠️ All visible styling goes on `button.decoration` — NOT `module.decoration`** (corrected 2026-06-20, render-verified on 5.7.4; supersedes older examples that put background/border/padding on `module.decoration`). Background, border, radius, spacing(padding), and label font ALL live on the `button` element. `module.decoration` left holding the background leaves the builder's **Design ▸ Button ▸ Background** field empty. Use `module` only for the wrapper (e.g. `module.advanced.alignment` to center). See BASE §7 + STYLING §7c.
+> **⚠️ All visible styling goes on `button.decoration` — NOT `module.decoration`** (corrected 2026-06-20, render-verified on 5.7.4; supersedes older examples that put background/border/padding on `module.decoration`). Background, border, radius and label font ALL live on the `button` element.
+> **⛔ EXCEPT PADDING, MARGIN, BOX-SHADOW AND ALIGNMENT — those four DO belong on `module.decoration`**
+> (corrected 2026-08-26, verified in Divi 5.11.1's own `button/module.json`, which marks
+> `button/decoration/spacing/…/padding`, `…/margin`, `button/…/boxShadowGroup` and `…/alignment`
+> **`render: false`**). Divi routes the MODULE slot onto the `<a>` with `important: true`; the button
+> slot stores them, round-trips them and **emits nothing**, so a padding written there silently
+> becomes whatever the host site's presets say. Measured: module → `20px 44px`; `button.decoration.spacing`
+> → `18px` (the host's); nothing stated → `18px`. This shipped 20 header layouts with the wrong padding
+> before it was caught by reading COMPUTED values off the rendered `<a>`. `module.decoration` left holding the background leaves the builder's **Design ▸ Button ▸ Background** field empty. Use `module` only for the wrapper (e.g. `module.advanced.alignment` to center). See BASE §7 + STYLING §7c.
 
 ```json
 {

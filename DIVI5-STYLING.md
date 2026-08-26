@@ -1028,7 +1028,8 @@ Form-based modules (contact-form, contact-field, signup, comments, search, login
 | Hover state | `<group>.<breakpoint>.hover` (sibling of `value`, un-wrapped — §7c) |
 | Position (absolute) | `module.decoration.position.desktop.value` (`mode`/`origin[mode]`/`offset`; parent `relative`+`top left` — §7d) |
 | Font-family variable | `...font.font.desktop.value.family` = `$variable({"type":"content",...})$` — NOT `"font"`, or the webfont never enqueues (§10 / §10b) |
-| Standalone button styling | `button.decoration.{background,border,spacing,font.font}` (NOT `module.decoration` — BASE §7) |
+| Standalone button styling | `button.decoration.{background,border,font.font}` (NOT `module.decoration` — BASE §7) |
+| Button padding / margin / box-shadow / alignment | **`module.decoration`** — Divi marks these `render:false` on the button element, so the button slot emits nothing (verified in 5.11.1 `button/module.json`, 2026-08-26) |
 
 ---
 
