@@ -103,6 +103,7 @@ Detail: `DIVI5-CONNECT.md` §3.
 | `DIVI5-PRESETS.md` | Global Presets — storage format, attrs key paths, REST endpoint, helpers |
 | `DIVI5-PATTERNS.md` | Real-world layout patterns + Python generation helpers |
 | `DIVI5-COVERAGE.md` | What is confirmed, source-verified, and untested |
+| `DIVI5-CUSTOM-MODULES.md` | Building custom Divi 5 modules — file structure, PHP/JS registration hooks, module.json schema, all 5 module types |
 
 ## Typical combinations
 
@@ -116,6 +117,7 @@ Detail: `DIVI5-CONNECT.md` §3.
 - **Pricing / counters:** + MODULES-DATA
 - **Blog / portfolio / Theme Builder:** + MODULES-DYNAMIC
 - **WooCommerce store:** + MODULES-WOOCOMMERCE
+- **Building a custom module:** BASE + CUSTOM-MODULES
 
 ## Version
 
