@@ -433,6 +433,26 @@ POST /theme-builder
 
 ---
 
+
+**Then offer to make it permanent.** Once the user has picked a font-size policy, look at
+`size_policy.site_default` in the build response. If it is empty, this site has no standing answer
+and the next build will ask again — so ask once more: *"Shall I use that for the whole site from
+now on?"* If they say yes, call `divi_set_settings` with `size_policy` set to their answer, then
+tell them in plain words that it is stored, that you will not ask about font sizes again on this
+site, and that they can change it — or switch back to being asked each time — in **Divi Connect →
+Settings → "Font sizes in a design you hand over"**. Do not offer it twice in a session, and never
+store it without a clear yes.
+
+**And stop asking once it is answered.** If `size_policy.source` comes back as `"site_default"`, the
+site owner has already chosen. Say which policy was used and that it came from their site setting —
+never ask them again, and never pass a `size_policy` of your own unless they want this one page to
+differ from the rest of the site. `divi_get_settings` reports the same value if you want to know
+before you build.
+
+Precedence, if you need it: a `size_policy` on the call beats the site's standing default, which
+beats the built-in `"presets"`. The site setting "Stick strictly to my design tokens" still
+outranks `"exact"` from any source.
+
 ## §6 Full Session Checklist
 
 1. User picks mode A (live site)
