@@ -9,6 +9,29 @@ in [SKILL.md](SKILL.md)). The version is bumped only when the **authoring schema
 changes. Documentation corrections and clarifications that don't change the schema
 are logged under **Unreleased** and ship within the current version without a bump.
 
+## [Unreleased]
+
+### Added — two native features that were undocumented
+
+- **STYLING §7g — Section Dividers.** Divi's own angled/curved section edges, which nothing
+  in the skill set mentioned. Authors had no way to know they exist and would reach for a
+  `divi/code` block and `clip-path`, against BASE rule 14. Documents the full shape on
+  `module.advanced.dividers.{top|bottom}`, all 26 shape names, and `flip` / `color` /
+  `height` / `repeat` / `arrangement`.
+  🪤 **`flip` is an ARRAY.** Passing the bare string `"horizontal"` makes the whole divider
+  fail to render — silently, leaving two flat bands that look like a deliberate design.
+  🪤 **`color` is the colour the divider PAINTS** — the band it cuts into, i.e. usually the
+  *neighbouring* section's background rather than its own.
+- **MODULES-CONTENT `divi/icon` — Aligning an icon.** `alignSelf` on the module's *sizing*,
+  not anything under `icon.advanced`. 🪤 The values are `flex-start` | `end` | `center` —
+  Divi writes **`end`, not `flex-end`**. Also covers giving an icon a tinted rounded chip
+  (background + radius + padding on the same `module.decoration`, plus
+  `"width": "fit-content"` so it does not stretch the column).
+
+Both render-confirmed on Divi 5.11.1. Found by building two real customer designs and
+measuring what the Visual Builder writes, after inferring the shapes from source produced
+markup that stored cleanly and rendered nothing.
+
 ## [0.6.9] — 2026-08-26 · Divi Builder 5.11.1
 
 **A design's font sizes are now a question the AI asks, not a guess.**

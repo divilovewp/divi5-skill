@@ -678,6 +678,64 @@ background colour carrying alpha (e.g. `rgba(255,255,255,0.6)`).
 
 ---
 
+## 7g. Section Dividers — angled / curved section edges (✓ render-confirmed on 5.11.1)
+
+The shaped edge between two bands — a slant, a curve, a wave — is a **native section feature**,
+not something to draw with `clip-path` in a `divi/code` block. It lives on the **section**, in
+`module.advanced` (⚠️ *advanced*, not `decoration`, unlike almost every other style group):
+
+```json
+"module": {
+  "advanced": {
+    "dividers": {
+      "bottom": {"desktop": {"value": {
+        "style": "slant",
+        "flip":  ["horizontal"],
+        "color": "#f4efe4",
+        "height": "58px"
+      }}}
+    }
+  }
+}
+```
+
+- **Two edges:** `top` and `bottom`. A section may carry both at once.
+- **`flip` IS AN ARRAY**, not a string: `["horizontal"]`, `["vertical"]`, or both together
+  `["horizontal","vertical"]`. 🪤 Passing the bare string `"horizontal"` makes the **whole
+  divider fail to render** — no error, no shape, and the section looks exactly as it did
+  before. Most shapes need flipping to sit the way a design has them.
+- **`color` is the colour the divider PAINTS** — i.e. the band it cuts *into*, which is
+  normally the background of the *neighbouring* section, not the one carrying the divider.
+  Getting this backwards produces a shape that is invisible because it matches its own
+  section.
+- **`height`** scales the shape. **`repeat`** tiles it horizontally. **`arrangement`** controls
+  whether it sits above or below the section's content.
+- Omit `color` and `height` and Divi supplies its own — which is what the Visual Builder
+  writes when you pick a shape and change nothing else.
+
+### The 26 shapes
+
+`arrow` · `arrow2` · `arrow3` · `asymmetric` · `asymmetric2` · `asymmetric3` · `asymmetric4` ·
+`clouds` · `clouds2` · `curve` · `curve2` · `graph` · `graph2` · `graph3` · `graph4` ·
+`mountains` · `mountains2` · `ramp` · `ramp2` · `slant` · `slant2` · `triangle` · `wave` ·
+`wave2` · `waves` · `waves2`
+
+Set `style` to `"none"` to remove one.
+
+### Verifying one rendered
+
+Divi emits a child element on the section: `.et_pb_top_inside_divider` /
+`.et_pb_bottom_inside_divider`. 🚨 **Check for it.** A divider that never rendered leaves the
+page looking completely normal — two flat bands meeting in a straight line is a perfectly
+plausible design — so "the page looks fine" is not evidence the divider is there.
+
+> **Source:** shapes from `visual-builder/packages/divider-library/src/components/`; keys from
+> `server/Packages/Module/Options/Dividers/DividersPresetAttrsMap.php`. Render-confirmed on
+> Divi 5.11.1 with a `slant` on a hero's bottom edge and a flipped `slant` on the following
+> section's top edge.
+
+---
+
 ## 8. Z-Index
 
 ```json

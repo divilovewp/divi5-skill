@@ -542,6 +542,23 @@ Renders a single Divi icon. **Self-closing.** **Confirmed working (real-render t
 - `color.desktop.value` — any CSS color string
 - `size.desktop.value` — e.g. `"24px"`, `"48px"`
 
+### Aligning an icon (✓ render-confirmed on 5.11.1)
+
+An icon is a flex item in its column or group, so it positions itself with **`alignSelf` on
+the MODULE's sizing** — not with anything under `icon.advanced`:
+
+```json
+"module": {"decoration": {"sizing": {"desktop": {"value": {"alignSelf": "flex-start"}}}}}
+```
+
+🪤 **The three values are `flex-start` | `end` | `center` — Divi writes `end`, NOT `flex-end`.**
+Unset, an icon centres, which is why a card icon that should sit hard left ends up mid-card.
+
+🪤 **To give the icon a tinted chip** — the small rounded square a lot of card designs put
+behind the glyph — put `background`, `border.radius` and `spacing.padding` on the same
+`module.decoration`, and add `"width": "fit-content"` to the sizing. The module is the flex
+item, so the chip is what gets aligned; without `fit-content` it stretches the full column.
+
 ---
 
 ## `divi/icon-list` + `divi/icon-list-item`
