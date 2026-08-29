@@ -21,19 +21,47 @@ Expandable FAQ items. `accordion` is **NOT self-closing**. `accordion-item` **IS
 }
 
 // accordion-item (child — self-closing):
+// NOTE: no "open" here on purpose — see below, it is ignored.
 {
-  "module": {
-    "advanced": {"open": {"desktop": {"value": "on"}}}
-  },
   "title":   {"innerContent": {"desktop": {"value": "Question text?"}}},
   "content": {"innerContent": {"desktop": {"value": "<p>Answer text.</p>"}}},
   "builderVersion": "5.11.1"
 }
 ```
 
-**`open`:** `"on"` = expanded by default, `"off"` = collapsed
+### Accordion or Toggle — pick the right one
 
-**Confirmed working (real-render tested):** First item with `open: "on"` expands correctly; subsequent items with `open: "off"` collapse correctly. The accordion renders all items in a stacked list inside its column — do not set padding on the wrapping column (see BASE skill — Column Padding rule).
+**`open` is NOT settable on an accordion item.** A Divi accordion shows one item at a time
+and always starts with the **first** one open; a visitor can switch which one, but can never
+close them all. That exclusivity is the module's whole purpose, so there is nothing per-item
+left to decide: the renderer ignores the `open` attribute (position alone decides) and the
+Visual Builder offers no control for it.
+
+⚠️ **"All items closed" and "the third item open" are therefore not states a `divi/accordion`
+can be in.** Asking for either returns HTTP 200 and silently gives you the first item open —
+nothing reports a failure.
+
+✅ **Need a specific panel open, several open at once, or everything closed? Use stacked
+`divi/toggle` modules instead.** Each carries its own `State` setting and it works:
+
+```
+// toggle — open is honoured here
+{
+  "module": {"advanced": {"open": {"desktop": {"value": "on"}}}},
+  "title":  {"innerContent": {"desktop": {"value": "Panel title"}}},
+  "builderVersion": "5.11.1"
+}
+```
+
+The trade-off is the mirror image: toggles do **not** close each other, so several can be
+open at once.
+
+*Measured on Divi 5.11.1 by rendering: the wrapper class, the computed `display` of the
+panel, and the click behaviour. An accordion asked for "item three open" rendered item one
+open twenty times out of twenty.*
+
+The accordion renders all items in a stacked list inside its column — do not set padding on
+the wrapping column (see BASE skill — Column Padding rule).
 
 **FAQ pattern:** constrain the accordion's parent row to `max_width: '800px'` for readability:
 ```

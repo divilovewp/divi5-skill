@@ -163,7 +163,7 @@
 
 | Module | Status | Notes |
 |--------|--------|-------|
-| `divi/accordion` + `divi/accordion-item` | ✓ Confirmed | `open: 'on'` for first item |
+| `divi/accordion` + `divi/accordion-item` | ✓ Confirmed | `open` is IGNORED — the first item is always the open one; use `divi/toggle` for a controllable panel |
 | `divi/toggle` | ✓ Confirmed | Standalone, self-closing, no container needed |
 | `divi/tabs` + `divi/tab` | ✓ Confirmed | First tab active by default, horizontal on mobile |
 | `divi/contact-form` + `divi/contact-field` | ✓ Confirmed | See field types below |
