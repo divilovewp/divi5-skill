@@ -92,6 +92,11 @@ unevenly: an `8_24` column beside a 64px gap renders 357px wide where CSS `2fr 1
 378px (measured). A photograph drawn to the CSS column therefore fits the Divi column a few
 percent narrower, ratio kept. Size photographs to the Divi column, or accept the fit.
 
+**`token_mode:"snap"` snaps WIDTHS too.** Answering a colour reconciliation with `snap` also
+rebinds a row's `maxw:"1200px"` to the nearest size variable, and on a fluid scale that is a
+clamp(): measured, a 1200px row rendered 1098px at 1440. If the design's widths must hold,
+avoid the prompt (use the site's exact colours) or answer `literal`, and say which you did.
+
 Sizes in px trigger the font-size question; answer it with the user (`size_policy`).
 Always read the response `warnings` and relay the ones about contrast and linked variables.
 
