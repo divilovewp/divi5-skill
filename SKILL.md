@@ -83,6 +83,9 @@ After calling `divi_get_design_system`, you MUST build with its tokens:
 - **Never invent** a `gvid-`/`gcid-` ID. Only use IDs returned by `/design-system` (no `gcid-primary`, `gcid-heading`, `gvid-h1`, etc. unless that exact id was returned). Invented IDs render as nothing.
 - Match by `label` (e.g. `H1 Desktop`, `Section Gap`). Hardcode only when no token exists.
 Detail: `DIVI5-CONNECT.md` §3.
+- **A NEW page is designed as HTML first, looked at, then composed** — `DIVI5-PAGE-FROM-HTML.md`.
+  Named patterns are for a section that IS a native thing (a form, an accordion, a pricing table),
+  not for the page. Presets: explicit values first, one consented presets pass after approval.
 
 ## Reference files
 
@@ -91,6 +94,7 @@ Detail: `DIVI5-CONNECT.md` §3.
 | `DIVI5-BASE.md` | **Always** — core rules, nesting, validation, common mistakes |
 | `DIVI5-DESIGN-PROCESS.md` | **Always** — discovery questions + page planning before JSON |
 | `DIVI5-CONNECT.md` | Publishing live via the Divi Connect plugin (read design system, create pages, manage tokens) |
+| `DIVI5-PAGE-FROM-HTML.md` | **Connected + a NEW page:** design it as HTML first, look at it, then compose — the route that replaces "assemble from named patterns" (measured: patterns give the same generic page on every brief) |
 | `DIVI5-WORDPRESS.md` | Creating pages programmatically via REST API / WP-CLI |
 | `DIVI5-LAYOUT.md` | Page structure (section/row/column/group), Grid layout, global-layout |
 | `DIVI5-STYLING.md` | Backgrounds, gradients + gradient variables, spacing, border, typography, text effects, aspect-ratio, framing, variables, pseudo-classes |

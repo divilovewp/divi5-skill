@@ -11,6 +11,18 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+### Added — a new topic: `DIVI5-PAGE-FROM-HTML.md` (2026-09-10)
+
+- **Design first, then compose.** On a connected site a NEW page is designed as HTML (the
+  site's real fonts and hex values), looked at, then composed into `divi_build_page`
+  free-form sections/rows/columns/modules. Measured 2026-09-09 on three unrelated briefs:
+  named patterns produced the same generic page three times; the HTML-first page kept its
+  own rhythm on all three. The topic carries the design rules restated for HTML, a compose
+  map (HTML → spec), the presets rule (explicit values first; ONE consented presets pass
+  after approval), and the measured list of what `divi_build_from_html` DROPS with the
+  HTML that avoids each. SKILL.md's reference table and connected-mode section point at it.
+  No schema change; no version bump.
+
 ### Added — two native features that were undocumented
 
 - **STYLING §7g — Section Dividers.** Divi's own angled/curved section edges, which nothing
