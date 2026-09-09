@@ -28,9 +28,14 @@ The mechanism is the one the Figma route already proved: a **picture** carries c
    put to the user (`token_mode`: snap / adopt / append / literal).
 4. **Look at it.** A page you have not seen is a page you are guessing about.
    - If this client can render HTML itself (Claude Code, Cursor, Codex CLI: a browser or
-     Playwright is available; ChatGPT: its code sandbox renders a page to a PNG — measured
-     12 Sep 2026, flex and grid both correct), render the file at 1440 wide, full page, and
-     LOOK at the picture before composing.
+     Playwright is available), render the file at 1440 wide, full page, and LOOK at the
+     picture before composing.
+   - ChatGPT: your sandbox renders a page to a PNG with WeasyPrint (measured 12 Sep 2026:
+     flex and grid both correct; Chromium does not complete there). It is a print engine,
+     so: put `@page { size: 1280px <the page's height>px; margin: 0 }` in the CSS or the
+     draft is cut to one page; it runs no scripts and loads nothing from the network, so
+     fonts fall back and external images are blank — judge COMPOSITION (bands, columns,
+     hierarchy, spacing), not typography or photographs. Then LOOK at the PNG.
    - If it cannot (claude.ai, the Codex app), call `divi_preview_html` with the
      complete HTML. The picture is taken in the USER'S OWN BROWSER: if a Divi Connect screen
      is open there, it happens by itself and the same call returns the picture in parts. If
