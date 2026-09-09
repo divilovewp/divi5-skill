@@ -26,10 +26,16 @@ The mechanism is the one the Figma route already proved: a **picture** carries c
    `object-fit`. Use the site's EXACT hex values and font names. An exact match binds to the
    variable automatically; a near miss stops the build with a reconciliation prompt you must
    put to the user (`token_mode`: snap / adopt / append / literal).
-4. **Look at it.** If this client can screenshot (Claude Code, Cursor, Codex: a browser or
-   Playwright is available), render the file at 1440 wide, full page, and LOOK before
-   composing. If it cannot, show the HTML in the client's preview and get a yes. A page you
-   have not seen is a page you are guessing about.
+4. **Look at it.** A page you have not seen is a page you are guessing about.
+   - If this client can screenshot (Claude Code, Cursor, Codex CLI: a browser or Playwright is
+     available), render the file at 1440 wide, full page, and LOOK before composing.
+   - If it cannot (claude.ai, ChatGPT, the Codex app), call `divi_preview_html` with the
+     complete HTML. It comes back as a picture in parts, with a temporary preview address;
+     SHOW the picture to the user and LOOK at it yourself. Fix the HTML and preview again if
+     the composition is not what you meant.
+   - If `divi_preview_html` answers that the setting is off, say so once (it is "Let the AI
+     look at its drafts" under Divi Connect → Settings) and compose from the HTML without a
+     picture. Do not retry, and do not ask the user to paste a screenshot.
 5. **Compose into Divi** with `divi_build_page` using free-form sections / rows / columns /
    modules that reproduce the HTML (§ Compose). Name a pattern only where the section IS that
    native thing. Pass `status:"draft"` unless told otherwise.
