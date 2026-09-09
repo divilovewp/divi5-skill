@@ -94,6 +94,7 @@ Detail: `DIVI5-CONNECT.md` §3.
 | `DIVI5-WORDPRESS.md` | Creating pages programmatically via REST API / WP-CLI |
 | `DIVI5-LAYOUT.md` | Page structure (section/row/column/group), Grid layout, global-layout |
 | `DIVI5-STYLING.md` | Backgrounds, gradients + gradient variables, spacing, border, typography, text effects, aspect-ratio, framing, variables, pseudo-classes |
+| `DIVI5-ANIMATION.md` | Motion: Animation group (entrance reveal), Scroll Effects, Interactions, Sticky, Transition/Transform; attribute paths, defaults, silent-failure traps |
 | `DIVI5-MODULES-CONTENT.md` | heading, text, button, image, blurb, CTA, testimonial, team, icon, divider, code, fullwidth-header, svg, timeline, breadcrumbs |
 | `DIVI5-MODULES-INTERACTIVE.md` | accordion, toggle, tabs, contact-form, signup, dropdown, contact-form-7, interactions |
 | `DIVI5-MODULES-MEDIA.md` | video, gallery, slider, video-slider, lottie, audio, before-after-image |
@@ -111,6 +112,7 @@ Detail: `DIVI5-CONNECT.md` §3.
 - **Landing page (JSON only):** BASE + DESIGN-PROCESS + LAYOUT + STYLING + MODULES-CONTENT + PATTERNS
 - **Build and publish live (Divi Connect):** + CONNECT
 - **Import via REST API / WP-CLI:** + WORDPRESS
+- **Motion (entrance reveal, scroll effects, sticky):** + ANIMATION
 - **Interactive sections:** + MODULES-INTERACTIVE
 - **Media/video:** + MODULES-MEDIA
 - **Pricing / counters:** + MODULES-DATA
