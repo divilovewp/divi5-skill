@@ -37,12 +37,15 @@ The mechanism is the one the Figma route already proved: a **picture** carries c
      fonts fall back and external images are blank — judge COMPOSITION (bands, columns,
      hierarchy, spacing), not typography or photographs. Then LOOK at the PNG.
    - If it cannot (claude.ai, the Codex app), call `divi_preview_html` with the
-     complete HTML. The picture is taken in the USER'S OWN BROWSER: if a Divi Connect screen
-     is open there, it happens by itself and the same call returns the picture in parts. If
-     the reply says it is waiting, tell the user to open Divi Connect in WordPress (any of
-     its screens; the picture is then taken automatically, or on Home they press "Send the
-     picture to my AI"), then call `divi_preview_html` again with the token from the reply
-     (no html). SHOW the picture to the user and LOOK at it yourself; fix the HTML and
+     complete HTML. claude.ai: your sandbox's wkhtmltoimage (old WebKit) is NOT a render —
+     measured Sep 2026: flex right, CSS grid drawn as stacked full-width rows — a plausible
+     picture with the wrong structure. Use `divi_preview_html`. The picture is taken in the
+     USER'S OWN BROWSER: if any WordPress admin screen is open there, it happens by itself
+     (within seconds on a Divi Connect screen; up to a minute on other admin screens) and the
+     next call returns the picture in parts. If the reply says it is waiting, tell the user to
+     open Divi Connect in WordPress (any of its screens; the picture is then taken
+     automatically, or on Home they press "Send the picture to my AI"), then call
+     `divi_preview_html` again with the token from the reply (no html). SHOW the picture to the user and LOOK at it yourself; fix the HTML and
      preview again if the composition is not what you meant. If the reply says the user
      pressed "Not this time", compose from the HTML and do not ask again for that draft.
    - Never ask the user to paste a screenshot, and never build a page you were able to look
