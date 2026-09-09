@@ -27,9 +27,11 @@ The mechanism is the one the Figma route already proved: a **picture** carries c
    variable automatically; a near miss stops the build with a reconciliation prompt you must
    put to the user (`token_mode`: snap / adopt / append / literal).
 4. **Look at it.** A page you have not seen is a page you are guessing about.
-   - If this client can screenshot (Claude Code, Cursor, Codex CLI: a browser or Playwright is
-     available), render the file at 1440 wide, full page, and LOOK before composing.
-   - If it cannot (claude.ai, ChatGPT, the Codex app), call `divi_preview_html` with the
+   - If this client can render HTML itself (Claude Code, Cursor, Codex CLI: a browser or
+     Playwright is available; ChatGPT: its code sandbox renders a page to a PNG — measured
+     12 Sep 2026, flex and grid both correct), render the file at 1440 wide, full page, and
+     LOOK at the picture before composing.
+   - If it cannot (claude.ai, the Codex app), call `divi_preview_html` with the
      complete HTML. The picture is taken in the USER'S OWN BROWSER: if a Divi Connect screen
      is open there, it happens by itself and the same call returns the picture in parts. If
      the reply says it is waiting, tell the user to open Divi Connect in WordPress (any of
