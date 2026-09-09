@@ -36,10 +36,15 @@ The mechanism is the one the Figma route already proved: a **picture** carries c
      draft is cut to one page; it runs no scripts and loads nothing from the network, so
      fonts fall back and external images are blank — judge COMPOSITION (bands, columns,
      hierarchy, spacing), not typography or photographs. Then LOOK at the PNG.
-   - If it cannot (claude.ai, the Codex app), call `divi_preview_html` with the
-     complete HTML. claude.ai: your sandbox's wkhtmltoimage (old WebKit) is NOT a render —
-     measured Sep 2026: flex right, CSS grid drawn as stacked full-width rows — a plausible
-     picture with the wrong structure. Use `divi_preview_html`. The picture is taken in the
+   - claude.ai: your sandbox can run a real browser. Install it and render there
+     (measured 13 Sep 2026: `pip install playwright && playwright install chromium`, then
+     `page.screenshot()` at 1280 wide, full page — flex and grid both correct, and the
+     picture is yours to look at). ⛔ NEVER use wkhtmltoimage for this: it is old WebKit and
+     draws CSS grid as stacked full-width rows — a plausible picture with the wrong structure
+     (measured the same day). If the install fails or the network is not available, fall back
+     to `divi_preview_html` below.
+   - If this client cannot render at all (the Codex app; claude.ai when the browser install
+     failed), call `divi_preview_html` with the complete HTML. The picture is taken in the
      USER'S OWN BROWSER: if any WordPress admin screen is open there, it happens by itself
      (within seconds on a Divi Connect screen; up to a minute on other admin screens) and the
      next call returns the picture in parts. If the reply says it is waiting, tell the user to
