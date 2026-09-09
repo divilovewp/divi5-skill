@@ -30,10 +30,12 @@ The mechanism is the one the Figma route already proved: a **picture** carries c
    - If this client can screenshot (Claude Code, Cursor, Codex CLI: a browser or Playwright is
      available), render the file at 1440 wide, full page, and LOOK before composing.
    - If it cannot (claude.ai, ChatGPT, the Codex app), call `divi_preview_html` with the
-     complete HTML. By default the USER holds the camera: the reply gives you a token and
-     says to ask them to open Divi Connect → Home and press "Send the picture to my AI".
-     Ask them, then call `divi_preview_html` again with that token (no html) and the picture
-     comes back in parts. SHOW it to the user and LOOK at it yourself; fix the HTML and
+     complete HTML. The picture is taken in the USER'S OWN BROWSER: if a Divi Connect screen
+     is open there, it happens by itself and the same call returns the picture in parts. If
+     the reply says it is waiting, tell the user to open Divi Connect in WordPress (any of
+     its screens; the picture is then taken automatically, or on Home they press "Send the
+     picture to my AI"), then call `divi_preview_html` again with the token from the reply
+     (no html). SHOW the picture to the user and LOOK at it yourself; fix the HTML and
      preview again if the composition is not what you meant. If the reply says the user
      pressed "Not this time", compose from the HTML and do not ask again for that draft.
    - Never ask the user to paste a screenshot, and never build a page you were able to look
