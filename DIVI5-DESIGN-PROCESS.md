@@ -53,6 +53,14 @@ Generate Divi 5 markup as a code block. The user imports it via Divi → Import 
 
 ## 0b. The One Rule — Plan Before You Build
 
+> 🚦 **Connected to a live site (Divi Connect) and building a NEW page? The page is DESIGNED
+> AS HTML FIRST, looked at, then composed** — read **`DIVI5-PAGE-FROM-HTML.md`** and follow it.
+> Do **not** assemble the page from named patterns (`divi_list_patterns` / `preset:`): measured on
+> three unrelated briefs, that route produced the same generic page three times with different
+> words. A named pattern is for ONE section that IS a native thing (a form, an accordion, a real
+> pricing table), never for the page. The discovery and plan below still come first; the HTML
+> is how the plan is drawn.
+
 **Never emit JSON first.** A correct-but-thoughtless page is the #1 failure mode: valid markup that looks generic, has weak hierarchy, arbitrary nesting, and mismatched modules. **And never plan on guesses when a couple of questions would make the page right** — ask first.
 
 **Output contract — every page request runs in this order:**
@@ -62,7 +70,7 @@ Generate Divi 5 markup as a code block. The user imports it via Divi → Import 
 2. `## Page Plan` — the written blueprint (Phases 1–7 below, kept concise), built from the answers.
 3. `## Self-Critique` — a quick pass against the rubric (§11); revise the plan if needed.
 4. **▸ APPROVAL GATE** — present the plan and **explicitly ask the user to approve or adjust it. STOP here. Do NOT generate markup or call `divi_create_page` / `POST /pages` until the user approves.** If they request changes, revise the plan and ask again.
-5. `## Markup` — *only after approval*, generate the Divi 5 markup from the finalized plan. In mode A, then call POST /pages and return the live URL.
+5. `## Markup` — *only after approval*, generate the Divi 5 markup from the finalized plan. In mode A (connected), a **NEW page** is first written as HTML and **looked at**, then composed — `DIVI5-PAGE-FROM-HTML.md`; then the page is created and the live URL returned.
 
 > The approval gate is mandatory. The single exception: the user explicitly says "just build it / just go" — then proceed with **stated assumptions** (still show a 2-line plan first).
 
