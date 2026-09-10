@@ -104,15 +104,28 @@ blue plan DARK because that is the pack's inverse look. So:
 | `gap` / `align-items:end` | row `gap` / `align:"bottom"` |
 | a 3×2 grid of items | TWO rows of three columns |
 | `<h1>`…`<h3>` | `heading{text,level,size,family,weight,lh,ls,color,align}` |
-| `<p>` / `<ul>` | `text{html,size,color,lh,maxw,align}` — `maxw:"none"` for full width |
-| an eyebrow | `eyebrow{text,color,align}` |
-| `<a class="btn">` | `button{text,url,bg,fg,radius,pad,align}`; ghost = `fg` + `border_color`, no `bg` |
+| `<p>` / `<ul>` | `text{html,size,**family**,weight,color,lh,ls,maxw,align}` — `maxw:"none"` for full width |
+| an eyebrow | `eyebrow{text,**family**,size,weight,ls,uppercase,color,align}` |
+| `<a class="btn">` | `button{text,url,**family**,size,weight,ls,bg,fg,radius,pad,align}`; ghost = `fg` + `border_color`, no `bg` |
 | `<img width height object-fit>` | `image{src,alt,width,radius}` — state `width` or it renders narrower than its column |
 | a circle avatar | `image{width:"72px",radius:"36px",center:true}` |
 | `text-align:center` on a band | `align:"center"` on each module AND `center:true` on the column |
 | a flex "line" (time · class · teacher) | one `<p>` per line inside one text module, `lh` ≥ 2 |
 | two buttons side by side | two narrow columns; in ONE column they stack |
 | an offset layout (content left, nothing right) | a column with `modules:[]` — it holds its width |
+
+🚨 **STATE THE FONT ON EVERY TEXT MODULE — A MODULE THAT NAMES NO FONT DOES NOT KEEP YOURS.**
+`family` is not decoration on the rows above; it is the only thing that puts your draft's font
+on the page. A heading, text, eyebrow or button that states no `family` inherits the SITE's
+global font, and a button with no `family`/`size`/`weight` takes the button preset's instead —
+so the page renders in fonts you never chose while your draft looks perfect.
+🔬 Measured on a real customer page (2026-09-10): a faithful draft in the site's own Inter and
+Lato composed into a page whose module CSS declared **no font-family at all**. Every heading
+and paragraph fell back to the site's global face and every button to the preset's Playfair.
+Nothing was rebound and nothing errored — the fonts were simply never stated.
+⇒ **Carry `family` from the draft onto every heading, text, eyebrow and button.** The same rule
+holds for anything else the draft states: an unstated value is not "default", it is whatever the
+site's globals and presets happen to say.
 
 **Column widths are Divi's, not CSS grid's.** A Divi 24ths column subtracts the row gap
 unevenly: an `8_24` column beside a 64px gap renders 357px wide where CSS `2fr 1fr` gives
