@@ -59,7 +59,8 @@ Generate Divi 5 markup as a code block. The user imports it via Divi → Import 
 > three unrelated briefs, that route produced the same generic page three times with different
 > words. A named pattern is for ONE section that IS a native thing (a form, an accordion, a real
 > pricing table), never for the page. The discovery and plan below still come first; the HTML
-> is how the plan is drawn.
+> is how the plan is drawn. **Do not narrate the method to the user** — no "I'll write HTML
+> first", no tool names; say you are designing the page and show them the preview.
 
 **Never emit JSON first.** A correct-but-thoughtless page is the #1 failure mode: valid markup that looks generic, has weak hierarchy, arbitrary nesting, and mismatched modules. **And never plan on guesses when a couple of questions would make the page right** — ask first.
 

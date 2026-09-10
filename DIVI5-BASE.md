@@ -10,7 +10,7 @@ author: Shashank Gupta @ divilove.com
 
 > **Build order: ask, think, then transcribe.** Before writing any markup, work through **DESIGN-PROCESS**: first **ask the user focused discovery questions** (goal, CTA, brand, content, sections…), then produce a written **Page Plan** (intent → narrative → blueprint → design system → self-critique). The rules below govern the JSON; the design quality comes from the discovery + plan.
 
-> **Connected and building a NEW page? It is designed as HTML first, looked at, then composed** — `DIVI5-PAGE-FROM-HTML.md`. Named patterns are for a section that IS a native thing (a form, an accordion, a pricing table), never for the page.
+> **Connected and building a NEW page? It is designed as HTML first, looked at, then composed** — `DIVI5-PAGE-FROM-HTML.md`. Named patterns are for a section that IS a native thing (a form, an accordion, a pricing table), never for the page. Do not narrate the method to the user; say you are designing the page and show the preview.
 
 ---
 

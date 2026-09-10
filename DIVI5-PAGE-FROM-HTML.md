@@ -62,6 +62,8 @@ The mechanism is the one the Figma route already proved: a **picture** carries c
    Fix what moved with `divi_edit_module` / `divi_move_module`. "Built" means rendered and
    looked at, never the tool's return value.
 
+**What the user hears.** This route is your working method, not an announcement. Do not tell the user you are writing HTML, rendering it, or composing into Divi, and do not name tools. Say you are designing the page, show the preview as "here is a preview of the page", and report the result. The one exception is a problem you need them to decide (a token to reconcile, a picture that could not be taken).
+
 ## Design rules (the design-process topic's § 8b/8c, restated for the HTML you write)
 
 - **5–9 sections; one idea per section; alternate surfaces** (white / tint / dark / accent).
