@@ -1194,3 +1194,79 @@ def html_attr(attr_name, attr_value, label=''):
 ---
 
 *DIVI5 Styling Skill — V0.6.9 | Builder Version 5.11.1 | Created by Shashank Gupta @ divilove.com*
+
+---
+
+## 13. Interactions — click/scroll behaviour, natively (✓ render-confirmed 5.11.1)
+
+Divi 5 has a real interactions engine: a **trigger** on one module fires an **effect** on
+another. This is how a pricing Monthly/Annual switch, a tab-like reveal, or a "click to show
+more" is built **without custom JavaScript**.
+
+**Triggers** `click` · `load` · `mouseEnter` · `mouseExit` · `viewportEnter` / `viewportExit`
+· `breakpointEnter` / `breakpointExit`
+
+**Effects** `toggleVisibility` · Attribute / Cookie / Preset variants (`add` / `remove` /
+`toggle`) · `opacity` · `scale` · `translate` · `rotate` · `tilt` · `mirrorMouseMovement` ·
+`scrollToElement`
+
+Attributes live at `module.decoration.interactions.{bp}.value.interactions[]`:
+
+```json
+"interactions": {"desktop": {"value": {"interactions": [
+  {"id": "sw1", "enabled": true,
+   "triggerClass": "et-interaction-trigger-billing",
+   "trigger": "click",
+   "effect": "toggleVisibility",
+   "target": {"targetClass": "et-interaction-target-annualrow",
+              "label": "annualrow", "targetType": "module"},
+   "timeDelay": "0ms"}
+]}}}
+```
+
+### 🚨 Four requirements, and ALL of them fail silently
+
+An interaction that breaks any of these produces **no console error**, correct-looking data
+in `diviElementInteractionsData`, the script loaded, and simply nothing happening on click.
+
+1. **`triggerClass` MUST start with `et-interaction-trigger-`.** The runtime does
+   `if (!triggerClass.startsWith('et-interaction-trigger-')) return false` — a class of your
+   own naming is skipped outright.
+2. **The trigger element is found by ATTRIBUTE, not by that class.** The runtime queries
+   `[data-interaction-trigger="<suffix>"]`, where `<suffix>` is `triggerClass` minus the
+   prefix. Divi *adds* the class to the element itself afterwards. So the trigger module
+   needs `data-interaction-trigger="billing"`, set through
+   `module.decoration.attributes`.
+3. **Targets are symmetric** — `targetClass` starts with `et-interaction-target-`, and the
+   target module carries `data-interaction-target="<suffix>"`.
+4. **`enabled: true` is required** (`t.enabled && et_setup_interaction(...)`).
+
+### Setting an element's starting state
+
+🪤 **`css` / `freeForm` does NOT apply to a `divi/group`** — at either nesting level, inside
+`decoration` or as a top-level block attr. It stores cleanly and emits nothing, so a box you
+meant to start hidden starts visible and one click flips both halves of a switch together,
+which reads as "the toggle half-works" rather than "the CSS never landed."
+
+Use the HTML-attribute mechanism instead — the same road the `data-interaction-*` hooks ride:
+
+```json
+"attributes": {"desktop": {"value": {"attributes": [
+  {"id": "di-target", "name": "data-interaction-target", "value": "annualrow"},
+  {"id": "style-hide", "name": "style", "value": "display:none"}
+]}}}
+```
+
+### ⚠️ Toggle, not set
+
+There is **no set-visibility effect** in this engine — `setVisibility` belongs to the
+multi-view runtime, not interactions. So a two-pill switch built from `toggleVisibility`
+swaps back if the visitor clicks the pill that is already selected. Give every trigger the
+**same** toggle list so whichever one is on screen swaps the whole switch, and say so in the
+layout's description rather than pretending it is a radio group.
+
+### Pattern: a Monthly/Annual price switch
+
+Build **two** tier rows (one per billing period) and **two** copies of each pill (active and
+inactive). Give every pill the same set of toggles — both rows plus all four pill states —
+so one click swaps prices and the selected pill together. Render-confirmed on Divi 5.11.1.
