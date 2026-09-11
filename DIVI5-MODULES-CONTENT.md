@@ -207,6 +207,7 @@ rendered into `<div class="et_pb_blurb_description">`. Body styling →
 |---|---|---|
 | Icon color | `imageIcon.advanced.color.desktop.value` | **Defaults to the `gcid-primary-color` variable** → with no global color injected the icon takes the theme primary; set an explicit color to be safe. |
 | Image/Icon placement | `imageIcon.advanced.placement.desktop.value` | `"top"` (default) or `"left"`. Emits `et_pb_blurb_position_top`/`_left`. Responsive-capable but **does NOT auto-switch** — `left` stays left on phone unless you set a `…phone.value`. |
+| **Icon font size** | `imageIcon.decoration.sizing.desktop.value.iconFontSize` | 🚨 **Not the `divi/icon` path.** A font icon here is sized by `iconFontSize` inside the shared *sizing* group — `imageIcon.advanced.size` (what `divi/icon` uses) is ignored. Omit it and the icon renders at the blurb default, which is very large (~90px): converting six 19px icons to blurbs without it looked like a different layout. Read from the live schema, 5.11.1.
 | Image/Icon box style | `imageIcon.decoration.{background,spacing,sizing,border,animation}` | Styles the image/icon box (`.et_pb_main_blurb_image`). |
 | **Content Width** | `contentContainer.decoration.sizing.maxWidth.desktop.value` | Caps the inner content block (e.g. `"260px"` → `max-width:260px`; max 1100). |
 | Text color scheme | `module.advanced.text.text.desktop.value.color` | `"light"`/`"dark"` for legibility over light/dark backgrounds. |
