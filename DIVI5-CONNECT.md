@@ -117,9 +117,9 @@ Scan your markup: every `color`, `size`, `gradient`, padding/margin/gap/radius v
 When `/design-system` returns **no colors** or **no size/spacing/font variables** for what the design needs, don't just inline values — **ask the user first** (DESIGN-PROCESS "Variable-availability gate"):
 > "This site has no [colors / size / spacing] variables yet. Generate a variable system (recommended — editable + fluid), or build with inline numeric values?"
 
-- **Generate →** `POST /colors` (`gcid-*`) and/or `POST /variables` (`gvid-*` size/font/gradient) *(Pro)*, then build with the new tokens.
+- **Generate →** `POST /colors` (`gcid-*`) and/or `POST /variables` (`gvid-*` size/font/gradient) *(Professional plugin)*, then build with the new tokens.
 - **Inline →** build with literal values — an accepted path; the self-audit won't flag literals when the user opted out.
-- **Free tier / `402`:** size-variable generation needs **Pro**, and Free bakes size tokens to literal anyway → tell the user and fall back to inline for **sizes** (colors + gradients still generate on Free). See §5 + §7.
+- **Without the Professional plugin (a `404` on those routes):** the design system cannot be written from the connector → tell the user and build with the site's existing tokens or inline values. See §5 + §7.
 
 ---
 
@@ -327,7 +327,7 @@ A post can be authored two ways, and styled two ways. Ask the user up front:
 
 - **Divi Builder body:** the post body is Divi `divi/...` markup (like a page), so it survives being opened + saved in the Visual Builder. Markup rules are identical to pages. On **Divi Connect v1.6.5+** you don't have to do anything special — if the `content` you send is Divi markup (`wp:divi/placeholder`/`divi/section`), the plugin **auto-detects it and makes the post builder-native** (sets `_et_pb_use_builder=on`). You can also force it with `"builder":"divi"`.
 - **Gutenberg body (recommended for plain articles):** plain block content (paragraphs, headings, quotes, lists). Its look comes from the theme or a **Single-Post Theme Builder template**. Send plain block content — or pass `"builder":"gutenberg"` to force plain mode even if the body happens to contain Divi markup.
-- **Single-Post TB template (Pro):** if the user wants consistent post styling (title/meta/breadcrumbs/content area/CTA), build it once via `/theme-builder` (`layout_type:"body"`, condition `singular:post_type:post:all`) — see §5 Theme Builder. A Gutenberg body + a TB template is the cleanest combo. (A Divi-builder body usually does NOT need a TB body template — it carries its own layout.)
+- **Single-Post TB template (Professional plugin):** if the user wants consistent post styling (title/meta/breadcrumbs/content area/CTA), build it once via `/theme-builder` (`layout_type:"body"`, condition `singular:post_type:post:all`) — see §5 Theme Builder. A Gutenberg body + a TB template is the cleanest combo. (A Divi-builder body usually does NOT need a TB body template — it carries its own layout.)
 
 > **Why this matters (the VB-wipe bug, fixed in v1.6.5):** before v1.6.5 a connector post that contained Divi markup but wasn't flagged builder-native would open in the Visual Builder and, on **Save**, get wiped to an empty placeholder. v1.6.5 fixes this — new posts auto-flag from their markup, and `divi_get_page` now returns a **`mode`** (`divi`|`gutenberg`) plus **`needs_builder_repair`**; editing an older broken post via `divi_update_page` **auto-repairs** it. If `divi_get_page` reports `needs_builder_repair: true`, just re-save the post (a `PUT /posts/{id}`) to fix it. On an older plugin (<1.6.5) with no `builder` param, build the post as a **page** instead, or have the user run `wp post meta update <ID> _et_pb_use_builder on`.
 
@@ -362,14 +362,14 @@ Divi's **Projects** are a separate post type (the Portfolio CPT) used for case s
 
 > **⭐ Match an existing project's look — clone, don't rebuild.** Portfolio projects usually share a designed layout (e.g. alternating left/right case-study sections). To make a new one consistent, **`divi_list_pages` `type:"project"` → `divi_duplicate_page` the closest existing project → edit the copy's returned `content` → publish.** Building a project from scratch will miss those established patterns; cloning preserves them.
 
-### Set global colors  *(Pro)*
+### Set global colors  *(Professional plugin)*
 Writes to the Divi 5 Variables panel (global colors). `merge:true` keeps existing colors; omit/false replaces all.
 ```
 POST /colors
 { "colors": { "gcid-primary": {"label": "Primary", "color": "#1a1a2e"} }, "merge": true }
 ```
 
-### Set global variables — sizes, **fonts**, gradients  *(Pro)*
+### Set global variables — sizes, **fonts**, gradients  *(Professional plugin)*
 Creates variables in the Variables panel. `type` accepts: **`size`** (numbers/spacing — e.g. `"clamp(2rem,5vw,5rem)"` or `"48px"`), **`font`** (a font-family name), **`gradient`** (a CSS gradient), and `string`/`link`/`image`/`color`. `id` is optional — omit it and a `gvid-…` is generated.
 ```
 POST /variables
@@ -380,7 +380,7 @@ POST /variables
 ] }
 ```
 
-### Create / merge presets  *(Pro)*
+### Create / merge presets  *(Professional plugin)*
 ```
 POST /presets
 {
@@ -411,7 +411,7 @@ DELETE /pages/{id}     (or /posts/{id})
 ```
 **Safety:** without `confirm:true` the call does NOT delete — it returns `{ requires_confirmation:true, message, page:{title} }`. **Always confirm with the user first**, then re-call with `{"confirm": true}`. Default moves to Trash (recoverable); add `{"force": true}` only if the user explicitly wants permanent deletion.
 
-### Theme Builder — global header / footer / body  *(Pro)*
+### Theme Builder — global header / footer / body  *(Professional plugin)*
 ```
 GET    /theme-builder                     → list templates (template_id, header_id, body_id, footer_id, use_on)
 POST   /theme-builder                     → create a layout (see below)
@@ -473,7 +473,7 @@ outranks `"exact"` from any source.
 | HTTP status | Meaning | Action |
 |---|---|---|
 | 401 / 403 | Wrong or missing API key | Ask user to check their key from Settings → Divi Connect |
-| **402** | **Pro feature on a Free site** | The endpoint requires Divi Connect **Pro** (managing colors/variables/presets, Theme Builder, global layouts, WooCommerce). Tell the user; free sites can still build/edit pages & posts and read the design system. |
+| **404** on a route marked *Professional plugin* | **Not in this plugin** | The route belongs to the separate Divi Connect Professional plugin (writing colors/variables/presets, Theme Builder, global layouts, WooCommerce). Tell the user; this plugin still builds/edits pages & posts and reads the design system. |
 | 404 on `/design-system` | Plugin not installed or not activated | Ask user to install Divi Connect from WP Admin → Plugins |
 | **422** | **Markup validation failed** | The response `problems[]` lists exactly what's wrong (e.g. raw unescaped HTML in a value, wrong content key, `attrs` wrapper). Fix the markup and retry — nothing was created. |
 | 500 on `/pages` | Markup parse error or WP insert failure | Check that content starts with `<!-- wp:divi/placeholder -->` and ends with `<!-- /wp:divi/placeholder -->` |

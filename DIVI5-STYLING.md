@@ -1068,7 +1068,7 @@ For REST-API/portable workflows you still declare the resulting tokens in `globa
 2. **If the needed tokens are absent, ASK the user** (the plugin is headless — it can't prompt): *generate a variable system, or build with inline numeric values?* Wait for the answer.
    - **Yes →** create them (`POST /colors` for `gcid-*`, `POST /variables` for `gvid-*` sizes/spacing/fonts/gradients), then build with tokens.
    - **No →** build with **inline numeric/literal values** — an accepted, consistent path (not a defect).
-3. **Free/Pro reality (Divi Connect):** size-variable *generation* is Pro-gated and the free tier bakes size tokens to literal anyway. On free / a `402`, tell the user and fall back to inline for **sizes**; colors + gradients still generate on free. (See DIVI5-CONNECT.)
+3. **Edition note (Divi Connect):** writing size variables from the connector needs the separate Professional plugin. Without it, use inline values for **sizes**; colors + gradients still generate. (See DIVI5-CONNECT.)
 4. Sub-token hairlines (1–2px gaps, border widths, a 44px icon circle) may stay literal when no token that small exists — that's fine.
 
 ### Undefined `var()` renders nothing — silently
