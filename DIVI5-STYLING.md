@@ -88,7 +88,7 @@ with the band, or move the element to a different surface. A `primary` button be
 }
 ```
 
-**`size` options:** `"cover"`, `"contain"`, `"auto"`, or explicit e.g. `"1920px 800px"`
+**`size` options:** `"cover"`, `"contain"`, `"stretch"` (100% 100%), or **`"custom"` with separate `"width"` / `"height"`** keys on `image` (e.g. `"size":"custom","width":"240px","height":"240px"`, the way a repeating tile is sized). ⛔ An explicit string such as `"1920px 800px"` is NOT a size value: it stores cleanly and renders `background-size: initial`/`auto` (measured on 5.11.1; source: `BackgroundStyleUtils::get_background_size_css()`, which knows auto/cover/contain/stretch/custom only).
 **`position` options:** `"center center"`, `"top center"`, `"bottom left"`, etc.
 **`repeat` options:** `"no-repeat"`, `"repeat"`, `"repeat-x"`, `"repeat-y"`
 
