@@ -187,6 +187,13 @@ def gradient_var(gvid):
 
 The token is also accepted as `"var(--gvid-hero-grad)"` or the bare `"gvid-hero-grad"`. Define the gradient itself in `global_variables` (type `gradients`) — see §10.
 
+**A gradient variable's stops can be COLOUR VARIABLES, and the gradient then follows them.** Write a stop's
+`color` as a colour-variable token, `$variable({"type":"color","value":{"name":"gcid-primary","settings":{}}})$`.
+✓ Measured on 5.11.1: stops referencing two colour variables rendered `linear-gradient(90deg, rgb(255,0,0),
+rgb(0,0,255))`; changing ONLY the first colour variable to `#00aa00` made the same page render green → blue,
+the gradient variable untouched. So a brand gradient built from the palette stays in step with it — build
+gradient variables from colour references, not hex copies.
+
 **Gradient types:** `"linear"`, `"conic"`, `"elliptical"`, `"circular"`.
 > ⚠️ In 5.7.0 the render switch only recognizes these four — a bare `"radial"` is **not** a distinct case and falls back to `linear`. For radial gradients use `"elliptical"` or `"circular"` and set `directionRadial`.
 
