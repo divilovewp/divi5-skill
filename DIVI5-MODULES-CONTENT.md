@@ -12,7 +12,7 @@ author: Shashank Gupta @ divilove.com
 
 ## `divi/heading`
 
-Renders a standalone heading element. **Self-closing.**
+Renders a standalone heading element. **Self-closing** — unless it holds nested modules (below).
 
 > `"inlineEditor": "plainText"` — title value MUST be plain text. HTML tag set via `headingLevel`.
 
@@ -46,6 +46,30 @@ Renders a standalone heading element. **Self-closing.**
 
 ❌ `"value": "<h2>My Title</h2>"` — renders as literal text
 ✅ `"value": "My Title"` — plain text + `headingLevel: "h2"`
+
+**Mixed weight in one heading ("Leadership **Team**")** — use a `divi/text` holding the heading tag, not a
+Heading module: `content.innerContent` = `"<h2>Leadership <strong>Team</strong></h2>"`, styled through
+`content.decoration.headingFont.h2.font`. The builder then offers its rich-text editor with a Bold button.
+(Measured on 5.11.1: a `<strong>` inside a Heading's title DOES render bold — 300 vs 700 — but the title's
+field is plain text, so a later edit in the builder is not a safe place for tags. Not measured further.)
+
+### A Heading can HOLD modules (nesting) — heading + its text as one item
+`divi/heading` is one of Divi 5's nesting modules (`NestedModuleMigration` lists heading, text, button,
+blurb, image …). Children are ordinary inner blocks, so the heading is then NOT self-closing:
+
+```
+<!-- wp:divi/heading {"title":{…},"module":{"decoration":{"layout":{"desktop":{"value":
+   {"display":"flex","flexDirection":"column","rowGap":"0px"}}}}}} -->
+<!-- wp:divi/text {"content":{"innerContent":{"desktop":{"value":"<p>Body copy</p>"}}}} /-->
+<!-- /wp:divi/heading -->
+```
+
+The children render straight after the heading text (`HeadingModule::render_callback`: title container
+then `$child_modules_content`). The heading's own `layout.rowGap` is the space between title and child;
+the COLUMN's `rowGap` spaces one heading-item from the next. ✓ Measured on 5.11.1: two items rendered
+exactly 30px apart under a column `rowGap:30px`; the body sat inside its heading module; the Visual
+Builder opened the page with 0 errors and drew both. This is how an agency lays out a list of
+"title + description" items so ONE setting (the column gap) spaces them.
 
 ---
 
