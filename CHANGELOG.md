@@ -11,6 +11,16 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+### Fixed — contact form: the CAPTCHA can be switched off (2026-09-26)
+
+- `DIVI5-MODULES-INTERACTIVE.md` said the math CAPTCHA "cannot be removed". It can:
+  `module.advanced.spamProtection.desktop.value.useBasicCaptcha: "off"` (default `"on"`), per
+  `ContactFormModule::render_element_basic_captcha()`; render-confirmed on 5.11.1 (no CAPTCHA
+  row). Documented with `enabled: "on"` (a spam service, which also suppresses it).
+- Clarified the textarea field type: write `"text"`, the value the builder's Type dropdown stores.
+  `"textarea"` also renders on the front end but is not a dropdown option, so the builder shows
+  no Type selected. No schema change; no version bump.
+
 ### Added — a new topic: `DIVI5-PAGE-FROM-HTML.md` (2026-09-10)
 
 - **Design first, then compose.** On a connected site a NEW page is designed as HTML (the

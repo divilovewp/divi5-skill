@@ -158,6 +158,8 @@ Tabbed panels. `tabs` is **NOT self-closing**. `tab` **IS self-closing**. Confir
 
 **Field types (confirmed working):** `"input"` (text), `"email"`, `"text"` (textarea), `"select"` (dropdown), `"checkbox"` (multi-select), `"radio"` (single-select)
 
+> Write a textarea as **`"text"`**, the value the Visual Builder's Type dropdown stores ("Textarea"). The front end also renders `"textarea"` as a textarea (`ContactFieldModule` treats both alike), but that value is **not** one of the dropdown's options, so the field's Type setting shows nothing selected in the builder.
+
 **Field layout:** use `module.decoration.sizing.flexType` to make fields half-width (`12_24`) or full-width (`24_24`). Always override tablet/phone to `24_24` so fields stack on small screens.
 
 **Submit button:** Divi auto-injects a Submit button on every contact form. To customise its label and style, add a top-level `button` key to the `contact-form` module:
@@ -182,7 +184,13 @@ Tabbed panels. `tabs` is **NOT self-closing**. `tab` **IS self-closing**. Confir
 
 `button.decoration.button.desktop.value.enable: "on"` must be present or the custom styles are ignored. The `text` field sets the button label.
 
-**Auto-injected CAPTCHA:** Divi automatically adds a math CAPTCHA ("1 + 1 = ?") to every contact form. It cannot be removed and does not require any markup.
+**Auto-injected CAPTCHA:** by default Divi adds a math CAPTCHA ("1 + 1 = ?") to every contact form, with no markup needed. **It can be switched off** on the form's `module.advanced`:
+
+```json
+"module": {"advanced": {"spamProtection": {"desktop": {"value": {"enabled": "off", "useBasicCaptcha": "off"}}}}}
+```
+
+`useBasicCaptcha` defaults to `"on"`; `"off"` removes the question. `enabled: "on"` switches to a spam-protection service instead, and the basic CAPTCHA is then never drawn. Source: `ContactFormModule::render_element_basic_captcha()`. ✓ Render-confirmed on 5.11.1: forms with `useBasicCaptcha: "off"` draw no CAPTCHA row.
 
 **`uniqueId`:** Required. Use any unique UUID-format string. Without it, multiple forms on the same page may conflict.
 
