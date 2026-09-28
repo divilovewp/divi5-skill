@@ -45,9 +45,8 @@ The mechanism is the one the Figma route already proved: a **picture** carries c
      to `divi_preview_html` below.
    - If this client cannot render at all (the Codex app; claude.ai when the browser install
      failed), call `divi_preview_html` with the complete HTML. The picture is taken in the
-     USER'S OWN BROWSER: if any WordPress admin screen is open there, it happens by itself
-     (within seconds on a Divi Connect screen; up to a minute on other admin screens) and the
-     next call returns the picture in parts. If the reply says it is waiting, tell the user to
+     USER'S OWN BROWSER: if a Divi Connect screen is open there, it happens by itself
+     within seconds and the next call returns the picture in parts. If the reply says it is waiting, tell the user to
      open Divi Connect in WordPress (any of its screens; the picture is then taken
      automatically, or on Home they press "Send the picture to my AI"), then call
      `divi_preview_html` again with the token from the reply (no html). SHOW the picture to the user and LOOK at it yourself; fix the HTML and
