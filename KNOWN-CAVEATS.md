@@ -1,7 +1,7 @@
 # Divi 5 Skill — Known Caveats & Limitations
 
 > The detailed source of truth behind each item is [`DIVI5-COVERAGE.md`](DIVI5-COVERAGE.md)
-> (the canonical coverage map, v0.6.6 / Divi 5.9.0).
+> (the canonical coverage map, v0.6.9 / Divi 5.11.1).
 
 These are the known limits of building Divi 5 with the skill (and, by extension, via Divi Connect). They
 fall into five buckets.
@@ -42,6 +42,8 @@ fall into five buckets.
 - **`divi/tooltip`** (NEW 5.8.0) hover/click triggers + final placement are **script-dependent** — on a raw REST page the tooltip script may not enqueue (like TOC), so the popover never reveals; `trigger:"always"` renders without JS. Build via the builder UI for hover/click.
 - **Stale `_divi_dynamic_assets_cached_modules` post meta** — Divi 5 caches each page's module list in this post meta to decide which JS bundles to enqueue. If a script-dependent module (slider, entrance animation, scroll effect, sticky, TOC) is **added to a page whose cache predates it**, its script never enqueues: a slider renders all slides stacked vertically with dead arrows/dots, animations/sticky sit inert. Fix: `wp post meta delete <id> _divi_dynamic_assets_cached_modules` + clear `wp-content/et-cache/` after programmatic imports — Divi rebuilds the cache on the next load. This is likely the mechanism behind the raw-REST TOC/tooltip script failures above. (Tested on Divi 5.7.0 → 5.8.1, portability-imported pages.)
 - **Responsive values do not inherit** across breakpoints — set each breakpoint you care about.
+- **`phoneWide` and `tabletWide` emit no CSS on a default site** — both breakpoints ship disabled. The mobile breakpoint is **`phone`** (`max-width:767px`); tablet is `tablet` (`max-width:980px`). A value set only on `phoneWide` is silently lost (BASE §6).
+- **Modules that need a third-party plugin** — `divi/gravity-forms`, `divi/imagely-gallery` (NextGEN) and `divi/payment-button` (a payment provider) — save cleanly, return HTTP 200 and render an **empty wrapper** when that plugin is missing. A 200 is not evidence the module worked.
 
 ## 4. Documented from source but not render-tested (⚙)
 
@@ -52,8 +54,14 @@ haven't been confirmed with a real render.
 
 ## 5. Version & scope
 
-- The skill is confirmed against **Divi 5.9.0** (v0.6.6) and tracks the 5.8.x–5.9.x line. Treat any
-  feature newer than 5.9.0 as unverified.
+- The skill is confirmed against **Divi 5.11.1** (v0.6.9) and tracks the 5.9.x–5.11.x line. Treat any
+  feature newer than 5.11.1 as unverified.
+- **5.11.0** added four modules — `divi/charts`, `divi/gravity-forms`, `divi/imagely-gallery` and
+  `divi/payment-button` — and native `backdrop-filter` keys (`backdropBlur` / `backdropInvert` /
+  `backdropSepia`); all recorded and render-confirmed. 5.11.1 changed no authoring surface.
+- **5.10** shipped `divi/post-filter` + `divi/post-filter-item` (a filter form for a Loop Builder loop)
+  without announcing them, and made `divi/tooltip` repeat inside a loop — both recorded and
+  render-confirmed.
 - **5.9.0** added no new modules (the same 84 as 5.8.x) and no schema breaks. Its one new authoring
   surface is the **Grid Editor** — container-driven per-item placement via `gridOffsetRules` on a
   `display:"grid"` container — which is recorded.
@@ -65,4 +73,4 @@ haven't been confirmed with a real render.
 
 ---
 
-*Generated from DIVI5-COVERAGE.md (v0.6.6 · Builder Version 5.9.0). Keep both in sync when coverage changes.*
+*Generated from DIVI5-COVERAGE.md (v0.6.9 · Builder Version 5.11.1). Keep both in sync when coverage changes.*
