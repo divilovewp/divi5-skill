@@ -363,5 +363,6 @@ When generating JSON that includes custom modules, always note the required plug
 
 ---
 
-*DIVI5 Custom Modules Skill — V0.6.0 | Builder Version 5.9.0 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Custom Modules Skill — V0.7.1 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com · contributed by @MDHMatt*
+*Re-confirmed on Divi 5.16.0 (2026-10-21): the example above, installed as written, registered and rendered; `render_callback` received five arguments.*
 *Render-confirmed + corrected on Divi 5.9.0 (2026-07-21) against a real 3-module pack — see the status note at the top.*

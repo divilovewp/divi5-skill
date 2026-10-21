@@ -11,6 +11,17 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+## [0.7.1] — 2026-10-21 · Divi Builder 5.16.0
+
+**`divi/charts` draws; two new topics (ANIMATION, CUSTOM-MODULES); gallery by attachment id.** Community
+pull requests #6–#9, each verified on Divi 5.16.0 before merging, plus the follow-ups below.
+
+### Changed
+
+- Version footers → `V0.7.1 | Builder Version 5.16.0` (now also on ANIMATION and CUSTOM-MODULES);
+  `skill-version.txt` 0.7.0 → 0.7.1. Same authoring schema as 0.7.0.
+- KNOWN-CAVEATS §3: a chart's wrapper and title render whatever its data says — judge it by the canvas.
+
 ### Added — community contributions, each verified on Divi 5.16.0 before merging (2026-10-21)
 
 - **`DIVI5-ANIMATION.md`** — motion: the Animation group, Scroll Effects, Sticky, Transform/Transition, and the

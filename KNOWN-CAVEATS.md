@@ -1,7 +1,7 @@
 # Divi 5 Skill — Known Caveats & Limitations
 
 > The detailed source of truth behind each item is [`DIVI5-COVERAGE.md`](DIVI5-COVERAGE.md)
-> (the canonical coverage map, v0.7.0 / Divi 5.16.0).
+> (the canonical coverage map, v0.7.1 / Divi 5.16.0).
 
 These are the known limits of building Divi 5 with the skill (and, by extension, via Divi Connect). They
 fall into five buckets.
@@ -41,6 +41,9 @@ fall into five buckets.
 - **`number-counter` / `circle-counter` / `countdown-timer` / `table-of-contents`** need a real browser (scroll / JS); headless screenshots show blank or static output. TOC must be built via the builder UI, not raw REST.
 - **`divi/tooltip`** (NEW 5.8.0) hover/click triggers + final placement are **script-dependent** — on a raw REST page the tooltip script may not enqueue (like TOC), so the popover never reveals; `trigger:"always"` renders without JS. Build via the builder UI for hover/click.
 - **Stale `_divi_dynamic_assets_cached_modules` post meta** — Divi 5 caches each page's module list in this post meta to decide which JS bundles to enqueue. If a script-dependent module (slider, entrance animation, scroll effect, sticky, TOC) is **added to a page whose cache predates it**, its script never enqueues: a slider renders all slides stacked vertically with dead arrows/dots, animations/sticky sit inert. Fix: `wp post meta delete <id> _divi_dynamic_assets_cached_modules` + clear `wp-content/et-cache/` after programmatic imports — Divi rebuilds the cache on the next load. This is likely the mechanism behind the raw-REST TOC/tooltip script failures above. (Tested on Divi 5.7.0 → 5.8.1, portability-imported pages.)
+- **`divi/charts` renders its wrapper, its `<canvas>` and its title whatever the data says** — a chart whose
+  data Divi cannot read is an empty box at HTTP 200 (the canvas stays at its 300×150 default and paints nothing).
+  Check the canvas, not the markup; the data shape is in MODULES-DATA.
 - **Responsive values do not inherit** across breakpoints — set each breakpoint you care about.
 - **`phoneWide` and `tabletWide` emit no CSS on a default site** — both breakpoints ship disabled. The mobile breakpoint is **`phone`** (`max-width:767px`); tablet is `tablet` (`max-width:980px`). A value set only on `phoneWide` is silently lost (BASE §6).
 - **Modules that need a third-party plugin** — `divi/gravity-forms`, `divi/imagely-gallery` (NextGEN) and `divi/payment-button` (a payment provider) — save cleanly, return HTTP 200 and render an **empty wrapper** when that plugin is missing. A 200 is not evidence the module worked.
@@ -77,4 +80,4 @@ haven't been confirmed with a real render.
 
 ---
 
-*Generated from DIVI5-COVERAGE.md (v0.7.0 · Builder Version 5.16.0). Keep both in sync when coverage changes.*
+*Generated from DIVI5-COVERAGE.md (v0.7.1 · Builder Version 5.16.0). Keep both in sync when coverage changes.*

@@ -55,6 +55,17 @@ BASE + LAYOUT + STYLING + MODULES-CONTENT + WORDPRESS + PATTERNS
 
 > Full change history — including documentation corrections made within a version — is in [CHANGELOG.md](CHANGELOG.md).
 
+**V0.7.1 — Builder Version 5.16.0**
+
+**`divi/charts` now draws.** The data shape earlier versions documented — a flat list of rows, header first —
+stores cleanly and renders an empty box; measured on Divi 5.16.0, the canvas never painted a pixel. The stored
+shape is an object of `columns` (each with a string `label` and a `role`) and `rows` of `{"cells": [...]}`,
+and the roles a chart type needs differ by family (MODULES-DATA). Two new topics: **`DIVI5-ANIMATION.md`** —
+entrance animation, scroll effects, sticky, transform/transition and their traps — and
+**`DIVI5-CUSTOM-MODULES.md`** — writing your own Divi 5 module. `divi/gallery` images can be set by attachment
+id. Every change was verified on Divi 5.16.0 before it was merged; three came from the community (@MDHMatt,
+@spetrum). See [CHANGELOG.md](CHANGELOG.md).
+
 **V0.7.0 — Builder Version 5.16.0**
 
 Covers what Divi 5.12–5.16 added to authoring, each one render-confirmed on Divi 5.16.0 against the same page

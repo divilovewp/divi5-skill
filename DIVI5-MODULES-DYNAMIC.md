@@ -461,7 +461,7 @@ Output of every module here depends on real WordPress content, so verify on a si
 
 ---
 
-*DIVI5 Dynamic Modules Skill — V0.7.0 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Dynamic Modules Skill — V0.7.1 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
 
 ---
 

@@ -367,4 +367,4 @@ Entire family verified against fixture products with real data (scenarios 29 pro
 
 ---
 
-*DIVI5 Coverage Map — V0.7.0 | Builder Version 5.16.0*
+*DIVI5 Coverage Map — V0.7.1 | Builder Version 5.16.0*

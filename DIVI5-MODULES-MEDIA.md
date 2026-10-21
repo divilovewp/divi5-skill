@@ -268,4 +268,4 @@ library, `divi/gallery` is the native module and needs no plugin.
 
 ---
 
-*DIVI5 Media Modules Skill — V0.7.0 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Media Modules Skill — V0.7.1 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

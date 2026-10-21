@@ -563,3 +563,7 @@ Center only describes the UI:
 - [New Group Carousel Module, Lottie Module And More!](https://www.elegantthemes.com/blog/theme-releases/group-carousel-lottie-icon-list)
 
 **Source:** `wp-content/themes/Divi/includes/builder-5/server/Packages/`
+
+---
+
+*DIVI5 Animation Skill — V0.7.1 | Builder Version 5.16.0 | contributed by @spetrum*

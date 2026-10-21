@@ -127,9 +127,13 @@ Detail: `DIVI5-CONNECT.md` §3.
 
 ## Version
 
-**V0.7.0 — Builder Version 5.16.0** (tracks the Divi 5.11–5.16 line). The
+**V0.7.1 — Builder Version 5.16.0** (tracks the Divi 5.11–5.16 line). The
 `builderVersion` stamp on generated markup should match your site's Divi version
 (the examples carry `"5.11.1"`, which every 5.11+ install reads; older values still import via backward-compat).
+🆕 **v0.7.1 fixes `divi/charts`** — the data shape earlier versions taught never drew a chart; it is an object
+of `columns` (each with a string `label` and a `role`) + `rows` of `{cells}`. It adds two topics: ANIMATION
+(entrance animation, scroll effects, sticky) and CUSTOM-MODULES (writing your own module plugin), plus
+`divi/gallery` images by attachment id. All verified on Divi 5.16.0; three are community contributions.
 🆕 **v0.7.0 covers what Divi 5.12–5.16 added to authoring**, each render-confirmed on 5.16.0: Show Labels on
 contact form / signup / comments, the collapsible mobile menu, swipe controls on Slider and Post Slider,
 the Shop pagination text style, and interactions on Timeline. Not yet: the 5.15 Components Slot module.
