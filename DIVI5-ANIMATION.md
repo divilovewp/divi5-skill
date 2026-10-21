@@ -379,7 +379,7 @@ sensitivity)
 
 | Key | Purpose |
 |---|---|
-| `position` | where it sticks — `Top`, `Bottom`, `Top and Bottom` (📖 DOCS) |
+| `position` | where it sticks — JSON `"top"` · `"bottom"` · `"topBottom"` (UI: Top, Bottom, Top and Bottom). ✓ SOURCE `StickyUtils.php` valid positions; ✓ RENDER 5.16.0: `"top"` → `et_pb_sticky--top`, held at top 0 |
 | `offset.top` / `offset.bottom` | distance kept from the edge |
 | `offset.surrounding` | respect other sticky elements |
 | `limit.top` / `limit.bottom` | **sticky boundaries** — the range where it applies |
@@ -505,6 +505,19 @@ neither exposes a control nor honours the media query.
 | `module.decoration.transition` / `.transform` | §5b |
 | No native marquee | §6 |
 | `prefers-reduced-motion` not honoured | §7b |
+
+### ✓ Render-confirmed on Divi 5.16.0 (before merging, 21 Oct 2026)
+
+Each against a plain text module on the same page that did not move:
+
+- **§2 reveal recipe** (`slide` + `bottom`, `startingOpacity 0%`): the module starts `et_animated` at opacity 0
+  and reaches opacity 1 (`et_had_animation`) once scrolled into view.
+- **§3 `verticalMotion`** with the default viewport/offset: `translateY` 400 → 151 → −254 → −400px as the page
+  scrolls. The viewport-key inversion (§3) is still in `ScrollEffectsUtils.php` on 5.16.0.
+- **§5 sticky** `position: "top"`: `et_pb_sticky et_pb_sticky--top`, held at top 0 while the page scrolled on.
+- `prefers-reduced-motion`: still the same three non-front-end files on 5.16.0; `gridMotion` still commented out.
+- **§4 Interactions**: the array schema is in MODULES-INTERACTIVE "Interactions"; a timeline item as a click
+  trigger rendered on 5.16.0 (MODULES-CONTENT, timeline).
 
 ### ❓ Open — all require a render test
 

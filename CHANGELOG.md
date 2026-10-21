@@ -11,6 +11,19 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+### Added — community contributions, each verified on Divi 5.16.0 before merging (2026-10-21)
+
+- **`DIVI5-ANIMATION.md`** — motion: the Animation group, Scroll Effects, Sticky, Transform/Transition, and the
+  traps (no native marquee, `prefers-reduced-motion` not honoured, the `viewport` key inversion). PR #9 by
+  @spetrum. Its reveal recipe, `verticalMotion` and sticky `top` rendered on 5.16.0; sticky `position` values
+  corrected to the stored `top` / `bottom` / `topBottom`.
+- **`DIVI5-CUSTOM-MODULES.md`** — building a custom Divi 5 module. PR #7 by @MDHMatt. Its example, installed as
+  written, registered and rendered on 5.16.0, and Divi passed `render_callback` five arguments.
+- **MODULES-MEDIA `divi/gallery`** — images ARE buildable: `image.advanced.galleryIds` = attachment ids (the
+  chosen six rendered; without it Divi shows its own default set). **MODULES-DATA `divi/instagram-feed`** —
+  `followButton` is a button element, its text at `innerContent.desktop.value.text` (source on 5.16.0; the button
+  only renders with a connected account). PR #6 by @MDHMatt.
+
 ### Fixed — the `divi/charts` data shape, and the assertion that missed it
 
 **MODULES-DATA described `data` as a flat list of rows with the header row first.** The stored

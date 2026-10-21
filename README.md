@@ -29,6 +29,8 @@ Licensed under the [MIT License](LICENSE).
 | `DIVI5-CONNECT.md` | **(new)** Divi Connect plugin workflow — read design system, create pages live, manage tokens |
 | `DIVI5-PATTERNS.md` | Real-world layout patterns + Python generation helpers |
 | `DIVI5-COVERAGE.md` | What is confirmed, source-verified, and untested |
+| `DIVI5-ANIMATION.md` | Motion — entrance animation, scroll effects, sticky, transform/transition (community: @spetrum) |
+| `DIVI5-CUSTOM-MODULES.md` | Building your own Divi 5 module — hooks, module.json, the five module types (community: @MDHMatt) |
 
 ## Typical combinations
 
