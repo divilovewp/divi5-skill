@@ -123,9 +123,12 @@ Detail: `DIVI5-CONNECT.md` §3.
 
 ## Version
 
-**V0.6.9 — Builder Version 5.11.1** (tracks the Divi 5.11.x line). The
+**V0.7.0 — Builder Version 5.16.0** (tracks the Divi 5.11–5.16 line). The
 `builderVersion` stamp on generated markup should match your site's Divi version
-(`"5.11.1"` on current installs; older values still import via backward-compat).
+(the examples carry `"5.11.1"`, which every 5.11+ install reads; older values still import via backward-compat).
+🆕 **v0.7.0 covers what Divi 5.12–5.16 added to authoring**, each render-confirmed on 5.16.0: Show Labels on
+contact form / signup / comments, the collapsible mobile menu, swipe controls on Slider and Post Slider,
+the Shop pagination text style, and interactions on Timeline. Not yet: the 5.15 Components Slot module.
 🆕 **v0.6.9 makes a design's font sizes a question, not a guess** — a vector PDF
 exported from Figma, or a screenshot whose canvas width the user states, DOES carry exact
 type sizes, so the reference ladder gains a fourth rung and a **font-size gate**: ask once,

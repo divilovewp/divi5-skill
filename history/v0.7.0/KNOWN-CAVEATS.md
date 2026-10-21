@@ -1,0 +1,80 @@
+# Divi 5 Skill — Known Caveats & Limitations
+
+> The detailed source of truth behind each item is [`DIVI5-COVERAGE.md`](DIVI5-COVERAGE.md)
+> (the canonical coverage map, v0.7.0 / Divi 5.16.0).
+
+These are the known limits of building Divi 5 with the skill (and, by extension, via Divi Connect). They
+fall into five buckets.
+
+---
+
+## 1. Hard failures — crash or silently drop
+
+| Caveat | Effect | Do this instead |
+|---|---|---|
+| `innerContent.desktop.value` passed as an **array** | WordPress 500 | Always a string or object |
+| `audio.innerContent…value` as an **object** | WordPress 500 | Plain string URL |
+| **`builderVersion` missing** on a module | Module won't render/import | Always stamp `builderVersion` |
+| `divi/gallery` **images in JSON** | WordPress 500 | Grid attrs work; images need WP media-library IDs (set in editor) |
+| `boolean_checkbox` contact field | Silently skipped | Use `checkbox` with a single option |
+| Woo **checkout** modules via plain REST with an **empty cart** | HTTP 500 at save | Place on the Checkout page / a TB template, or boot a WC cart first |
+| `font…value.style: ["uppercase"]` (and `textTransform` in any spelling) | Stores + round-trips, emits **no** `text-transform` (5.9.0) | `capitalization: "uppercase"` (STYLING §7e) |
+| `htmlAttributes.id.desktop.value` (per-key shape) | Stores cleanly, renders **no** `id`/`class` — dead `#anchor` links | `htmlAttributes.desktop.value.{id,class}` (STYLING §9) |
+
+## 2. Not covered at all (need external services or the editor)
+
+- `divi/gallery` **images** — require WP media-library IDs, can't be defined in standalone JSON.
+- `divi/instagram-feed` — needs a connected Instagram account.
+- `divi/map` / `divi/map-pin` — need a Google Maps API key.
+- Fullwidth post / menu / map variants — same attrs as the standard variants but need a fullwidth section / external service.
+
+## 3. Renders, but with behavioral gotchas
+
+- **Size / numeric variables (`gvid-*`)** inline a simplified literal value, **not** a CSS `var()` — a precise `clamp()` collapses to its minimum. (This is exactly why Divi Connect's Free tier "bakes" size tokens.)
+- **Grid layout** does **not** auto-stack on mobile — set a responsive `gridColumnCount`.
+- **Text columns** (`font.columnCount`, NEW 5.8.0) also do **not** auto-stack on mobile — set a responsive `columnCount:"1"`.
+- **Transparent button background** → invisible text; use a border instead.
+- **`divi/divider`** has a native line that is on-by-default — set its color explicitly (don't add a separate border, or you get a double line).
+- **Button alignment** must be set **per breakpoint** or it falls back to left-aligned on mobile.
+- **`pricing-tables`** with multiple tables in one container won't stack on mobile (use one table per container per column).
+- **Empty column** with a background image and no children collapses to zero height — add `minHeight`.
+- **`number-counter` / `circle-counter` / `countdown-timer` / `table-of-contents`** need a real browser (scroll / JS); headless screenshots show blank or static output. TOC must be built via the builder UI, not raw REST.
+- **`divi/tooltip`** (NEW 5.8.0) hover/click triggers + final placement are **script-dependent** — on a raw REST page the tooltip script may not enqueue (like TOC), so the popover never reveals; `trigger:"always"` renders without JS. Build via the builder UI for hover/click.
+- **Stale `_divi_dynamic_assets_cached_modules` post meta** — Divi 5 caches each page's module list in this post meta to decide which JS bundles to enqueue. If a script-dependent module (slider, entrance animation, scroll effect, sticky, TOC) is **added to a page whose cache predates it**, its script never enqueues: a slider renders all slides stacked vertically with dead arrows/dots, animations/sticky sit inert. Fix: `wp post meta delete <id> _divi_dynamic_assets_cached_modules` + clear `wp-content/et-cache/` after programmatic imports — Divi rebuilds the cache on the next load. This is likely the mechanism behind the raw-REST TOC/tooltip script failures above. (Tested on Divi 5.7.0 → 5.8.1, portability-imported pages.)
+- **Responsive values do not inherit** across breakpoints — set each breakpoint you care about.
+- **`phoneWide` and `tabletWide` emit no CSS on a default site** — both breakpoints ship disabled. The mobile breakpoint is **`phone`** (`max-width:767px`); tablet is `tablet` (`max-width:980px`). A value set only on `phoneWide` is silently lost (BASE §6).
+- **Modules that need a third-party plugin** — `divi/gravity-forms`, `divi/imagely-gallery` (NextGEN) and `divi/payment-button` (a payment provider) — save cleanly, return HTTP 200 and render an **empty wrapper** when that plugin is missing. A 200 is not evidence the module worked.
+
+## 4. Documented from source but not render-tested (⚙)
+
+`divi/dropdown`, form pseudo-class states (focus/checked/active), `divi/instagram-feed`, `divi/map`,
+box-shadow, `viewportEnter` / `viewportExit` interaction triggers, global canvas, and the variable
+generators (Color Scale / Harmony / fluid). These are extracted from Divi source and should work, but
+haven't been confirmed with a real render.
+
+## 5. Version & scope
+
+- The skill is confirmed against **Divi 5.11.1**, plus the 5.12–5.16 additions below, which were
+  render-confirmed on **Divi 5.16.0** (v0.7.0). Examples written before 5.12 were not re-rendered one by one
+  on 5.16.0.
+- **5.12–5.16** added Show Labels (contact form, signup, comments), the collapsible mobile menu, swipe
+  controls on Slider and Post Slider, the Shop pagination text style and interactions on Timeline — all
+  recorded. **Not covered yet: `divi/global-slot`** — the Slot module of 5.15 Components.
+- **5.11.0** added four modules — `divi/charts`, `divi/gravity-forms`, `divi/imagely-gallery` and
+  `divi/payment-button` — and native `backdrop-filter` keys (`backdropBlur` / `backdropInvert` /
+  `backdropSepia`); all recorded and render-confirmed. 5.11.1 changed no authoring surface.
+- **5.10** shipped `divi/post-filter` + `divi/post-filter-item` (a filter form for a Loop Builder loop)
+  without announcing them, and made `divi/tooltip` repeat inside a loop — both recorded and
+  render-confirmed.
+- **5.9.0** added no new modules (the same 84 as 5.8.x) and no schema breaks. Its one new authoring
+  surface is the **Grid Editor** — container-driven per-item placement via `gridOffsetRules` on a
+  `display:"grid"` container — which is recorded.
+- The **5.8.0** additions — Tooltip module + the Advanced Text Styling batch (variable fonts, columns,
+  drop caps, vertical text, line-wrap, hyphenation, paragraph spacing, stroke position) — are recorded
+  and render-confirmed.
+- For the per-feature state — what is render-confirmed, what is source-derived but untested, and what
+  does not work — read the coverage map linked at the top; it is the authoritative list.
+
+---
+
+*Generated from DIVI5-COVERAGE.md (v0.7.0 · Builder Version 5.16.0). Keep both in sync when coverage changes.*

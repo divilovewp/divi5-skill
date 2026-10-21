@@ -200,4 +200,4 @@ The WooCommerce family is **fully render-confirmed (5.7.0)** against fixture pro
 
 ---
 
-*DIVI5 WooCommerce Modules Skill — V0.6.9 | Builder Version 5.11.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 WooCommerce Modules Skill — V0.7.0 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

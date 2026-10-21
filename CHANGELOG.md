@@ -11,6 +11,24 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+## [0.7.0] — 2026-10-21 · Divi Builder 5.16.0
+
+**What Divi 5.12–5.16 added to authoring, render-confirmed on 5.16.0** — plus every documentation change made
+since 0.6.9 (listed below).
+
+### Changed
+
+- Version footers → `V0.7.0 | Builder Version 5.16.0`; `skill-version.txt` 0.6.9 → 0.7.0. `builderVersion`
+  examples stay at 5.11.1 (every 5.11+ install reads them); the new 5.12–5.16 examples carry 5.16.0, since
+  those attributes need it.
+- KNOWN-CAVEATS + COVERAGE: scope is now 5.11.1 plus the 5.12–5.16 additions; the Components Slot module is
+  listed as not covered.
+
+### Known limits
+
+- `divi/global-slot` (5.15 Components) is not documented yet.
+- Examples written before 5.12 were not re-rendered one by one on 5.16.0.
+
 ### Added — Divi 5.12–5.16 authoring additions (2026-10-21, ✓ render-confirmed on Divi 5.16.0)
 
 Found by diffing Divi's module library 5.10.1 → 5.16.0 and reading Divi's own `changelog.txt`. Each one was

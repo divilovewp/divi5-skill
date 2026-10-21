@@ -6,6 +6,25 @@
 
 ---
 
+## New in v0.7.0 (Divi 5.12–5.16) — ✓ render-confirmed (Divi 5.16.0)
+
+> Found by diffing every module's definition 5.10.1 → 5.16.0 and reading Divi's own `changelog.txt`. Each
+> one was measured against the same page without it.
+
+| Addition | Path | Where |
+|---|---|---|
+| Show Labels — contact form (5.13), signup + comments (5.13.1) | `module.advanced.showLabels` | MODULES-INTERACTIVE |
+| Collapsible mobile menu (5.16) | `menuMobile.advanced.collapsible` / `parentLinksActive` | MODULES-DYNAMIC |
+| Swipe controls — Slider (5.12.1), Post Slider (5.13.1) | `pagination.advanced.style: "swipe"` … | MODULES-MEDIA |
+| Shop pagination text | `pagination.decoration.font` | MODULES-WOOCOMMERCE |
+| Timeline / Timeline Item interactions | `module.decoration.interactions` | MODULES-CONTENT |
+| ✗ not covered: `divi/global-slot` (5.15 Components) | — | — |
+
+Signup's Show Labels is confirmed as its class only: the signup form draws no fields until an email
+service is connected.
+
+---
+
 ## New in v0.6.8 (Divi 5.11.0 / 5.11.1) — ✓ render-confirmed (Divi 5.11.1)
 
 > Divi 5.11.0 added **four modules** and **three filter keys**. 5.11.1 was bug-fix only for
@@ -343,4 +362,4 @@ Entire family verified against fixture products with real data (scenarios 29 pro
 
 ---
 
-*DIVI5 Coverage Map — V0.6.9 | Builder Version 5.11.1*
+*DIVI5 Coverage Map — V0.7.0 | Builder Version 5.16.0*

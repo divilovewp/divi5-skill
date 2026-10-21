@@ -1,7 +1,7 @@
 # Divi 5 Skill — Known Caveats & Limitations
 
 > The detailed source of truth behind each item is [`DIVI5-COVERAGE.md`](DIVI5-COVERAGE.md)
-> (the canonical coverage map, v0.6.9 / Divi 5.11.1).
+> (the canonical coverage map, v0.7.0 / Divi 5.16.0).
 
 These are the known limits of building Divi 5 with the skill (and, by extension, via Divi Connect). They
 fall into five buckets.
@@ -54,8 +54,12 @@ haven't been confirmed with a real render.
 
 ## 5. Version & scope
 
-- The skill is confirmed against **Divi 5.11.1** (v0.6.9) and tracks the 5.9.x–5.11.x line. Treat any
-  feature newer than 5.11.1 as unverified.
+- The skill is confirmed against **Divi 5.11.1**, plus the 5.12–5.16 additions below, which were
+  render-confirmed on **Divi 5.16.0** (v0.7.0). Examples written before 5.12 were not re-rendered one by one
+  on 5.16.0.
+- **5.12–5.16** added Show Labels (contact form, signup, comments), the collapsible mobile menu, swipe
+  controls on Slider and Post Slider, the Shop pagination text style and interactions on Timeline — all
+  recorded. **Not covered yet: `divi/global-slot`** — the Slot module of 5.15 Components.
 - **5.11.0** added four modules — `divi/charts`, `divi/gravity-forms`, `divi/imagely-gallery` and
   `divi/payment-button` — and native `backdrop-filter` keys (`backdropBlur` / `backdropInvert` /
   `backdropSepia`); all recorded and render-confirmed. 5.11.1 changed no authoring surface.
@@ -73,4 +77,4 @@ haven't been confirmed with a real render.
 
 ---
 
-*Generated from DIVI5-COVERAGE.md (v0.6.9 · Builder Version 5.11.1). Keep both in sync when coverage changes.*
+*Generated from DIVI5-COVERAGE.md (v0.7.0 · Builder Version 5.16.0). Keep both in sync when coverage changes.*

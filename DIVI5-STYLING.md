@@ -1200,7 +1200,7 @@ def html_attr(attr_name, attr_value, label=''):
 
 ---
 
-*DIVI5 Styling Skill — V0.6.9 | Builder Version 5.11.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Styling Skill — V0.7.0 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
 
 ---
 

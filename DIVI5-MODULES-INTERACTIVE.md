@@ -725,4 +725,4 @@ For a button-triggered popup instead of auto-show, use `trigger: "click"` on the
 
 ---
 
-*DIVI5 Interactive Modules Skill — V0.6.9 | Builder Version 5.11.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Interactive Modules Skill — V0.7.0 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

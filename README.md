@@ -53,6 +53,16 @@ BASE + LAYOUT + STYLING + MODULES-CONTENT + WORDPRESS + PATTERNS
 
 > Full change history — including documentation corrections made within a version — is in [CHANGELOG.md](CHANGELOG.md).
 
+**V0.7.0 — Builder Version 5.16.0**
+
+Covers what Divi 5.12–5.16 added to authoring, each one render-confirmed on Divi 5.16.0 against the same page
+without it: **Show Labels** on the contact form (5.13), signup and comments (5.13.1); the **collapsible mobile
+menu** (5.16); **swipe controls** — slide count, progress bar, swipe label — on Slider (5.12.1) and Post Slider
+(5.13.1); the **Shop pagination** text style; and **interactions on Timeline**. Also in this release: the
+`DIVI5-PAGE-FROM-HTML.md` topic (design the page as HTML first, look at it, then compose), section dividers,
+icon alignment, the contact-form CAPTCHA switch, gradient stops that follow colour variables, and more — see
+[CHANGELOG.md](CHANGELOG.md). Not yet covered: the 5.15 Components **Slot** module (`divi/global-slot`).
+
 **V0.6.9 — Builder Version 5.11.1**
 
 A design's font sizes are now a question the skill asks, not a guess. The reference ladder in

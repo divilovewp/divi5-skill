@@ -324,4 +324,4 @@ Blog, portfolio family, post* family, menu, search, login, sidebar, comments, ma
 
 ---
 
-*DIVI5 Data Modules Skill — V0.6.9 | Builder Version 5.11.1 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Data Modules Skill — V0.7.0 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
