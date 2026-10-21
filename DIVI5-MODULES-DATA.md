@@ -237,9 +237,9 @@ Auto-builds a linked list from the headings of the current post. Self-closing. *
 
 ---
 
-## `divi/instagram-feed` (NEW in 5.6.0 — ⚙ source-verified)
+## `divi/instagram-feed` (NEW in 5.6.0 — ✓ live-render confirmed on 5.9.0)
 
-Displays an Instagram account's recent posts in a grid. Self-closing. Requires a connected Instagram account (the `accountId` references the connection configured on the site).
+Displays an Instagram account's recent posts in a grid. Self-closing. Requires a connected Instagram account (the `accountId` references the connection configured on the site); without one it renders the empty state (`"No media found"`). Live-render confirmed on 5.9.0 against a real connected account (pulls real posts + the follow button).
 
 ```json
 {
@@ -260,6 +260,8 @@ Displays an Instagram account's recent posts in a grid. Self-closing. Requires a
 | Account | `feed.innerContent.desktop.value.accountId` | connected IG account id |
 | Post count | `feed.innerContent.desktop.value.postCount` | number of posts (string) |
 | Grid columns | `feed.decoration.layout.desktop.value.gridColumnCount` | grid layout (see LAYOUT §5b) |
+| Follow label | `followButton.innerContent.desktop.value.text` | **`followButton` is `elementType: "button"`**, so its `innerContent` value is an **object** keyed `{text, linkUrl, …}` — the module reads `innerContent.desktop.value.text`, exactly like `divi/button`. A bare string, or an outer-`text`-wrapped breakpoint (`{"text":{"desktop":{"value":…}}}`), renders fine on the empty state but **fatals the whole page** (`InvalidArgumentException` / `ArrayUtility` TypeError) the moment a live `accountId` makes the button actually render. Only `text` is needed — the follow URL is derived from the account. |
+| Follow toggle | `followButton.advanced.show` | `"on"` / `"off"` — whether the follow button renders |
 | Lightbox | `feed.advanced.config.desktop.value.lightbox` | `"on"` / `"off"` |
 | Follow button | `followButton.advanced.show.desktop.value` | `"on"` / `"off"` |
 

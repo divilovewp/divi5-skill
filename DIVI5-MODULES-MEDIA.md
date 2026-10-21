@@ -46,11 +46,12 @@ Image gallery grid. **Self-closing.**
       }
     }
   },
+  "image": {"advanced": {"galleryIds": {"desktop": {"value": [37, 38, 39, 40, 41, 42]}}}},
   "builderVersion": "5.11.1"
 }
 ```
 
-**⚠️ Gallery images cannot be passed via JSON markup.** Passing `innerContent.desktop.value` as an array crashes WordPress with a 500 error (`ltrim(): array given`). Gallery images must be added via the Divi editor UI (WP media library IDs). The `galleryGrid` column count settings work and are safe to include.
+**Gallery images ARE buildable in JSON — pass WP media-library attachment IDs** via `image.advanced.galleryIds` (an int array), **not** image URLs. Embedding a URL/`src` (or passing `innerContent.desktop.value` as an array) crashes WordPress with a 500 (`ltrim(): array given`); the **id-array form is the supported path** — confirmed against the Divi 5.9.0 `GalleryModule` source (the ids go straight into `get_posts(post_type=attachment, include=…)`). Seed the media library first (`wp media import <url> --porcelain` prints the id). Render-confirmed on 5.9.0: a 3-column grid of 6 photos with pagination. The `galleryGrid` column-count settings above are safe to include.
 
 ---
 
