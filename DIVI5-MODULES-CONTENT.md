@@ -832,6 +832,12 @@ timeline {direction, position}
   └── timeline-item /-->
 ```
 
+**Interactions** (by 5.16.0 — ✓ render-confirmed 5.16.0): `divi/timeline` and `divi/timeline-item` now take
+`module.decoration.interactions` + `interactionTrigger` like any other module (MODULES-INTERACTIVE "Interactions").
+A timeline item as a click trigger: the item gains `et-interaction-trigger-<id>`, `data-interaction-trigger` and a
+pointer cursor, and clicking it showed a hidden target text module (0 → 1 visible); the same timeline without the
+interaction did nothing on click.
+
 ---
 
 ## `divi/breadcrumbs` (NEW in 5.4.0 — ✓ render-confirmed)

@@ -302,6 +302,33 @@ These are optional. Functional field structure stays as documented in the contac
 
 ---
 
+## Show Labels — field labels above the inputs (5.13 contact-form · 5.13.1 signup + comments — ✓ render-confirmed 5.16.0)
+
+By default a form shows **no labels**: each text field uses its title as the placeholder. One switch puts the
+labels back above the inputs, and the "Label Text" font styles then apply to them.
+
+```json
+{
+  "module": {"advanced": {"showLabels": {"desktop": {"value": "on"}}}},
+  "builderVersion": "5.16.0"
+}
+```
+
+| Module | Path | Default | What `"on"` does |
+|--------|------|---------|------------------|
+| `divi/contact-form` | `module.advanced.showLabels` | `"off"` | shows each field's `.et_pb_contact_form_label` (the label is in the markup either way — this is CSS) |
+| `divi/signup` | `module.advanced.showLabels` | `"off"` | adds `et_pb_contact_show_labels` to the module |
+| `divi/comments` | `module.advanced.showLabels` | `"off"` | adds `et_pb_contact_show_labels`; the comment/name/email/website labels show above the fields |
+
+Measured on Divi 5.16.0, `"on"` against an identical page without it: contact form 3 labels visible vs 0;
+comments 5 labels vs 1. Not responsive, not hover. A preset can carry it.
+
+🪤 **The signup form draws no fields at all until an email service account (Mailchimp etc.) is connected** — the
+page shows the title and body only. That is why a signup "label" check on a fresh site finds nothing: the class
+is set, there is just no field to label yet.
+
+---
+
 ## `divi/dropdown` (NEW in 5.3.x — ⚙ source-verified)
 
 A flyout/dropdown panel that reveals nested modules on hover or click. Typically paired with a `divi/link` or `divi/button` trigger. **Self-closing** at the attribute level, but it wraps panel content (treat like a container holding the revealed modules).

@@ -96,6 +96,38 @@ Image gallery grid. **Self-closing.**
 
 **Confirmed:** First slide is active on page load. Navigation dots render automatically. `module.decoration.background.color` sets per-slide background. Remove section padding (`0px` all sides) to let the slider be full-width.
 
+### Swipe controls instead of dots (5.12.1 Slider · 5.13.1 Post Slider — ✓ render-confirmed 5.16.0)
+
+A bar under the slides with a slide count (`01 / 03`), a segmented progress line and a swipe label, in place of
+the dot row:
+
+```json
+{
+  "pagination": {"advanced": {
+    "show":           {"desktop": {"value": "on"}},
+    "style":          {"desktop": {"value": "swipe"}},
+    "showCounter":    {"desktop": {"value": "on"}},
+    "showSwipeLabel": {"desktop": {"value": "on"}},
+    "swipeText":      {"desktop": {"value": "Swipe"}},
+    "color":          {"desktop": {"value": "#ffffff"}}
+  }},
+  "builderVersion": "5.16.0"
+}
+```
+
+| Path (`pagination.advanced.*`) | Values |
+|------|--------|
+| `show` (**Slider**) / `enable` (**Post Slider**) | `"on"` / `"off"` — show the controls at all. ⚠️ the key differs between the two modules |
+| `style` | `"swipe"` / `"dot"` — **omit it and you get dots** (markup without `style` rendered the dot row on 5.16.0; the Visual Builder writes `"swipe"` for a slider it creates new) |
+| `showCounter` | `"on"` = the `01 / 03` count |
+| `showSwipeLabel` + `swipeText` | the label text (Divi uppercases it in CSS — write it in normal case) |
+| `color` | the controls' text colour (source-read, not measured) |
+
+Post Slider only: `pagination.decoration.background` = the dot colour (Dot Navigation Color).
+Measured on 5.16.0: `"swipe"` → the module gains `et_pb_slider_bottom_controls` and `data-swipe-text`, renders
+`.et-pb-slider-bottom-controls` with the count and label, and no `.et-pb-controllers` dots; the same slider
+without it has 3 dots and no swipe bar. A Post Slider with ONE post draws no controls of either kind.
+
 **⚠️ Slides stacked vertically with dead navigation?** Divi 5 caches the page's module list in the `_divi_dynamic_assets_cached_modules` post meta to decide which JS bundles to enqueue. If the slider is added to a page that was previously saved/imported **without** one, the stale cache omits `divi/slider`, the slider script never loads, and all slides render stacked with no cycling and no working arrows/dots — even though the JSON is correct. Fix: `wp post meta delete <post_id> _divi_dynamic_assets_cached_modules` (and clear `wp-content/et-cache/`), then reload — Divi re-scans the content and writes a fresh cache. The same stale-cache class affects entrance animations, scroll effects, sticky, and table-of-contents. Tested on Divi 5.7.0 → 5.8.1, portability-imported pages.
 
 ---

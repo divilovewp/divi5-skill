@@ -157,6 +157,7 @@ Posts as a slider (like `divi/slider` but auto-populated). **Standalone** — ru
 }
 ```
 `post.advanced.orderby`: `"date_desc"`, `"date_asc"`, `"title_asc"`, `"rand"`, etc. `slideOverlay.advanced.use: "on"` adds a dark tint over background images.
+**Swipe controls** (5.13.1): `pagination.advanced.style: "swipe"` with `enable` (not `show`, as on Slider) — full table in MODULES-MEDIA "Swipe controls instead of dots".
 
 ### `divi/post-nav` (labeled "Pagination") — ✓ render-confirmed (scenario 34)
 Previous/next links for the current post. Self-closing. **Needs single-post context** (uses `get_the_ID()` + `get_next_post()`/`get_previous_post()`), so place it in a **single-post Theme Builder body template**. Confirmed rendering "← prev / next →" links resolving to the adjacent posts by date.
@@ -206,6 +207,35 @@ Renders a WordPress nav menu with logo + optional cart/search icons. Self-closin
 | Cart / search / hamburger | `cartIcon` / `searchIcon` / `hamburgerMenuIcon` | `advanced.show` + `decoration.font` |
 
 `fullwidth-menu` is the same module for a **fullwidth section**.
+
+### Collapsible mobile menu (NEW in 5.16.0 — ✓ render-confirmed 5.16.0)
+
+On a phone the hamburger opens the whole menu with every submenu already expanded. One switch makes each
+parent item carry its own expand/collapse button instead:
+
+```json
+{
+  "menu":       {"advanced": {"menuId": {"desktop": {"value": "20"}}}},
+  "menuMobile": {"advanced": {
+    "collapsible":       {"desktop": {"value": "on"}},
+    "parentLinksActive": {"desktop": {"value": "on"}}
+  }},
+  "builderVersion": "5.16.0"
+}
+```
+
+| Path | Default | Meaning |
+|------|---------|---------|
+| `menuMobile.advanced.collapsible` | `"off"` | `"on"` = submenus start closed; each parent gets a `button.mobile-toggle` |
+| `menuMobile.advanced.parentLinksActive` | `"on"` | `"on"` = the parent link still navigates and only the button toggles; `"off"` = tapping the parent item toggles its submenu instead of navigating |
+| `collapsibleMenu.decoration.{background,spacing,border,boxShadow}` | — | the toggle button's box |
+| `collapsibleMenuOpenIcon.decoration.icon` / `.font` · `collapsibleMenuCloseIcon.…` | — | the open / close icon and its size + colour |
+
+Not responsive (one value for every breakpoint — it only acts on the mobile menu anyway). Measured at 390px on
+Divi 5.16.0 with a menu holding one parent + two children: off → the two child links are open as soon as the
+hamburger opens, no toggle; on → the module gains `et_pb_menu--collapsible-mobile`, one toggle, 0 child links
+showing until the toggle is tapped, then 2. The module class also says which parent mode is set:
+`et_pb_menu--collapsible-parent-links-active` / `-inactive`.
 
 ---
 
@@ -277,6 +307,7 @@ Comment list + comment form for the current post. Self-closing. **Confirmed** in
 }
 ```
 The `field` element uses the harmonized form-field structure incl. focus pseudo-state (STYLING §10c). Only meaningful on a post that allows comments.
+**Labels above the fields** (5.13.1): `module.advanced.showLabels` `"on"` (default `"off"`) — see MODULES-INTERACTIVE "Show Labels".
 
 ---
 
