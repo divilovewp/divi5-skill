@@ -102,6 +102,21 @@ All WooCommerce modules are **self-closing**.
 | `orderby` | `"default"`, `"date"`, `"price"`, `"price-desc"`, `"popularity"`, `"rating"`, `"title"`, `"menu_order"` |
 | `useCurrentLoop` | `"on"` to use the page's existing Woo query (archive/category templates) |
 
+**Pagination and its text style** (the font group is new by 5.16.0 — ✓ render-confirmed 5.16.0):
+```json
+{
+  "content":    {"advanced": {"postsNumber": {"desktop": {"value": "12"}}}},
+  "elements":   {"advanced": {"showPagination": {"desktop": {"value": "on"}}}},
+  "pagination": {"decoration": {"font": {"font": {"desktop": {"value": {"color": "#c0161b", "size": "18px"}}}}}},
+  "builderVersion": "5.16.0"
+}
+```
+`pagination.decoration.font.font.<bp>.value` takes the usual font keys (`color`, `size`, `weight`, `family`, …;
+STYLING font section). It styles the page links (`a.page-numbers`, `span.page-numbers`); `textAlign` moves the
+whole `ul.page-numbers`. The colour is emitted `!important`, so it beats WooCommerce's own link colour.
+Measured on 5.16.0 with 3 products, 2 per page: 26px `#c0161b` rendered on the links vs 14px in WooCommerce's
+default colour without it. Pagination only appears when there are more products than `postsNumber`.
+
 ---
 
 ## Single-product element examples

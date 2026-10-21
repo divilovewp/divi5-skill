@@ -11,6 +11,26 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+### Added — Divi 5.12–5.16 authoring additions (2026-10-21, ✓ render-confirmed on Divi 5.16.0)
+
+Found by diffing Divi's module library 5.10.1 → 5.16.0 and reading Divi's own `changelog.txt`. Each one was
+measured against a control page without it (same page, attribute absent) on Divi 5.16.0.
+
+- **Show Labels** — `module.advanced.showLabels` on `divi/contact-form` (5.13), `divi/signup` and
+  `divi/comments` (5.13.1). MODULES-INTERACTIVE "Show Labels"; pointer in MODULES-DYNAMIC (comments).
+  🪤 the signup form draws no fields until an email service is connected.
+- **Collapsible mobile menu** (5.16.0) — `menuMobile.advanced.collapsible` + `parentLinksActive`, and the
+  `collapsibleMenu*` style groups. MODULES-DYNAMIC (menu).
+- **Swipe controls** on `divi/slider` (5.12.1) and `divi/post-slider` (5.13.1) — `pagination.advanced.style:
+  "swipe"`, `showCounter`, `showSwipeLabel`, `swipeText`, `color`. 🪤 the on/off key is `show` on Slider and
+  `enable` on Post Slider; omitting `style` gives dots. MODULES-MEDIA (slider), pointer in MODULES-DYNAMIC.
+- **Shop pagination text** — `pagination.decoration.font` on `divi/shop`. MODULES-WOOCOMMERCE.
+- **Timeline interactions** — `module.decoration.interactions` on `divi/timeline` + `divi/timeline-item`.
+  MODULES-CONTENT (timeline).
+
+Not yet covered: `divi/global-slot` (5.15 Components' Slot module) — waits for markup written by the Visual
+Builder, since a Slot only fills in when an instance's children are grafted onto the template's slot shells.
+
 ### Fixed — contact form: the CAPTCHA can be switched off (2026-09-26)
 
 - `DIVI5-MODULES-INTERACTIVE.md` said the math CAPTCHA "cannot be removed". It can:
