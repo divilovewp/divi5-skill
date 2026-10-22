@@ -1,7 +1,7 @@
 # Divi 5 Skill — Known Caveats & Limitations
 
 > The detailed source of truth behind each item is [`DIVI5-COVERAGE.md`](DIVI5-COVERAGE.md)
-> (the canonical coverage map, v0.7.2 / Divi 5.16.0).
+> (the canonical coverage map, v0.7.3 / Divi 5.16.0).
 
 These are the known limits of building Divi 5 with the skill (and, by extension, via Divi Connect). They
 fall into five buckets.
@@ -82,4 +82,4 @@ haven't been confirmed with a real render.
 
 ---
 
-*Generated from DIVI5-COVERAGE.md (v0.7.2 · Builder Version 5.16.0). Keep both in sync when coverage changes.*
+*Generated from DIVI5-COVERAGE.md (v0.7.3 · Builder Version 5.16.0). Keep both in sync when coverage changes.*

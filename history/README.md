@@ -30,10 +30,11 @@ edited in place; this policy prevents that recurring.)
 | 0.7.0 | [v0.7.0/](v0.7.0/) (browse) · [v0.7.0.zip](v0.7.0.zip) (download) | 5.16.0 | Divi 5.12–5.16 authoring additions, render-confirmed on 5.16.0 (Show Labels, collapsible mobile menu, swipe controls, Shop pagination text, Timeline interactions) + the PAGE-FROM-HTML topic and every doc change since 0.6.9. Not yet: the Components Slot module. |
 | 0.7.1 | [v0.7.1/](v0.7.1/) (browse) · [v0.7.1.zip](v0.7.1.zip) (download) | 5.16.0 | `divi/charts` data shape fixed (the documented one never drew); new topics ANIMATION + CUSTOM-MODULES; gallery by attachment id — community PRs #6–#9, verified on 5.16.0. |
 | 0.7.2 | [v0.7.2/](v0.7.2/) (browse) · [v0.7.2.zip](v0.7.2.zip) (download) | 5.16.0 | Components and Slots (`divi/global-layout` + `divi/global-slot`), learned from Visual Builder markup and render-confirmed on 5.16.0. |
+| 0.7.3 | [v0.7.3/](v0.7.3/) (browse) · [v0.7.3.zip](v0.7.3.zip) (download) | 5.16.0 | PRESETS re-read for 5.12–5.16: `default` reaches existing instances (rule 8 corrected), `renderAttrs: []` in the examples, wrapper attributes from presets, presets on one Component copy — render-confirmed on 5.16.0. |
 
 0.3.0+ are multi-file, so each is provided both as browseable files under `vX.Y.Z/` and as a
 downloadable `vX.Y.Z.zip` (mirrors the original "Upload these to Claude" / reference layout). The current
-release lives in the repo root; **0.7.2** is the latest.
+release lives in the repo root; **0.7.3** is the latest.
 
 **Not archived:** 0.4.0 (Divi 5.6.2) and 0.5.0 (Divi 5.7.0) have no surviving snapshot — those skill
 files were edited in place during development, so no standalone copy was kept; they exist only as entries

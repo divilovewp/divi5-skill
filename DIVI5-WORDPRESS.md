@@ -308,4 +308,4 @@ m('canvas-portal', {
 
 ---
 
-*DIVI5 WordPress Skill — V0.7.2 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 WordPress Skill — V0.7.3 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

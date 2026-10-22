@@ -432,4 +432,4 @@ Live on divilove.com's Theme-Builder header; connector build helpers live in `di
 
 ---
 
-*DIVI5 Patterns Skill — V0.7.2 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Patterns Skill — V0.7.3 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

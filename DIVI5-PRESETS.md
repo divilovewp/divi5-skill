@@ -469,4 +469,4 @@ def make_section_style_preset(id, name, module_name, bg_color, padding="60px"):
 
 ---
 
-*DIVI5 Presets Skill — V0.7.2 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Presets Skill — V0.7.3 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

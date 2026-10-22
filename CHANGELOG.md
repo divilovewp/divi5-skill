@@ -11,6 +11,11 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+## [0.7.3] — 2026-10-22 · Divi Builder 5.16.0
+
+**DIVI5-PRESETS re-read against Divi 5.12–5.16.** Version footers → `V0.7.3 | Builder Version 5.16.0`;
+`skill-version.txt` 0.7.2 → 0.7.3. Same authoring schema.
+
 ### Fixed
 - **PRESETS rule 8 was wrong**: a type's `default` preset applies to every instance with no `modulePreset`,
   existing ones included (render-confirmed on 5.16.0; the rule said existing instances were untouched).

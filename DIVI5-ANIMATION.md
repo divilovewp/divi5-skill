@@ -566,4 +566,4 @@ Center only describes the UI:
 
 ---
 
-*DIVI5 Animation Skill — V0.7.2 | Builder Version 5.16.0 | contributed by @spetrum*
+*DIVI5 Animation Skill — V0.7.3 | Builder Version 5.16.0 | contributed by @spetrum*

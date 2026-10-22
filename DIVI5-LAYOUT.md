@@ -567,4 +567,4 @@ def make_equal_row(col_count, children_list, max_width="1280px"):
 
 ---
 
-*DIVI5 Layout Skill — V0.7.2 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Layout Skill — V0.7.3 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

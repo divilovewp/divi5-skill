@@ -127,9 +127,12 @@ Detail: `DIVI5-CONNECT.md` §3.
 
 ## Version
 
-**V0.7.2 — Builder Version 5.16.0** (tracks the Divi 5.11–5.16 line). The
+**V0.7.3 — Builder Version 5.16.0** (tracks the Divi 5.11–5.16 line). The
 `builderVersion` stamp on generated markup should match your site's Divi version
 (the examples carry `"5.11.1"`, which every 5.11+ install reads; older values still import via backward-compat).
+🆕 **v0.7.3 corrects PRESETS for Divi 5.12–5.16** — a type's `default` preset reaches every module without its
+own preset (existing pages too); the examples now write `renderAttrs: []`; a preset's CSS ID / class reach the
+page only from a `divi/id-classes` group preset (PRESETS §6b); a preset can be added on one copy of a Component.
 🆕 **v0.7.2 covers Components and Slots** (Divi 5.15+) — `divi/global-layout` uses a Library Component by
 post id; `divi/global-slot` is the part each page fills for itself, matched by `slotId`. Learned from markup
 the Visual Builder wrote on Divi 5.16.0 and render-confirmed there (LAYOUT §5c).

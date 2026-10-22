@@ -55,6 +55,14 @@ BASE + LAYOUT + STYLING + MODULES-CONTENT + WORDPRESS + PATTERNS
 
 > Full change history — including documentation corrections made within a version — is in [CHANGELOG.md](CHANGELOG.md).
 
+**V0.7.3 — Builder Version 5.16.0**
+
+**Presets, re-checked on Divi 5.16.0.** One rule was wrong: a module type's `default` preset applies to every
+module that names no preset — existing pages included — so changing a default restyles them. The code examples
+wrote `"renderAttrs": {}`, the shape the same file warns never shows in the builder; they now write `[]`. New:
+which preset can put a CSS ID, class or custom attribute on a module (`DIVI5-PRESETS.md` §6b), and adding a preset
+to one copy of a Component (`DIVI5-LAYOUT.md` §5c). Each measured by rendering. See [CHANGELOG.md](CHANGELOG.md).
+
 **V0.7.2 — Builder Version 5.16.0**
 
 **Components and Slots (Divi 5.15+).** A Component is a section, row or module saved to the Divi Library —
