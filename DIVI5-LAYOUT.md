@@ -445,13 +445,20 @@ Measured on Divi 5.16.0 (test pages against Components made in the Visual Builde
   column. Components can contain Components (a section Component held a blurb Component — the Library
   post keeps it as a `global-layout` reference) and both rendered.
 - 🪤 **A `globalModule` id that does not exist renders NOTHING — no error, no placeholder.** The id must
-  exist on the **target** site; Components do not travel between sites by id.
+  exist on the **target** site; Components do not travel between sites by id. (Since 5.15 Divi's own layout
+  export/import carries Components along, like presets and variables — per Divi's 5.15 changelog; not tested
+  here, so read the ids on the target site after an import rather than assuming they kept theirs.)
 - 🪤 **WordPress's REST API does not expose the Library** (`/wp/v2/et_pb_layout` → `rest_no_route`).
   An AI cannot look up a Component's id or its `slotId`s on its own — get them from the user or a tool
   that reads `et_pb_layout` posts.
 - Making a Component is a **Visual Builder** action (save a section / row / module to the Library as a
   Component; the builder offers to save the items inside as Components too). Insert a Slot from the
   module picker while editing the Component; what you put in it on a page is that page's own.
+- **A preset on ONE copy (5.15+).** Put `localModulePreset` (and/or `localGroupPreset`, same shape as
+  `groupPreset`) in that copy's `localAttrs`; Divi ADDS it after the Component's own presets
+  (`ComponentPresetUtils`). Measured: `"localAttrs":{"localModulePreset":["<blurb preset id>"]}` on one of two
+  copies of a blurb Component — that copy took the preset (opacity 50%), the other did not. A value the
+  Component sets itself still wins over the added preset (its own white background stayed white).
 - Not tested: per-instance overrides of a Component's own settings (`localAttrsMap` on the Library copy).
 - For self-contained, portable pages prefer inlining the modules instead of a Component.
 

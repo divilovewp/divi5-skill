@@ -1,4 +1,8 @@
-# DIVI5-PRESETS.md — Divi 5 Global Presets (V0.6.2 / Divi 5.8.1)
+# DIVI5-PRESETS.md — Divi 5 Global Presets
+
+> Checked against Divi **5.16.0** on 2026-10-22: rule 8 (§8), §6b and the Component-copy presets in
+> LAYOUT §5c were render-confirmed there. The code examples still carry `"version": "5.8.1"` /
+> `builderVersion` `5.8.1` — Divi reads older stamps; set your site's version when you write new presets.
 
 Presets are saved style configurations for module types. Any module instance can reference a preset by ID; Divi merges the preset attrs with the instance's own attrs at render time.
 
@@ -307,7 +311,7 @@ presets = {
                     "updated": ts,
                     "attrs": style,        # PRIMARY — drives CSS generation
                     "styleAttrs": style,   # AUXILIARY — mirrors attrs for builder UI
-                    "renderAttrs": {}
+                    "renderAttrs": []      # empty = an ARRAY; {} saves but never lists (§2)
                 }
             }
         }
@@ -364,6 +368,29 @@ m('heading', {
 })
 ```
 
+### §6b CSS ID, CSS class and custom attributes from a preset (✓ render-confirmed on 5.16.0)
+
+Since Divi 5.12 a preset can put attributes on the module wrapper, but **which preset type carries which
+attribute matters**:
+
+| set in | renders on the wrapper? |
+|---|---|
+| a **module** preset's custom attributes — `module.decoration.attributes` (`data-*`, and also `id` / `class` given as attribute names) | ✅ yes |
+| a **module** preset's CSS ID & Classes — `module.advanced.htmlAttributes` `{id, class}` | ❌ **no — silently dropped** |
+| a **group** preset of `groupName` **`divi/id-classes`** (`groupId` `module.advanced.htmlAttributes`) | ✅ yes — `id` and `class` |
+
+- Divi reads the `divi/id-classes` group preset's id/class from its **`renderAttrs`** — put the same
+  `{"module":{"advanced":{"htmlAttributes":{"desktop":{"value":{"id":"…","class":"…"}}}}}}` tree in
+  `attrs` (non-empty, or the preset counts as empty) **and** `renderAttrs`. The page references it like
+  any group preset:
+  `"groupPreset":{"module.advanced.htmlAttributes":{"presetId":["<id>"],"groupName":"divi/id-classes"}}`.
+- The module's **own** class is kept: a module with its own `htmlAttributes` class plus a preset class
+  rendered both (fixed in 5.12.1; before, the preset class replaced the module's).
+- A preset that sets an **id** gives that id to every module using the preset — keep such a preset to one
+  module per page, or the page has duplicate ids. (Divi 5.12's notes say preset ids are dropped to prevent
+  this; on 5.16.0 both a custom attribute named `id` and a `divi/id-classes` id rendered.)
+- Not tested: preset-sourced interactions (5.12 says they reach the wrapper too).
+
 ---
 
 ## §7 Common Preset Patterns
@@ -388,7 +415,7 @@ def make_heading_typography_preset(id, name, color, size_desktop, size_tablet, s
         "version": "5.8.1", "type": "module", "created": ts, "updated": ts,
         "attrs": style,       # PRIMARY
         "styleAttrs": style,  # AUXILIARY
-        "renderAttrs": {}
+        "renderAttrs": []     # empty = an ARRAY (§2)
     }
 ```
 
@@ -409,7 +436,7 @@ def make_section_style_preset(id, name, module_name, bg_color, padding="60px"):
         "version": "5.8.1", "type": "module", "created": ts, "updated": ts,
         "attrs": style,       # PRIMARY
         "styleAttrs": style,  # AUXILIARY
-        "renderAttrs": {}
+        "renderAttrs": []     # empty = an ARRAY (§2)
     }
 ```
 
@@ -431,10 +458,15 @@ def make_section_style_preset(id, name, module_name, bg_color, padding="60px"):
 
 7. **Inline attrs override preset attrs** — module-level inline styling always wins over preset styling.
 
-8. **`default` preset** — setting `default` to a preset ID auto-applies it to all NEW instances in the builder. Existing instances without `modulePreset` are not affected.
+8. **`default` preset applies to EVERY instance with no `modulePreset` — existing ones too.** Divi resolves a module with no `modulePreset` to its type's `default` at RENDER time (`GlobalPreset::get_selected_preset()`; the wrapper gets `preset--module--divi-<type>--default`). Measured on Divi 5.16.0: a text module with no preset rendered exactly like one naming the default. ⇒ Setting or changing a `default` restyles every page already using that module type without a preset. (Corrected 2026-10-22 — this rule used to say existing instances were not affected.)
 
 9. **Cache flush** — The mu-plugin endpoint calls `ET_Core_PageResource::remove_static_resources()` to flush Divi's CSS cache after saving. Static CSS is regenerated on next page load.
 
 ---
 
 *Real-render verified at Divi 5.7.0. Source-verified from: `GlobalPreset.php` (`get_data()`, `save_data()`, `get_selected_preset()`), `GlobalPresetItem.php` (`has_data_attrs()`, `get_data_attrs()`), `GlobalPresetItemUtils.php` (`generate_preset_class_name()`), `Module.php` (`render_styles_preset()`), `epanel/custom_functions.php` (`et_get_option()`, `et_update_option()`) — V0.5.1 / 2026-06-09*
+*Re-checked on Divi 5.16.0 (2026-10-22): `default` reaches existing instances (rule 8), wrapper attributes from presets (§6b); source `Module.php`, `GlobalPreset.php`, `ComponentPresetUtils.php`.*
+
+---
+
+*DIVI5 Presets Skill — V0.7.2 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

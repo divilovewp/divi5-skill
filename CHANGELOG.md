@@ -11,6 +11,21 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+### Fixed
+- **PRESETS rule 8 was wrong**: a type's `default` preset applies to every instance with no `modulePreset`,
+  existing ones included (render-confirmed on 5.16.0; the rule said existing instances were untouched).
+- **PRESETS §5 / §7 examples wrote `"renderAttrs": {}`** — the shape §2 itself warns saves but never lists in
+  the builder. Now `[]`.
+
+### Added
+- PRESETS §6b: which preset carries a CSS ID, class or custom attribute to the wrapper (module preset custom
+  attributes yes; module preset CSS ID & Classes no; a `divi/id-classes` group preset yes) — render-confirmed.
+- LAYOUT §5c: a preset on ONE copy of a Component (`localModulePreset` / `localGroupPreset`), render-confirmed;
+  Components travel with layout export/import since 5.15 (changelog, not tested).
+
+### Changed
+- PRESETS: header states what was re-checked on 5.16.0; carries the standard version footer.
+
 ## [0.7.2] — 2026-10-22 · Divi Builder 5.16.0
 
 **Components and Slots (Divi 5.15+).**
