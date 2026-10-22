@@ -62,7 +62,9 @@ haven't been confirmed with a real render.
   on 5.16.0.
 - **5.12–5.16** added Show Labels (contact form, signup, comments), the collapsible mobile menu, swipe
   controls on Slider and Post Slider, the Shop pagination text style and interactions on Timeline — all
-  recorded. **Not covered yet: `divi/global-slot`** — the Slot module of 5.15 Components.
+  recorded. Components and their Slots (`divi/global-layout` + `divi/global-slot`, 5.15) are recorded
+  too (LAYOUT §5c). A Component id that does not exist on the site renders nothing, with no error, and
+  WordPress's REST API cannot list Components, so their ids come from the user.
 - **5.11.0** added four modules — `divi/charts`, `divi/gravity-forms`, `divi/imagely-gallery` and
   `divi/payment-button` — and native `backdrop-filter` keys (`backdropBlur` / `backdropInvert` /
   `backdropSepia`); all recorded and render-confirmed. 5.11.1 changed no authoring surface.

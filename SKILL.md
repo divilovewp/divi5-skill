@@ -96,7 +96,7 @@ Detail: `DIVI5-CONNECT.md` §3.
 | `DIVI5-CONNECT.md` | Publishing live via the Divi Connect plugin (read design system, create pages, manage tokens) |
 | `DIVI5-PAGE-FROM-HTML.md` | **Connected + a NEW page:** design it as HTML first, look at it, then compose — the route that replaces "assemble from named patterns" (measured: patterns give the same generic page on every brief) |
 | `DIVI5-WORDPRESS.md` | Creating pages programmatically via REST API / WP-CLI |
-| `DIVI5-LAYOUT.md` | Page structure (section/row/column/group), Grid layout, global-layout |
+| `DIVI5-LAYOUT.md` | Page structure (section/row/column/group), Grid layout, Components + Slots (global-layout / global-slot) |
 | `DIVI5-STYLING.md` | Backgrounds, gradients + gradient variables, spacing, border, typography, text effects, aspect-ratio, framing, variables, pseudo-classes |
 | `DIVI5-ANIMATION.md` | Motion: Animation group (entrance reveal), Scroll Effects, Interactions, Sticky, Transition/Transform; attribute paths, defaults, silent-failure traps |
 | `DIVI5-MODULES-CONTENT.md` | heading, text, button, image, blurb, CTA, testimonial, team, icon, divider, code, fullwidth-header, svg, timeline, breadcrumbs |

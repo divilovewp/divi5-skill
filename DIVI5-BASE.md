@@ -191,9 +191,11 @@ placeholder wrapper
 
 | Parent | Valid Children |
 |--------|----------------|
-| `section` | `row`, `global-layout` |
+| top level (in `placeholder`) | `section`, `global-layout` of a **section** Component |
+| `section` | `row`, `global-layout` of a **row** Component |
 | `row` | `column` only |
-| `column` | `group`, `group-carousel`, any content module, nested `row` |
+| `column` | `group`, `group-carousel`, any content module, nested `row`, `global-layout` of a **module** Component, `global-slot` (inside a Component only) |
+| `global-layout` / `global-slot` | Components and Slots → LAYOUT §5c |
 | `group` | any content module, nested `row` |
 | `group-carousel` | `group` |
 | `accordion` | `accordion-item` |

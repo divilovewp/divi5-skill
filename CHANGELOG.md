@@ -11,6 +11,14 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+### Added
+- **Components and Slots (Divi 5.15+)** — LAYOUT §5c rewritten from markup the Visual Builder wrote on
+  Divi 5.16.0 (a module, a row and a section Component, two with a Slot) and ten render tests against it:
+  `divi/global-layout` references the Library post by `globalModule` + `blockName`; `divi/global-slot`
+  is filled per page by `slotId`. The Library copy always wins over the page snapshot; a page needs only
+  the filled Slots; a section Component goes at the top level (inside a section it nests); a missing id
+  renders nothing. Parent/child tables in BASE and LAYOUT updated.
+
 ## [0.7.1] — 2026-10-21 · Divi Builder 5.16.0
 
 **`divi/charts` draws; two new topics (ANIMATION, CUSTOM-MODULES); gallery by attachment id.** Community

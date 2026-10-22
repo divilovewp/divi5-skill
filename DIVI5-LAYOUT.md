@@ -398,19 +398,62 @@ Offset values also accept a **number variable** (`gvid-`) token so spans/lines s
 
 ---
 
-## 5c. `divi/global-layout` (✓ render-confirmed — scenario 33)
+## 5c. Components — `divi/global-layout` + `divi/global-slot` (✓ render-confirmed on 5.16.0)
 
-References a **saved global layout/module** so one edit updates every place it is used. The reference is the **`globalModule`** attribute holding the saved layout's WP post ID **as a string**:
+A **Component** (Divi 5.15+; earlier "Global Module") is a section, row or module saved to the **Divi
+Library**. Every page that uses it shows the Library copy, so **one edit changes it everywhere**. A
+**Slot** (`divi/global-slot`, 5.15+) is a hole inside a Component whose contents are **set per page** —
+the one part of a Component that is not shared.
+
+**Where it is stored.** Each Component is one Library post: `et_pb_layout`, taxonomy `scope` = `global`,
+`layout_type` = `section` | `row` | `module`, meta `_et_pb_template_type` the same (+ `_et_pb_module_type`
+e.g. `divi/blurb` for a module). Its `post_content` is ordinary block markup inside `divi/placeholder`.
+A Slot in it is self-closing and carries only its id (and its own layout styles):
 
 ```html
-<!-- wp:divi/global-layout {"globalModule":"123","builderVersion": "5.11.1"} -->
+<!-- wp:divi/global-slot {"slotId":"6f51df2a-df6b-4905-b57c-e1335017948a","builderVersion":"5.16.0"} /-->
+```
+
+**Using a Component on a page** — reference the Library post id (a **string**) and the saved block's name:
+
+```html
+<!-- module or row Component, no Slot: self-closing -->
+<!-- wp:divi/global-layout {"globalModule":"61528","blockName":"divi/blurb","builderVersion":"5.16.0"} /-->
+
+<!-- Component with a Slot: fill the Slot by its slotId -->
+<!-- wp:divi/global-layout {"globalModule":"61529","blockName":"divi/row","builderVersion":"5.16.0"} -->
+<!-- wp:divi/global-slot {"slotId":"6f51df2a-df6b-4905-b57c-e1335017948a","builderVersion":"5.16.0"} -->
+<!-- wp:divi/button {"button":{"innerContent":{"desktop":{"value":{"text":"Book a call","linkUrl":"/contact"}}}},"builderVersion":"5.16.0"} /-->
+<!-- /wp:divi/global-slot -->
 <!-- /wp:divi/global-layout -->
 ```
 
-- ⚠️ The attribute is **`globalModule`** (string id), **not** `ref`. The front-end parser matches `"globalModule":"<id>"` (`BlockParser.php:889`) and inlines that post's content where the block sits.
-- The referenced post is a **Divi Library item** (`et_pb_layout`, scope `global`); its `post_content` is ordinary Divi block markup (typically a full `section`). Place the `global-layout` block where that content belongs — for a global *section*, at the **top level** under the placeholder (sibling of other sections). Confirmed: one library item referenced twice on a page rendered both instances.
-- Requires the referenced layout to already exist on the **target** site (same post ID). Portability across sites is not guaranteed — the ID must resolve.
-- For self-contained, portable pages prefer inlining the modules instead of `global-layout`.
+Measured on Divi 5.16.0 (test pages against Components made in the Visual Builder):
+- **The Library copy always wins.** The Visual Builder also writes a full snapshot of the Component's
+  children into the page (each child with a `syncNodeId`, plus `localAttrs` / `localAttrOverridePaths`
+  on the `global-layout`). A page whose snapshot was edited by hand — a changed heading, a changed blurb
+  title in `localAttrs` — still rendered the **Library** text. ⇒ To change a Component, edit the Library
+  post; never edit the page copy.
+- **The snapshot is not needed.** `global-layout` holding ONLY the filled `global-slot` rendered the whole
+  Component plus the slot content. Self-closing `global-layout` rendered the Component with the Slot empty.
+- **Slot content is per page.** The same Component on two pages, each with its own Slot content, showed
+  each page's own. Slots are matched by **`slotId`** — copy it from the Library post; a wrong id leaves
+  the Slot empty.
+- **Placement = where the saved block belongs.** A **section** Component goes at the TOP level under the
+  placeholder (a sibling of sections). ⛔ Wrapped inside a `divi/section` it still renders, but as a
+  **section nested in a section**. A row Component goes inside a section; a module Component inside a
+  column. Components can contain Components (a section Component held a blurb Component — the Library
+  post keeps it as a `global-layout` reference) and both rendered.
+- 🪤 **A `globalModule` id that does not exist renders NOTHING — no error, no placeholder.** The id must
+  exist on the **target** site; Components do not travel between sites by id.
+- 🪤 **WordPress's REST API does not expose the Library** (`/wp/v2/et_pb_layout` → `rest_no_route`).
+  An AI cannot look up a Component's id or its `slotId`s on its own — get them from the user or a tool
+  that reads `et_pb_layout` posts.
+- Making a Component is a **Visual Builder** action (save a section / row / module to the Library as a
+  Component; the builder offers to save the items inside as Components too). Insert a Slot from the
+  module picker while editing the Component; what you put in it on a page is that page's own.
+- Not tested: per-instance overrides of a Component's own settings (`localAttrsMap` on the Library copy).
+- For self-contained, portable pages prefer inlining the modules instead of a Component.
 
 ---
 
@@ -420,10 +463,13 @@ Valid children for each container module:
 
 | Parent | Valid Children |
 |--------|----------------|
-| `section` | `row`, `global-layout` |
+| top level (in `placeholder`) | `section`, `global-layout` of a **section** Component |
+| `section` | `row`, `global-layout` of a **row** Component |
 | `fullwidth section` | fullwidth modules only (`fullwidth-header`) — no row/column wrapper |
 | `row` | `column` only |
-| `column` | `group`, `group-carousel`, any content/interactive/media/data module, nested `row` |
+| `column` | `group`, `group-carousel`, any content/interactive/media/data module, nested `row`, `global-layout` of a **module** Component, `global-slot` (inside a Component only) |
+| `global-layout` | nothing, or the filled `global-slot`s of that Component (§5c) |
+| `global-slot` | any module (tested: button, text) |
 | `group` | any content module, nested `row` |
 | `group-carousel` | `group` only |
 | `accordion` | `accordion-item` |

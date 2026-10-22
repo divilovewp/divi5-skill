@@ -18,7 +18,7 @@
 | Swipe controls — Slider (5.12.1), Post Slider (5.13.1) | `pagination.advanced.style: "swipe"` … | MODULES-MEDIA |
 | Shop pagination text | `pagination.decoration.font` | MODULES-WOOCOMMERCE |
 | Timeline / Timeline Item interactions | `module.decoration.interactions` | MODULES-CONTENT |
-| ✗ not covered: `divi/global-slot` (5.15 Components) | — | — |
+| Components + Slots (5.15): `divi/global-slot` filled inside `divi/global-layout` | `slotId` | LAYOUT §5c |
 
 Signup's Show Labels is confirmed as its class only: the signup form draws no fields until an email
 service is connected.
@@ -266,7 +266,8 @@ service is connected.
 | Global canvas | Documented, not tested | `canvases.global` — site-wide reusable canvas |
 | `divi/canvas-portal` | ✓ Confirmed | Renders an inline canvas by `_divi_canvas_id` |
 | Canvas popup (fixed overlay) | ✓ Confirmed | Full pattern in DIVI5-MODULES-INTERACTIVE.md |
-| `divi/global-layout` | Observed in real page | References a saved global module by WP post ID — not yet documented in skill files |
+| `divi/global-layout` (Component) | ✓ Confirmed (5.16.0) | References a Library Component by post id — LAYOUT §5c |
+| `divi/global-slot` (Slot) | ✓ Confirmed (5.16.0) | Per-page content inside a Component, matched by `slotId` — LAYOUT §5c |
 
 ---
 
@@ -319,7 +320,8 @@ Now documented from source. Output depends on real WordPress content on the targ
 | `divi/map` + `divi/map-pin` / `divi/fullwidth-map` | ⚙ Source | **needs Google Maps API key**; `lat`/`lng`/`zoom` numeric |
 | Loop Builder (`module.advanced.loop`) | ✓ Confirmed | post-types loop on a group rendered a card per post w/ `loop_*` dynamic content (scenario 22); server-side, works via REST. `subTypes`=`[{value}]` objects |
 | Dynamic Content tokens (`$variable type:content`) | ✓ Confirmed | `loop_post_title/excerpt/date/...` inside loops; `post_*` for current post |
-| `divi/global-layout` | ✓ Confirmed | references a saved `et_pb_layout` (scope=global) via **`globalModule`** (string id, NOT `ref`); reused twice on one page (scenario 33) |
+| `divi/global-layout` | ✓ Confirmed | references a saved `et_pb_layout` (scope=global) via **`globalModule`** (string id, NOT `ref`); reused twice on one page (scenario 33). 5.16.0: section / row / module Components, Slots by `slotId`, Library copy wins over the page snapshot, a missing id renders nothing (LAYOUT §5c) |
+| `divi/global-slot` | ✓ Confirmed (5.16.0) | Slot inside a Component; content set per page; self-closing in the Library post |
 
 ## WooCommerce Modules — ✓ ALL 25 render-confirmed (MODULES-WOOCOMMERCE)
 
