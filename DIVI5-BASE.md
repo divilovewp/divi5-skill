@@ -531,4 +531,4 @@ deploy until every line passes.** A failure here means rework, not a warning.
 
 ---
 
-*DIVI5 Base Skill — V0.7.1 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*
+*DIVI5 Base Skill — V0.7.2 | Builder Version 5.16.0 | Created by Shashank Gupta @ divilove.com*

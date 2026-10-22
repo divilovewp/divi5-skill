@@ -127,16 +127,19 @@ Detail: `DIVI5-CONNECT.md` §3.
 
 ## Version
 
-**V0.7.1 — Builder Version 5.16.0** (tracks the Divi 5.11–5.16 line). The
+**V0.7.2 — Builder Version 5.16.0** (tracks the Divi 5.11–5.16 line). The
 `builderVersion` stamp on generated markup should match your site's Divi version
 (the examples carry `"5.11.1"`, which every 5.11+ install reads; older values still import via backward-compat).
+🆕 **v0.7.2 covers Components and Slots** (Divi 5.15+) — `divi/global-layout` uses a Library Component by
+post id; `divi/global-slot` is the part each page fills for itself, matched by `slotId`. Learned from markup
+the Visual Builder wrote on Divi 5.16.0 and render-confirmed there (LAYOUT §5c).
 🆕 **v0.7.1 fixes `divi/charts`** — the data shape earlier versions taught never drew a chart; it is an object
 of `columns` (each with a string `label` and a `role`) + `rows` of `{cells}`. It adds two topics: ANIMATION
 (entrance animation, scroll effects, sticky) and CUSTOM-MODULES (writing your own module plugin), plus
 `divi/gallery` images by attachment id. All verified on Divi 5.16.0; three are community contributions.
 🆕 **v0.7.0 covers what Divi 5.12–5.16 added to authoring**, each render-confirmed on 5.16.0: Show Labels on
 contact form / signup / comments, the collapsible mobile menu, swipe controls on Slider and Post Slider,
-the Shop pagination text style, and interactions on Timeline. Not yet: the 5.15 Components Slot module.
+the Shop pagination text style, and interactions on Timeline. (Components and Slots followed in v0.7.2.)
 🆕 **v0.6.9 makes a design's font sizes a question, not a guess** — a vector PDF
 exported from Figma, or a screenshot whose canvas width the user states, DOES carry exact
 type sizes, so the reference ladder gains a fourth rung and a **font-size gate**: ask once,

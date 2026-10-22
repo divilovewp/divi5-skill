@@ -55,6 +55,15 @@ BASE + LAYOUT + STYLING + MODULES-CONTENT + WORDPRESS + PATTERNS
 
 > Full change history — including documentation corrections made within a version — is in [CHANGELOG.md](CHANGELOG.md).
 
+**V0.7.2 — Builder Version 5.16.0**
+
+**Components and Slots (Divi 5.15+).** A Component is a section, row or module saved to the Divi Library —
+edit it once and every page that uses it changes. A Slot is the part of a Component each page fills for
+itself. `DIVI5-LAYOUT.md` §5c shows how to place one (`divi/global-layout` by post id) and fill its Slots
+(`divi/global-slot` by `slotId`), learned from markup the Visual Builder wrote on Divi 5.16.0 and checked by
+rendering: the Library copy always wins, a page needs only its filled Slots, a section Component goes at the
+top level, and an id that does not exist renders nothing. See [CHANGELOG.md](CHANGELOG.md).
+
 **V0.7.1 — Builder Version 5.16.0**
 
 **`divi/charts` now draws.** The data shape earlier versions documented — a flat list of rows, header first —
@@ -74,7 +83,7 @@ menu** (5.16); **swipe controls** — slide count, progress bar, swipe label —
 (5.13.1); the **Shop pagination** text style; and **interactions on Timeline**. Also in this release: the
 `DIVI5-PAGE-FROM-HTML.md` topic (design the page as HTML first, look at it, then compose), section dividers,
 icon alignment, the contact-form CAPTCHA switch, gradient stops that follow colour variables, and more — see
-[CHANGELOG.md](CHANGELOG.md). Not yet covered: the 5.15 Components **Slot** module (`divi/global-slot`).
+[CHANGELOG.md](CHANGELOG.md). Components and Slots followed in v0.7.2.
 
 **V0.6.9 — Builder Version 5.11.1**
 

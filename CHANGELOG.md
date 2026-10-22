@@ -11,6 +11,15 @@ are logged under **Unreleased** and ship within the current version without a bu
 
 ## [Unreleased]
 
+## [0.7.2] — 2026-10-22 · Divi Builder 5.16.0
+
+**Components and Slots (Divi 5.15+).**
+
+### Changed
+
+- Version footers → `V0.7.2 | Builder Version 5.16.0`; `skill-version.txt` 0.7.1 → 0.7.2. The schema the
+  examples use is unchanged; LAYOUT §5c adds `divi/global-slot`.
+
 ### Added
 - **Components and Slots (Divi 5.15+)** — LAYOUT §5c rewritten from markup the Visual Builder wrote on
   Divi 5.16.0 (a module, a row and a section Component, two with a Slot) and ten render tests against it:
